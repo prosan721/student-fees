@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tuition Manager Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        :root { --primary:#3b82f6;--secondary:#60a5fa;--accent:#ef4444;--success:#10b981;--dark:#1e293b;--gray:#64748b; }
+        *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+        body{font-family:'Poppins',sans-serif;margin:0;padding:0;min-height:100vh;color:var(--dark);overflow-x:hidden;background:linear-gradient(135deg,#e0c3fc 0%,#8ec5fc 100%);background-attachment:fixed;}
+        .app-bar{background:var(--primary);color:white;padding:16px 20px;display:flex;align-items:center;box-shadow:0 4px 15px rgba(0,0,0,0.1);position:sticky;top:0;z-index:10;}
+        .app-bar h3{margin:0;font-size:18px;font-weight:600;flex-grow:1;text-align:center;}
+        .back-btn{background:none;border:none;color:white;font-size:20px;cursor:pointer;display:none;padding:0 10px 0 0;}
+        .logout-btn{background:none;border:none;color:white;font-size:18px;cursor:pointer;padding:0 0 0 10px;display:none;}
+        .screen{display:none;padding:15px;animation:fadeIn 0.3s ease;}
+        .screen.active{display:block;}
+        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        .auth-wrapper{display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:calc(100vh - 70px);padding:20px;}
+        .auth-box{background:white;border-radius:24px;padding:30px 25px;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,0.12);}
+        .auth-logo{text-align:center;margin-bottom:25px;}
+        .auth-logo i{font-size:55px;color:var(--primary);}
+        .auth-logo h2{margin:10px 0 4px 0;font-size:22px;font-weight:800;color:var(--dark);}
+        .auth-logo p{margin:0;font-size:13px;color:var(--gray);}
+        .role-tabs{display:flex;background:#f1f5f9;border-radius:12px;margin-bottom:22px;padding:4px;}
+        .role-tab{flex:1;padding:10px;text-align:center;font-weight:600;font-size:13px;color:var(--gray);cursor:pointer;border-radius:10px;transition:all 0.2s;}
+        .role-tab.active{background:var(--primary);color:white;box-shadow:0 2px 8px rgba(59,130,246,0.4);}
+        .box,.square-tab,.list-item,.fin-card{background:#ffffff;border-radius:20px;box-shadow:0 8px 20px rgba(0,0,0,0.05);}
+        .box{padding:20px;margin-bottom:20px;}
+        .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:15px;width:100%;max-width:500px;}
+        .square-tab{padding:25px 10px;text-align:center;cursor:pointer;transition:transform 0.2s;display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:1;position:relative;}
+        .square-tab:active{transform:scale(0.95);}
+        .square-tab i{font-size:40px;margin-bottom:15px;color:var(--primary);}
+        .square-tab h4{margin:0;font-size:15px;color:var(--dark);font-weight:700;}
+        .class-box{background:#f8fafc;border:1px solid #e2e8f0;}
+        .class-box h4{font-size:18px;color:var(--primary);}
+        .home-wrapper{display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:calc(100vh - 120px);}
+        .home-title{font-size:28px;color:var(--dark);margin-bottom:30px;font-weight:800;text-align:center;}
+        .home-title span{color:#fff;background:var(--primary);padding:5px 10px;border-radius:8px;}
+        .btn{width:100%;padding:14px;border:none;border-radius:12px;font-family:inherit;font-size:15px;font-weight:600;color:white;cursor:pointer;transition:background 0.2s;display:flex;justify-content:center;align-items:center;gap:8px;}
+        .btn-primary{background:var(--primary);}
+        .btn-primary:active{background:#2563eb;}
+        .btn-success{background:var(--success);}
+        .btn-outline{background:#f1f5f9;border:1px solid #cbd5e1;color:var(--dark);}
+        .btn-small{padding:8px 12px;font-size:12px;border-radius:8px;width:auto;}
+        .btn-danger{background:var(--accent);}
+        .form-group{margin-bottom:15px;}
+        .form-group label{display:block;margin-bottom:6px;font-size:13px;color:var(--dark);font-weight:600;}
+        input,select{width:100%;padding:14px;border:2px solid #e2e8f0;border-radius:12px;font-family:inherit;font-size:14px;background:#f8fafc;color:var(--dark);}
+        input:focus,select:focus{border-color:var(--primary);outline:none;background:white;}
+        .list-item{padding:16px;border-radius:16px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;border-left:5px solid var(--primary);background:white;box-shadow:0 4px 12px rgba(0,0,0,0.05);}
+        .list-item:active{background:#f1f5f9;}
+        .profile-img-container{width:100px;height:100px;margin:0 auto 15px auto;position:relative;border-radius:50%;border:4px solid #eff6ff;padding:2px;}
+        .profile-img-container img{width:100%;height:100%;border-radius:50%;object-fit:cover;}
+        .cam-icon{position:absolute;bottom:0;right:0;background:var(--primary);color:white;width:30px;height:30px;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:14px;cursor:pointer;border:2px solid white;}
+        .fee-badge{background:#fef3c7;color:#b45309;padding:10px 15px;border-radius:12px;font-size:14px;font-weight:700;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;}
+        .lock-banner{background:#fee2e2;color:var(--accent);padding:12px;border-radius:10px;text-align:center;font-size:13px;margin-bottom:15px;display:none;font-weight:700;border:1px solid #fecaca;}
+        .finance-tabs{display:flex;background:#e2e8f0;border-radius:12px;margin-bottom:20px;padding:4px;}
+        .fin-tab{flex:1;padding:12px;text-align:center;font-weight:600;font-size:13px;color:var(--gray);cursor:pointer;border-radius:10px;}
+        .fin-tab.active{background:white;color:var(--primary);box-shadow:0 2px 5px rgba(0,0,0,0.05);}
+        .fin-card{padding:20px;border-radius:16px;text-align:center;margin-bottom:15px;border-top:5px solid var(--primary);}
+        .fin-card h4{margin:0 0 8px 0;color:var(--gray);font-size:13px;font-weight:600;}
+        .fin-card h2{margin:0;color:var(--dark);font-size:28px;font-weight:800;}
+        .fin-card.due{border-top-color:var(--accent);}
+        .fin-card.due h2{color:var(--accent);}
+        .fin-card.success{border-top-color:var(--success);}
+        .fin-card.success h2{color:var(--success);}
+        .class-stat-row{display:flex;justify-content:space-between;padding:12px;border-bottom:1px solid #f1f5f9;font-size:13px;align-items:center;}
+        .class-stat-row:last-child{border-bottom:none;}
+        .class-stat-row span:nth-child(1){font-weight:600;color:var(--dark);}
+        .class-stat-row span:nth-child(2){color:var(--success);font-weight:700;}
+        .class-stat-row span:nth-child(3){color:var(--accent);font-weight:700;}
+        .student-info-card{background:linear-gradient(135deg,var(--primary),#8b5cf6);color:white;border-radius:20px;padding:25px;margin-bottom:20px;box-shadow:0 10px 30px rgba(59,130,246,0.3);}
+        .student-info-card h2{margin:10px 0 3px 0;font-size:22px;font-weight:800;}
+        .student-info-card p{margin:0;opacity:0.85;font-size:13px;}
+        .sbadge{background:rgba(255,255,255,0.2);display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;margin-top:8px;}
+        .month-card{background:white;border-radius:16px;padding:16px 20px;margin-bottom:12px;box-shadow:0 4px 15px rgba(0,0,0,0.05);border-left:5px solid #e2e8f0;}
+        .month-card.paid{border-left-color:var(--success);}
+        .month-card.due-red{border-left-color:var(--accent);}
+        .status-pill{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;}
+        .pill-paid{background:#d1fae5;color:#065f46;}
+        .pill-due{background:#fee2e2;color:#991b1b;}
+        .pill-pending{background:#f1f5f9;color:var(--gray);}
+        .pending-badge{background:var(--accent);color:white;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:8px;}
+        .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:100;justify-content:center;align-items:center;}
+        .modal-content{background:white;padding:25px;border-radius:20px;width:90%;max-width:400px;text-align:center;}
+        canvas{border:2px dashed #cbd5e1;border-radius:12px;background:#f8fafc;width:100%;height:180px;touch-action:none;margin-top:15px;}
+        .sign-preview{width:100%;max-width:130px;border:2px solid #e2e8f0;border-radius:10px;margin-top:10px;display:none;}
+        .loading-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.85);z-index:200;justify-content:center;align-items:center;flex-direction:column;gap:15px;}
+        .loading-overlay.show{display:flex;}
+        .spinner{width:45px;height:45px;border:4px solid #e2e8f0;border-top-color:var(--primary);border-radius:50%;animation:spin 0.8s linear infinite;}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:var(--dark);color:white;padding:12px 25px;border-radius:25px;font-size:13px;font-weight:600;z-index:300;opacity:0;transition:opacity 0.3s;pointer-events:none;white-space:nowrap;}
+        .toast.show{opacity:1;}
+        .error-msg{color:var(--accent);font-size:12px;margin-top:8px;text-align:center;display:none;font-weight:600;}
+        .readonly-note{background:#fef9c3;border:1px solid #fde047;border-radius:10px;padding:10px 14px;font-size:12px;color:#854d0e;font-weight:600;margin-bottom:15px;text-align:center;}
+        .divider{text-align:center;color:var(--gray);font-size:12px;margin:15px 0;}
+    </style>
+</head>
+<body>
+<div class="loading-overlay" id="loadingOverlay"><div class="spinner"></div><p style="color:var(--gray);font-size:14px;font-weight:600;">Please wait...</p></div>
+<div class="toast" id="toast"></div>
+<div class="app-bar">
+    <button class="back-btn" id="backBtn" onclick="goBack()"><i class="fas fa-arrow-left"></i></button>
+    <h3 id="appBarTitle">Tuition Manager</h3>
+    <button class="logout-btn" id="logoutBtn" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i></button>
+</div>
+
+<!-- AUTH -->
+<div id="authScreen" class="screen active">
+    <div class="auth-wrapper">
+        <div class="auth-box">
+            <div class="auth-logo"><i class="fas fa-graduation-cap"></i><h2>Tuition Manager</h2><p>Login to continue</p></div>
+            <div class="role-tabs">
+                <div class="role-tab active" id="tabTeacher" onclick="switchAuthRole('teacher')"><i class="fas fa-chalkboard-teacher"></i> Teacher</div>
+                <div class="role-tab" id="tabStudent" onclick="switchAuthRole('student')"><i class="fas fa-user-graduate"></i> Student</div>
+            </div>
+            <div id="loginForm">
+                <div class="form-group"><label>📧 Email</label><input type="email" id="authEmail" placeholder="Enter your email"></div>
+                <div class="form-group"><label>🔒 Password</label><input type="password" id="authPassword" placeholder="Enter password"></div>
+                <div class="error-msg" id="authError"></div>
+                <button class="btn btn-primary" style="margin-top:10px;" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> Login</button>
+                <div id="studentSignupLink" style="display:none;">
+                    <div class="divider">── New Student? ──</div>
+                    <button class="btn btn-outline" onclick="showSignupForm()"><i class="fas fa-user-plus"></i> Create Account</button>
+                </div>
+            </div>
+            <div id="signupForm" style="display:none;">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+                    <button onclick="showLoginForm()" style="background:none;border:none;cursor:pointer;color:var(--primary);font-size:18px;"><i class="fas fa-arrow-left"></i></button>
+                    <h3 style="margin:0;font-size:16px;font-weight:700;">Create Student Account</h3>
+                </div>
+                <div class="form-group"><label>👤 Full Name</label><input type="text" id="signupName" placeholder="Your full name"></div>
+                <div class="form-group"><label>📱 Mobile Number</label><input type="tel" id="signupMobile" placeholder="Your mobile number"></div>
+                <div class="form-group"><label>📧 Email</label><input type="email" id="signupEmail" placeholder="Your email"></div>
+                <div class="form-group"><label>🔒 Password</label><input type="password" id="signupPassword" placeholder="Min 6 characters"></div>
+                <div class="error-msg" id="signupError"></div>
+                <button class="btn btn-success" style="margin-top:10px;" onclick="doStudentSignup()"><i class="fas fa-user-plus"></i> Create Account</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TEACHER HOME -->
+<div id="homeScreen" class="screen">
+    <div class="home-wrapper">
+        <h2 class="home-title">Institution <br><span>Manager Pro</span></h2>
+        <div class="grid-2">
+            <div class="square-tab" onclick="nav('mgmtScreen','Student Management')"><i class="fas fa-user-graduate"></i><h4>Student Management</h4></div>
+            <div class="square-tab" onclick="openFinance()"><i class="fas fa-chart-pie" style="color:#f59e0b;"></i><h4>Financial Summary</h4></div>
+        </div>
+        <div class="square-tab" onclick="openPendingRequests()" style="margin-top:15px;width:calc(50% - 7px);max-width:240px;aspect-ratio:1;">
+            <i class="fas fa-user-clock" style="color:#8b5cf6;"></i>
+            <h4>New Requests <span class="pending-badge" id="pendingCount" style="display:none;">0</span></h4>
+        </div>
+        <p style="margin-top:25px;color:var(--gray);font-size:12px;">App Version 7.0 • Firebase Live</p>
+    </div>
+</div>
+
+<!-- STUDENT HOME -->
+<div id="studentHomeScreen" class="screen">
+    <div class="student-info-card">
+        <div style="display:flex;align-items:center;gap:15px;">
+            <div style="position:relative;">
+                <img id="stuCardImg" src="https://via.placeholder.com/65?text=?" style="width:65px;height:65px;border-radius:50%;object-fit:cover;border:3px solid rgba(255,255,255,0.5);">
+                <div onclick="document.getElementById('stuPicUpload').click()" style="position:absolute;bottom:0;right:0;background:rgba(255,255,255,0.3);width:22px;height:22px;border-radius:50%;display:flex;justify-content:center;align-items:center;cursor:pointer;font-size:11px;color:white;"><i class="fas fa-camera"></i></div>
+            </div>
+            <input type="file" id="stuPicUpload" accept="image/*" style="display:none;" onchange="updateStudentPic(event)">
+            <div>
+                <p style="margin:0;font-size:11px;opacity:0.75;">Welcome back,</p>
+                <h2 id="stuCardName" style="margin:5px 0 2px 0;"></h2>
+                <p id="stuCardClass"></p>
+                <span class="sbadge" id="stuCardId"></span>
+            </div>
+        </div>
+    </div>
+    <div class="readonly-note"><i class="fas fa-lock"></i> Fee and payment data is managed by your teacher. You can only view it here.</div>
+    <h4 style="color:var(--dark);font-weight:700;margin-bottom:15px;font-size:14px;">📅 Monthly Fee Status</h4>
+    <div id="studentMonthList"></div>
+</div>
+
+<!-- MGMT -->
+<div id="mgmtScreen" class="screen">
+    <div class="home-wrapper" style="min-height:60vh;">
+        <div class="grid-2">
+            <div class="square-tab" onclick="nav('addStudentScreen','Add Student')"><i class="fas fa-id-card" style="color:var(--success);"></i><h4>Add Student</h4></div>
+            <div class="square-tab" onclick="loadClasses()"><i class="fas fa-chalkboard-teacher" style="color:#8b5cf6;"></i><h4>Manage Classes</h4></div>
+        </div>
+    </div>
+</div>
+
+<!-- ADD STUDENT -->
+<div id="addStudentScreen" class="screen">
+    <div class="box">
+        <p style="font-size:13px;color:var(--gray);margin-top:0;text-align:center;">Add student manually. Their login account will be created automatically.</p>
+        <div class="form-group"><label>👤 Student Full Name</label><input type="text" id="stuName" placeholder="E.g., Rahul Das"></div>
+        <div class="form-group"><label>📧 Student Email</label><input type="email" id="stuEmail" placeholder="Student's email address"></div>
+        <div class="form-group"><label>🔒 Password for Student</label><input type="text" id="stuPass" placeholder="Set a login password"></div>
+        <div class="form-group"><label>🏫 Class</label>
+            <select id="stuClass"><option value="" disabled selected>Choose Class...</option>
+            <option>Class 2</option><option>Class 6</option><option>Class 7</option><option>Class 9</option><option>Class 10</option><option>Other Batch</option></select>
+        </div>
+        <div class="form-group"><label>💰 Monthly Fee (₹)</label><input type="number" id="stuFee" placeholder="E.g., 500"></div>
+        <div class="form-group"><label>📅 Joining Date</label><input type="date" id="stuDate"></div>
+        <button class="btn btn-primary" style="margin-top:10px;" onclick="addStudentByTeacher()"><i class="fas fa-user-plus"></i> Create Student Profile</button>
+    </div>
+</div>
+
+<!-- PENDING -->
+<div id="pendingScreen" class="screen">
+    <div id="pendingList"></div>
+    <div id="noPendingMsg" style="text-align:center;padding:50px 20px;display:none;">
+        <i class="fas fa-check-circle" style="font-size:60px;color:var(--success);margin-bottom:15px;display:block;"></i>
+        <p style="color:var(--gray);">No pending requests!</p>
+    </div>
+</div>
+
+<!-- CLASS -->
+<div id="classScreen" class="screen">
+    <div class="grid-2" id="classGrid"></div>
+    <div id="noClassMsg" style="text-align:center;margin-top:50px;display:none;">
+        <i class="fas fa-folder-open" style="font-size:60px;color:#cbd5e1;margin-bottom:15px;display:block;"></i>
+        <p style="color:var(--gray);">No classes found. Add a student first.</p>
+    </div>
+</div>
+
+<!-- STUDENT LIST -->
+<div id="studentListScreen" class="screen"><div id="studentList"></div></div>
+
+<!-- PROFILE -->
+<div id="profileScreen" class="screen">
+    <div class="box" style="text-align:center;border-bottom:5px solid var(--primary);">
+        <div class="profile-img-container" onclick="document.getElementById('fileUpload').click()">
+            <img id="profImg" src="https://via.placeholder.com/110?text=No+Img">
+            <div class="cam-icon"><i class="fas fa-camera"></i></div>
+        </div>
+        <input type="file" id="fileUpload" accept="image/*" style="display:none;" onchange="uploadImage(event)">
+        <h3 id="profName" style="margin:0;color:var(--dark);font-size:22px;font-weight:700;"></h3>
+        <p style="margin:5px 0 15px 0;font-size:13px;color:var(--gray);">ID: <b id="profId" style="color:var(--primary);"></b> &nbsp;|&nbsp; Class: <b id="profClass"></b></p>
+        <div class="fee-badge"><span>Monthly Fee: ₹<b id="profFee" style="font-size:16px;"></b></span><button class="btn btn-primary btn-small" id="btnEditFee" onclick="editFixedFee()">Edit</button></div>
+        <p id="editCountMsg" style="font-size:11px;color:var(--accent);margin:-5px 0 10px 0;text-align:right;font-weight:600;"></p>
+    </div>
+    <h4 style="color:var(--dark);margin-bottom:15px;font-size:14px;font-weight:700;text-align:center;">Academic Year (12 Months)</h4>
+    <div class="grid-2" id="monthGrid"></div>
+</div>
+
+<!-- MONTH DETAIL -->
+<div id="monthDetailScreen" class="screen">
+    <div class="box">
+        <h3 id="detailMonthName" style="text-align:center;color:var(--primary);margin-top:0;padding-bottom:15px;border-bottom:2px dashed #e2e8f0;font-size:20px;"></h3>
+        <div id="lockBanner" class="lock-banner"><i class="fas fa-lock"></i> Edit locked (48 hours expired)</div>
+        <div style="background:#eff6ff;padding:12px;border-radius:12px;text-align:center;margin-bottom:20px;border:1px solid #bfdbfe;">
+            <span style="font-size:13px;color:var(--gray);font-weight:600;">Target Amount: </span>
+            <span style="font-size:18px;font-weight:800;color:var(--primary);">₹<span id="targetFeeAmount"></span></span>
+        </div>
+        <div class="form-group"><label>💰 Paid Amount (₹)</label><input type="number" id="mPaid" placeholder="Enter collected amount"></div>
+        <div class="form-group"><label>📅 Paid Date</label><input type="date" id="mDate"></div>
+        <div class="form-group"><label>⚠️ Due Amount (₹)</label><input type="number" id="mDue" placeholder="Enter remaining due"></div>
+        <div class="grid-2" style="margin-bottom:25px;background:#f8fafc;padding:15px;border-radius:16px;border:1px solid #e2e8f0;">
+            <div style="text-align:center;"><label style="font-size:12px;font-weight:700;color:var(--dark);">Student Sign</label><img id="previewStudentSign" class="sign-preview"><button class="btn btn-outline btn-small" id="btnStudentSign" style="margin-top:10px;" onclick="openSign('student')"><i class="fas fa-pen-nib"></i> Sign Here</button></div>
+            <div style="text-align:center;"><label style="font-size:12px;font-weight:700;color:var(--dark);">Teacher Sign</label><img id="previewTeacherSign" class="sign-preview"><button class="btn btn-outline btn-small" id="btnTeacherSign" style="margin-top:10px;" onclick="openSign('teacher')"><i class="fas fa-pen-nib"></i> Sign Here</button></div>
+        </div>
+        <button class="btn btn-success" id="btnSaveMonth" onclick="saveMonthData()"><i class="fas fa-save"></i> Save Monthly Data</button>
+    </div>
+</div>
+
+<!-- FINANCE -->
+<div id="financeScreen" class="screen">
+    <div class="finance-tabs">
+        <div class="fin-tab active" id="tabMonthly" onclick="switchFinanceTab('monthly')">Monthly Report</div>
+        <div class="fin-tab" id="tabYearly" onclick="switchFinanceTab('yearly')">Yearly (2026)</div>
+    </div>
+    <div id="finMonthlyContent">
+        <div class="grid-2" id="finMonthGrid"></div>
+        <div id="finMonthDetail" style="display:none;">
+            <button class="btn btn-outline" style="margin-bottom:15px;" onclick="backToFinMonthGrid()"><i class="fas fa-arrow-left"></i> Back</button>
+            <h3 id="finSelectedMonthName" style="text-align:center;color:var(--primary);margin-bottom:20px;"></h3>
+            <div class="grid-2" style="max-width:100%;">
+                <div class="fin-card success"><h4>Total Collected</h4><h2>₹<span id="finMonthTotalPaid">0</span></h2></div>
+                <div class="fin-card due"><h4>Total Due</h4><h2>₹<span id="finMonthTotalDue">0</span></h2></div>
+            </div>
+            <div class="box">
+                <div style="display:flex;justify-content:space-between;padding:10px 12px;font-size:12px;font-weight:700;color:var(--gray);border-bottom:2px solid #f1f5f9;"><span>Class</span><span style="color:var(--success);">Paid</span><span style="color:var(--accent);">Due</span></div>
+                <div id="finClassList"></div>
+            </div>
+        </div>
+    </div>
+    <div id="finYearlyContent" style="display:none;">
+        <div class="fin-card success"><h4>Total Collected (2026)</h4><h2>₹<span id="finYearlyCollected">0</span></h2></div>
+        <div class="fin-card due"><h4>Total Due (2026)</h4><h2>₹<span id="finYearlyDue">0</span></h2></div>
+    </div>
+</div>
+
+<!-- SIGN MODAL -->
+<div class="modal" id="signModal">
+    <div class="modal-content">
+        <h3 id="signTitle" style="margin-top:0;color:var(--dark);">Signature</h3>
+        <canvas id="sigCanvas"></canvas>
+        <div style="display:flex;gap:10px;margin-top:15px;">
+            <button class="btn btn-outline" onclick="clearCanvas()"><i class="fas fa-eraser"></i> Clear</button>
+            <button class="btn btn-primary" onclick="saveSignature()"><i class="fas fa-check"></i> Save</button>
+        </div>
+        <button class="btn btn-outline" style="margin-top:10px;" onclick="document.getElementById('signModal').style.display='none'">Cancel</button>
+    </div>
+</div>
+
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import{getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,onAuthStateChanged}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import{getFirestore,doc,setDoc,getDoc,collection,getDocs,updateDoc,deleteDoc}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+// =============================================
+// 🔥 FIREBASE CONFIG
+// =============================================
+const firebaseConfig={apiKey:"AIzaSyACNTVkt6dIX6tx9Ub3l1AL0nlnXNMrZj8",authDomain:"student-fees-8f7b7.firebaseapp.com",projectId:"student-fees-8f7b7",storageBucket:"student-fees-8f7b7.firebasestorage.app",messagingSenderId:"715775119348",appId:"1:715775119348:web:638e2a2b9f3e4bcad1b3a1"};
+
+// =============================================
+// ⚠️ আপনার নিজের Email এখানে লিখুন
+// এই email দিয়ে login করলে Teacher/Admin হবেন
+// =============================================
+const TEACHER_EMAIL="prosan721@gmail.com";
+
+const fireApp=initializeApp(firebaseConfig);
+const auth=getAuth(fireApp);
+const db=getFirestore(fireApp);
+const monthsList=["January","February","March","April","May","June","July","August","September","October","November","December"];
+let currentStudentId=null,currentMonth=null,currentClass=null,activeSigner='';
+let tempSigns={student:null,teacher:null};
+let screenStack=[];
+let allStudents={};
+
+function showLoading(){document.getElementById('loadingOverlay').classList.add('show');}
+function hideLoading(){document.getElementById('loadingOverlay').classList.remove('show');}
+function showToast(msg){let t=document.getElementById('toast');t.innerText=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2800);}
+
+function showScreen(id,title){
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    document.getElementById('appBarTitle').innerText=title;
+    let isHome=['authScreen','homeScreen','studentHomeScreen'].includes(id);
+    document.getElementById('backBtn').style.display=isHome?'none':'block';
+    document.getElementById('logoutBtn').style.display=id==='authScreen'?'none':'block';
+}
+
+window.nav=function(id,title){screenStack.push(document.querySelector('.screen.active').id);showScreen(id,title);}
+window.goBack=function(){if(screenStack.length>0){let prev=screenStack.pop();let t={homeScreen:'Dashboard',mgmtScreen:'Student Management',classScreen:'Select Class',studentListScreen:currentClass||'Students',profileScreen:'Profile',financeScreen:'Financial Summary',studentHomeScreen:'My Dashboard',addStudentScreen:'Add Student',pendingScreen:'New Requests'};showScreen(prev,t[prev]||'Back');}}
+
+let selectedAuthRole='teacher';
+window.switchAuthRole=function(role){
+    selectedAuthRole=role;
+    document.getElementById('tabTeacher').classList.toggle('active',role==='teacher');
+    document.getElementById('tabStudent').classList.toggle('active',role==='student');
+    document.getElementById('studentSignupLink').style.display=role==='student'?'block':'none';
+    showLoginForm();
+}
+window.showLoginForm=function(){document.getElementById('loginForm').style.display='block';document.getElementById('signupForm').style.display='none';}
+window.showSignupForm=function(){document.getElementById('loginForm').style.display='none';document.getElementById('signupForm').style.display='block';}
+
+onAuthStateChanged(auth,async(user)=>{
+    if(user){
+        showLoading();
+        if(user.email===TEACHER_EMAIL){
+            await loadAllStudents();
+            hideLoading();
+            screenStack=[];
+            showScreen('homeScreen','Dashboard');
+            updatePendingBadge();
+        }else{
+            await loadMyStudentData(user.uid);
+            hideLoading();
+            screenStack=[];
+            showScreen('studentHomeScreen','My Dashboard');
+            renderStudentHome();
+        }
+    }else{hideLoading();screenStack=[];showScreen('authScreen','Tuition Manager');}
+});
+
+window.doLogin=async function(){
+    let email=document.getElementById('authEmail').value.trim();
+    let pass=document.getElementById('authPassword').value;
+    let err=document.getElementById('authError');
+    err.style.display='none';
+    if(!email||!pass){err.innerText='⚠️ Please fill all fields';err.style.display='block';return;}
+    if(selectedAuthRole==='teacher'&&email!==TEACHER_EMAIL){err.innerText='❌ Not a teacher account! Use Student tab.';err.style.display='block';return;}
+    showLoading();
+    try{await signInWithEmailAndPassword(auth,email,pass);}
+    catch(e){hideLoading();err.innerText='❌ Wrong email or password!';err.style.display='block';}
+}
+
+window.doStudentSignup=async function(){
+    let name=document.getElementById('signupName').value.trim();
+    let mobile=document.getElementById('signupMobile').value.trim();
+    let email=document.getElementById('signupEmail').value.trim();
+    let pass=document.getElementById('signupPassword').value;
+    let err=document.getElementById('signupError');
+    err.style.display='none';
+    if(!name||!mobile||!email||!pass){err.innerText='⚠️ Fill all fields!';err.style.display='block';return;}
+    if(pass.length<6){err.innerText='⚠️ Password min 6 characters!';err.style.display='block';return;}
+    if(email===TEACHER_EMAIL){err.innerText='❌ This email is not allowed!';err.style.display='block';return;}
+    showLoading();
+    try{
+        let cred=await createUserWithEmailAndPassword(auth,email,pass);
+        await setDoc(doc(db,'pending',cred.user.uid),{uid:cred.user.uid,name,mobile,email,createdAt:Date.now()});
+        await signOut(auth);
+        hideLoading();
+        showToast('✅ Account created! Wait for teacher approval.');
+        showLoginForm();
+        ['signupName','signupMobile','signupEmail','signupPassword'].forEach(id=>document.getElementById(id).value='');
+    }catch(e){
+        hideLoading();
+        err.innerText='❌ '+(e.code==='auth/email-already-in-use'?'Email already registered!':e.message);
+        err.style.display='block';
+    }
+}
+
+window.doLogout=async function(){await signOut(auth);allStudents={};currentStudentId=null;}
+
+async function loadAllStudents(){
+    let snap=await getDocs(collection(db,'students'));
+    allStudents={};
+    snap.forEach(d=>{allStudents[d.id]=d.data();});
+}
+
+async function loadMyStudentData(uid){
+    let snap=await getDocs(collection(db,'students'));
+    snap.forEach(d=>{if(d.data().uid===uid){allStudents[d.id]=d.data();currentStudentId=d.id;}});
+}
+
+async function updatePendingBadge(){
+    let snap=await getDocs(collection(db,'pending'));
+    let badge=document.getElementById('pendingCount');
+    if(snap.size>0){badge.style.display='inline';badge.innerText=snap.size;}
+    else{badge.style.display='none';}
+}
+
+window.openPendingRequests=async function(){
+    showLoading();
+    let snap=await getDocs(collection(db,'pending'));
+    hideLoading();
+    let list=document.getElementById('pendingList');
+    list.innerHTML='';
+    if(snap.empty){
+        document.getElementById('noPendingMsg').style.display='block';
+    }else{
+        document.getElementById('noPendingMsg').style.display='none';
+        snap.forEach(d=>{
+            let p=d.data();
+            list.innerHTML+=`<div class="box" style="margin-bottom:15px;">
+                <h4 style="margin:0 0 5px 0;color:var(--dark);">${p.name}</h4>
+                <p style="margin:0 0 3px 0;font-size:13px;color:var(--gray);">📧 ${p.email}</p>
+                <p style="margin:0 0 15px 0;font-size:13px;color:var(--gray);">📱 ${p.mobile}</p>
+                <div style="display:flex;gap:10px;">
+                    <button class="btn btn-success btn-small" onclick="approvePending('${d.id}','${p.name}','${p.email}','${p.uid}','${p.mobile}')"><i class="fas fa-check"></i> Approve</button>
+                    <button class="btn btn-danger btn-small" onclick="rejectPending('${d.id}')"><i class="fas fa-times"></i> Reject</button>
+                </div></div>`;
+        });
+    }
+    window.nav('pendingScreen','New Requests');
+}
+
+window.approvePending=function(pendingId,name,email,uid,mobile){
+    let cls=prompt('Assign class for '+name+':\n(Class 2 / Class 6 / Class 7 / Class 9 / Class 10 / Other Batch)');
+    if(!cls)return;
+    let fee=prompt('Monthly fee for '+name+' (₹):');
+    if(!fee||isNaN(fee))return;
+    let date=prompt('Joining date (YYYY-MM-DD):');
+    if(!date)return;
+    showLoading();
+    let id='STU'+Date.now().toString().slice(-5);
+    let monthRecords={};
+    monthsList.forEach(m=>{monthRecords[m]={paid:"",date:"",due:"",studentSign:null,teacherSign:null,firstSaveTime:null};});
+    let stuData={id,name,email,mobile,cls,date,fixedFee:fee,feeEditCount:0,profilePic:null,records:monthRecords,uid};
+    setDoc(doc(db,'students',id),stuData).then(()=>{
+        deleteDoc(doc(db,'pending',pendingId)).then(()=>{
+            allStudents[id]=stuData;
+            hideLoading();
+            showToast('✅ Student approved!');
+            window.openPendingRequests();
+            updatePendingBadge();
+        });
+    }).catch(e=>{hideLoading();showToast('❌ Error: '+e.message);});
+}
+
+window.rejectPending=function(pendingId){
+    if(!confirm('Reject this request?'))return;
+    showLoading();
+    deleteDoc(doc(db,'pending',pendingId)).then(()=>{hideLoading();showToast('Rejected!');window.openPendingRequests();updatePendingBadge();});
+}
+
+window.addStudentByTeacher=async function(){
+    let name=document.getElementById('stuName').value.trim();
+    let email=document.getElementById('stuEmail').value.trim();
+    let pass=document.getElementById('stuPass').value.trim();
+    let cls=document.getElementById('stuClass').value;
+    let fee=document.getElementById('stuFee').value;
+    let date=document.getElementById('stuDate').value;
+    if(!name||!email||!pass||!cls||!fee||!date){showToast('⚠️ Fill all fields!');return;}
+    showLoading();
+    try{
+        let cred=await createUserWithEmailAndPassword(auth,email,pass);
+        let id='STU'+Date.now().toString().slice(-5);
+        let monthRecords={};
+        monthsList.forEach(m=>{monthRecords[m]={paid:"",date:"",due:"",studentSign:null,teacherSign:null,firstSaveTime:null};});
+        let stuData={id,name,email,cls,date,fixedFee:fee,feeEditCount:0,profilePic:null,records:monthRecords,uid:cred.user.uid};
+        await setDoc(doc(db,'students',id),stuData);
+        allStudents[id]=stuData;
+        hideLoading();
+        showToast('✅ Student profile created!');
+        ['stuName','stuEmail','stuPass','stuFee'].forEach(i=>document.getElementById(i).value='');
+    }catch(e){hideLoading();showToast('❌ '+(e.code==='auth/email-already-in-use'?'Email already used!':e.message));}
+}
+
+window.loadClasses=async function(){
+    showLoading();await loadAllStudents();hideLoading();
+    let classes=new Set();
+    for(let k in allStudents)classes.add(allStudents[k].cls);
+    let grid=document.getElementById('classGrid');
+    grid.innerHTML='';
+    if(classes.size===0){document.getElementById('noClassMsg').style.display='block';}
+    else{document.getElementById('noClassMsg').style.display='none';classes.forEach(c=>{grid.innerHTML+=`<div class="square-tab class-box" onclick="openClass('${c}')"><i class="fas fa-chalkboard-teacher"></i><h4>${c}</h4></div>`;});}
+    window.nav('classScreen','Select Class');
+}
+
+window.openClass=function(cls){
+    currentClass=cls;
+    let list=document.getElementById('studentList');
+    list.innerHTML='';
+    for(let k in allStudents){
+        if(allStudents[k].cls===cls){
+            let s=allStudents[k];
+            list.innerHTML+=`<div class="list-item" onclick="openProfile('${k}')"><div style="display:flex;align-items:center;gap:15px;"><img src="${s.profilePic||'https://via.placeholder.com/50?text=?'}" style="width:50px;height:50px;border-radius:50%;object-fit:cover;border:2px solid var(--secondary);"><div><h4 style="margin:0;font-size:15px;font-weight:600;">${s.name}</h4><small style="color:var(--gray);">ID: ${k}</small></div></div><i class="fas fa-chevron-right" style="color:var(--primary);font-size:16px;"></i></div>`;
+        }
+    }
+    window.nav('studentListScreen',cls);
+}
+
+window.openProfile=function(id){
+    currentStudentId=id;
+    let s=allStudents[id];
+    document.getElementById('profImg').src=s.profilePic||'https://via.placeholder.com/110?text=No+Img';
+    document.getElementById('profName').innerText=s.name;
+    document.getElementById('profId').innerText=s.id;
+    document.getElementById('profClass').innerText=s.cls;
+    document.getElementById('profFee').innerText=s.fixedFee;
+    let eb=document.getElementById('btnEditFee'),msg=document.getElementById('editCountMsg');
+    if(s.feeEditCount>=2){eb.style.display='none';msg.innerText="Fee locked (max 2 edits)";}
+    else{eb.style.display='block';msg.innerText=`Edits remaining: ${2-s.feeEditCount}`;}
+    let grid=document.getElementById('monthGrid');
+    grid.innerHTML='';
+    monthsList.forEach(m=>{
+        let rec=s.records?s.records[m]:null;
+        let color=(rec&&rec.firstSaveTime)?"color:var(--success);":"color:#cbd5e1;";
+        let lockIcon=(rec&&rec.firstSaveTime&&(Date.now()-rec.firstSaveTime>2*24*60*60*1000))?`<i class="fas fa-lock" style="position:absolute;top:10px;right:10px;font-size:11px;color:var(--accent);"></i>`:'';
+        grid.innerHTML+=`<div class="square-tab box" onclick="openMonth('${m}')" style="padding:15px 5px;border-radius:16px;margin:0;">${lockIcon}<h4 style="font-size:14px;">${m}</h4><i class="fas fa-check-circle" style="font-size:22px;margin-top:10px;margin-bottom:0;${color}"></i></div>`;
+    });
+    window.nav('profileScreen','Profile');
+}
+
+window.uploadImage=function(event){
+    let file=event.target.files[0];if(!file)return;
+    let reader=new FileReader();
+    reader.onload=async function(e){
+        allStudents[currentStudentId].profilePic=e.target.result;
+        await updateDoc(doc(db,'students',currentStudentId),{profilePic:e.target.result});
+        document.getElementById('profImg').src=e.target.result;
+        showToast('✅ Photo updated!');
+    };reader.readAsDataURL(file);
+}
+
+window.editFixedFee=async function(){
+    let s=allStudents[currentStudentId];if(s.feeEditCount>=2)return;
+    let nf=prompt('Current Fee: ₹'+s.fixedFee+'\nEnter new fee:',s.fixedFee);
+    if(nf&&!isNaN(nf)&&nf!==s.fixedFee){
+        s.fixedFee=nf;s.feeEditCount+=1;
+        await updateDoc(doc(db,'students',currentStudentId),{fixedFee:nf,feeEditCount:s.feeEditCount});
+        showToast('✅ Fee updated!');window.openProfile(currentStudentId);
+    }
+}
+
+window.openMonth=function(month){
+    currentMonth=month;
+    let s=allStudents[currentStudentId];
+    let rec=(s.records&&s.records[month])?s.records[month]:{};
+    document.getElementById('detailMonthName').innerText=month;
+    document.getElementById('targetFeeAmount').innerText=s.fixedFee;
+    document.getElementById('mPaid').value=rec.paid||'';
+    document.getElementById('mDate').value=rec.date||'';
+    document.getElementById('mDue').value=rec.due||'';
+    tempSigns.student=rec.studentSign||null;tempSigns.teacher=rec.teacherSign||null;
+    updateSignUI('student',rec.studentSign);updateSignUI('teacher',rec.teacherSign);
+    let isLocked=rec.firstSaveTime&&(Date.now()-rec.firstSaveTime>2*24*60*60*1000);
+    const inp=['mPaid','mDate','mDue','btnStudentSign','btnTeacherSign','btnSaveMonth'];
+    if(isLocked){document.getElementById('lockBanner').style.display='block';inp.forEach(id=>document.getElementById(id).disabled=true);document.getElementById('btnSaveMonth').innerText='Data Locked';document.getElementById('btnSaveMonth').style.background='var(--gray)';}
+    else{document.getElementById('lockBanner').style.display='none';inp.forEach(id=>document.getElementById(id).disabled=false);document.getElementById('btnSaveMonth').style.background='';document.getElementById('btnSaveMonth').innerHTML='<i class="fas fa-save"></i> Save Monthly Data';}
+    window.nav('monthDetailScreen',month+' Entry');
+}
+
+window.saveMonthData=async function(){
+    let s=allStudents[currentStudentId];
+    if(!s.records)s.records={};
+    if(!s.records[currentMonth])s.records[currentMonth]={};
+    let rec=s.records[currentMonth];
+    rec.paid=document.getElementById('mPaid').value;
+    rec.date=document.getElementById('mDate').value;
+    rec.due=document.getElementById('mDue').value;
+    rec.studentSign=tempSigns.student;rec.teacherSign=tempSigns.teacher;
+    if(!rec.firstSaveTime)rec.firstSaveTime=Date.now();
+    showLoading();
+    try{
+        await updateDoc(doc(db,'students',currentStudentId),{records:s.records});
+        hideLoading();
+        document.getElementById('btnSaveMonth').innerHTML='<i class="fas fa-check"></i> Saved!';
+        setTimeout(()=>{window.goBack();window.openProfile(currentStudentId);},800);
+    }catch(e){hideLoading();showToast('❌ Save failed!');}
+}
+
+function renderStudentHome(){
+    if(!currentStudentId||!allStudents[currentStudentId]){
+        document.getElementById('stuCardName').innerText='Profile not found';
+        document.getElementById('stuCardClass').innerText='Contact your teacher';
+        document.getElementById('studentMonthList').innerHTML='<div style="text-align:center;padding:30px;color:var(--gray);"><i class="fas fa-user-clock" style="font-size:50px;margin-bottom:10px;display:block;"></i><p>Your profile has not been set up yet.<br>Contact your teacher.</p></div>';
+        return;
+    }
+    let s=allStudents[currentStudentId];
+    document.getElementById('stuCardName').innerText=s.name;
+    document.getElementById('stuCardClass').innerText='Class: '+s.cls;
+    document.getElementById('stuCardId').innerText='ID: '+currentStudentId;
+    document.getElementById('stuCardImg').src=s.profilePic||'https://via.placeholder.com/65?text=?';
+    let list=document.getElementById('studentMonthList');
+    list.innerHTML='';
+    monthsList.forEach(m=>{
+        let rec=s.records?s.records[m]:null;
+        let paid=rec&&rec.paid?parseInt(rec.paid):0;
+        let due=rec&&rec.due?parseInt(rec.due):0;
+        let hasData=rec&&rec.firstSaveTime;
+        let cardClass='month-card',pillClass='pill-pending',status='Not Updated Yet';
+        if(hasData){if(due>0){cardClass+=' due-red';pillClass='pill-due';status='Due: ₹'+due;}else{cardClass+=' paid';pillClass='pill-paid';status='Paid ✓';}}
+        list.innerHTML+=`<div class="${cardClass}"><div style="display:flex;justify-content:space-between;align-items:center;"><div><h4 style="margin:0;font-size:15px;font-weight:700;">${m}</h4>${hasData?`<small style="color:var(--gray);">Paid: ₹${paid}${rec.date?' • '+rec.date:''}</small>`:'<small style="color:var(--gray);">Waiting for update</small>'}</div><span class="status-pill ${pillClass}">${status}</span></div></div>`;
+    });
+}
+
+window.updateStudentPic=function(event){
+    let file=event.target.files[0];if(!file||!currentStudentId)return;
+    let reader=new FileReader();
+    reader.onload=async function(e){
+        allStudents[currentStudentId].profilePic=e.target.result;
+        await updateDoc(doc(db,'students',currentStudentId),{profilePic:e.target.result});
+        document.getElementById('stuCardImg').src=e.target.result;
+        showToast('✅ Profile picture updated!');
+    };reader.readAsDataURL(file);
+}
+
+new MutationObserver(()=>{if(document.getElementById('studentHomeScreen').classList.contains('active'))renderStudentHome();}).observe(document.getElementById('studentHomeScreen'),{attributes:true,attributeFilter:['class']});
+
+window.openFinance=async function(){showLoading();await loadAllStudents();hideLoading();window.nav('financeScreen','Financial Summary');switchFinanceTab('monthly');}
+
+window.switchFinanceTab=function(tab){
+    document.getElementById('tabMonthly').classList.toggle('active',tab==='monthly');
+    document.getElementById('tabYearly').classList.toggle('active',tab==='yearly');
+    document.getElementById('finMonthlyContent').style.display=tab==='monthly'?'block':'none';
+    document.getElementById('finYearlyContent').style.display=tab==='yearly'?'block':'none';
+    if(tab==='monthly')renderFinMonthlyGrid();else renderFinYearly();
+}
+
+function renderFinMonthlyGrid(){
+    document.getElementById('finMonthGrid').style.display='grid';
+    document.getElementById('finMonthDetail').style.display='none';
+    let grid=document.getElementById('finMonthGrid');grid.innerHTML='';
+    monthsList.forEach(m=>{grid.innerHTML+=`<div class="square-tab box" onclick="openFinMonth('${m}')" style="padding:20px 5px;border-radius:16px;margin:0;"><i class="fas fa-calendar-alt" style="font-size:30px;margin-bottom:10px;color:var(--primary);"></i><h4 style="font-size:14px;">${m}</h4></div>`;});
+}
+
+window.openFinMonth=function(month){
+    document.getElementById('finMonthGrid').style.display='none';
+    document.getElementById('finMonthDetail').style.display='block';
+    document.getElementById('finSelectedMonthName').innerText=month+' Report';
+    let tp=0,td=0,cs={};
+    for(let id in allStudents){let s=allStudents[id];let c=s.cls;let rec=s.records?s.records[month]:null;let p=rec?(parseInt(rec.paid)||0):0;let d=rec?(parseInt(rec.due)||0):0;tp+=p;td+=d;if(!cs[c])cs[c]={paid:0,due:0};cs[c].paid+=p;cs[c].due+=d;}
+    document.getElementById('finMonthTotalPaid').innerText=tp;
+    document.getElementById('finMonthTotalDue').innerText=td;
+    let list=document.getElementById('finClassList');list.innerHTML='';
+    let found=false;
+    for(let c in cs){found=true;list.innerHTML+=`<div class="class-stat-row"><span>${c}</span><span>₹${cs[c].paid}</span><span>₹${cs[c].due}</span></div>`;}
+    if(!found)list.innerHTML=`<div style="padding:20px;text-align:center;color:var(--gray);font-size:13px;">No data for this month.</div>`;
+}
+
+window.backToFinMonthGrid=function(){document.getElementById('finMonthGrid').style.display='grid';document.getElementById('finMonthDetail').style.display='none';}
+
+function renderFinYearly(){
+    let tp=0,td=0;
+    for(let id in allStudents){let s=allStudents[id];monthsList.forEach(m=>{let rec=s.records?s.records[m]:null;tp+=rec?(parseInt(rec.paid)||0):0;td+=rec?(parseInt(rec.due)||0):0;});}
+    document.getElementById('finYearlyCollected').innerText=tp;
+    document.getElementById('finYearlyDue').innerText=td;
+}
+
+const canvas=document.getElementById('sigCanvas');
+const ctx=canvas.getContext('2d');
+let isDrawing=false;
+window.openSign=function(type){activeSigner=type;document.getElementById('signTitle').innerText=type==='student'?"Student Signature":"Teacher Signature";document.getElementById('signModal').style.display='flex';setTimeout(()=>{const rect=canvas.getBoundingClientRect();canvas.width=rect.width;canvas.height=rect.height;clearCanvas();},100);}
+window.clearCanvas=function(){ctx.clearRect(0,0,canvas.width,canvas.height);}
+canvas.addEventListener('touchstart',e=>{isDrawing=true;draw(e);e.preventDefault();},{passive:false});
+canvas.addEventListener('touchmove',e=>{draw(e);e.preventDefault();},{passive:false});
+canvas.addEventListener('touchend',()=>{isDrawing=false;ctx.beginPath();});
+canvas.addEventListener('mousedown',e=>{isDrawing=true;draw(e);});
+canvas.addEventListener('mousemove',draw);
+canvas.addEventListener('mouseup',()=>{isDrawing=false;ctx.beginPath();});
+function draw(e){if(!isDrawing)return;let rect=canvas.getBoundingClientRect();let x=(e.clientX||(e.touches&&e.touches[0].clientX))-rect.left;let y=(e.clientY||(e.touches&&e.touches[0].clientY))-rect.top;ctx.lineWidth=3;ctx.lineCap='round';ctx.strokeStyle='#1e293b';ctx.lineTo(x,y);ctx.stroke();ctx.beginPath();ctx.moveTo(x,y);}
+window.saveSignature=function(){const blank=document.createElement('canvas');blank.width=canvas.width;blank.height=canvas.height;if(canvas.toDataURL()===blank.toDataURL()){showToast('⚠️ Please draw signature!');return;}let dataUrl=canvas.toDataURL();if(activeSigner==='student')tempSigns.student=dataUrl;else tempSigns.teacher=dataUrl;updateSignUI(activeSigner,dataUrl);document.getElementById('signModal').style.display='none';}
+function updateSignUI(type,dataUrl){let img=document.getElementById(type==='student'?'previewStudentSign':'previewTeacherSign');let btn=document.getElementById(type==='student'?'btnStudentSign':'btnTeacherSign');if(dataUrl){img.src=dataUrl;img.style.display='inline-block';btn.innerHTML='<i class="fas fa-redo"></i> Retake';}else{img.style.display='none';btn.innerHTML='<i class="fas fa-pen-nib"></i> Sign Here';}}
+</script>
+</body>
+</html>
