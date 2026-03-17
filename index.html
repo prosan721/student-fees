@@ -6,96 +6,108 @@
     <title>Tuition Manager Pro</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        :root { --primary:#3b82f6;--secondary:#60a5fa;--accent:#ef4444;--success:#10b981;--dark:#1e293b;--gray:#64748b; }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        :root { --primary:#4f46e5;--secondary:#818cf8;--accent:#f43f5e;--success:#10b981;--dark:#0f172a;--gray:#64748b; --surface:rgba(255, 255, 255, 0.85); --glass-border:rgba(255, 255, 255, 0.5); }
         *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-        body{font-family:'Poppins',sans-serif;margin:0;padding:0;min-height:100vh;color:var(--dark);overflow-x:hidden;background:linear-gradient(135deg,#e0c3fc 0%,#8ec5fc 100%);background-attachment:fixed;}
-        .app-bar{background:var(--primary);color:white;padding:16px 20px;display:flex;align-items:center;box-shadow:0 4px 15px rgba(0,0,0,0.1);position:sticky;top:0;z-index:10;}
-        .app-bar h3{margin:0;font-size:18px;font-weight:600;flex-grow:1;text-align:center;}
-        .back-btn{background:none;border:none;color:white;font-size:20px;cursor:pointer;display:none;padding:0 10px 0 0;}
-        .logout-btn{background:none;border:none;color:white;font-size:18px;cursor:pointer;padding:0 0 0 10px;display:none;}
-        .screen{display:none;padding:15px;animation:fadeIn 0.3s ease;}
+        body{font-family:'Plus Jakarta Sans',sans-serif;margin:0;padding:0;min-height:100vh;color:var(--dark);overflow-x:hidden;background:linear-gradient(135deg,#fdfbfb 0%,#ebedee 100%);background-attachment:fixed;}
+        .app-bar{background:linear-gradient(135deg, var(--primary), #312e81);color:white;padding:16px 20px;display:flex;align-items:center;box-shadow:0 10px 30px rgba(79, 70, 229, 0.2);position:sticky;top:0;z-index:10;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
+        .app-bar h3{margin:0;font-size:18px;font-weight:700;flex-grow:1;text-align:center;letter-spacing:0.5px;}
+        .back-btn,.logout-btn{background:none;border:none;color:white;font-size:20px;cursor:pointer;transition:transform 0.2s;display:none;padding:0 5px;}
+        .back-btn:active,.logout-btn:active{transform:scale(0.85);}
+        .screen{display:none;padding:15px;animation:slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);}
         .screen.active{display:block;}
-        @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+        @keyframes slideUp{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
         .auth-wrapper{display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:calc(100vh - 70px);padding:20px;}
-        .auth-box{background:white;border-radius:24px;padding:30px 25px;width:100%;max-width:400px;box-shadow:0 20px 60px rgba(0,0,0,0.12);}
-        .auth-logo{text-align:center;margin-bottom:25px;}
-        .auth-logo i{font-size:55px;color:var(--primary);}
-        .auth-logo h2{margin:10px 0 4px 0;font-size:22px;font-weight:800;color:var(--dark);}
-        .auth-logo p{margin:0;font-size:13px;color:var(--gray);}
-        .role-tabs{display:flex;background:#f1f5f9;border-radius:12px;margin-bottom:22px;padding:4px;}
-        .role-tab{flex:1;padding:10px;text-align:center;font-weight:600;font-size:13px;color:var(--gray);cursor:pointer;border-radius:10px;transition:all 0.2s;}
-        .role-tab.active{background:var(--primary);color:white;box-shadow:0 2px 8px rgba(59,130,246,0.4);}
-        .box,.square-tab,.list-item,.fin-card{background:#ffffff;border-radius:20px;box-shadow:0 8px 20px rgba(0,0,0,0.05);}
-        .box{padding:20px;margin-bottom:20px;}
+        .auth-box{background:var(--surface);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:28px;padding:35px 25px;width:100%;max-width:400px;box-shadow:0 20px 40px rgba(0,0,0,0.08);}
+        .auth-logo{text-align:center;margin-bottom:30px;}
+        .auth-logo i{font-size:55px;color:var(--primary);background:-webkit-linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 10px 15px rgba(79,70,229,0.3));}
+        .auth-logo h2{margin:15px 0 5px 0;font-size:24px;font-weight:800;color:var(--dark);letter-spacing:-0.5px;}
+        .auth-logo p{margin:0;font-size:14px;color:var(--gray);}
+        .role-tabs{display:flex;background:rgba(241,245,249,0.7);border-radius:14px;margin-bottom:25px;padding:5px;}
+        .role-tab{flex:1;padding:12px;text-align:center;font-weight:700;font-size:13px;color:var(--gray);cursor:pointer;border-radius:12px;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);}
+        .role-tab.active{background:var(--primary);color:white;box-shadow:0 8px 16px rgba(79,70,229,0.3);}
+        .box,.square-tab,.list-item,.fin-card,.month-card{background:var(--surface);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--glass-border);border-radius:24px;box-shadow:0 12px 24px rgba(0,0,0,0.04);transition:transform 0.2s;}
+        .box{padding:25px;margin-bottom:20px;}
         .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:15px;width:100%;max-width:500px;}
-        .square-tab{padding:25px 10px;text-align:center;cursor:pointer;transition:transform 0.2s;display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:1;position:relative;}
-        .square-tab:active{transform:scale(0.95);}
-        .square-tab i{font-size:40px;margin-bottom:15px;color:var(--primary);}
+        .square-tab{padding:30px 15px;text-align:center;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:1;position:relative;}
+        .square-tab:active{transform:scale(0.96);}
+        .square-tab i{font-size:42px;margin-bottom:15px;color:var(--primary);filter:drop-shadow(0 8px 10px rgba(79,70,229,0.2));transition:all 0.3s;}
+        .square-tab:hover i{transform:translateY(-5px);}
         .square-tab h4{margin:0;font-size:15px;color:var(--dark);font-weight:700;}
-        .class-box{background:#f8fafc;border:1px solid #e2e8f0;}
+        .class-box{background:rgba(248,250,252,0.8);}
         .class-box h4{font-size:18px;color:var(--primary);}
         .home-wrapper{display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:calc(100vh - 120px);}
-        .home-title{font-size:28px;color:var(--dark);margin-bottom:30px;font-weight:800;text-align:center;}
-        .home-title span{color:#fff;background:var(--primary);padding:5px 10px;border-radius:8px;}
-        .btn{width:100%;padding:14px;border:none;border-radius:12px;font-family:inherit;font-size:15px;font-weight:600;color:white;cursor:pointer;transition:background 0.2s;display:flex;justify-content:center;align-items:center;gap:8px;}
-        .btn-primary{background:var(--primary);}
-        .btn-primary:active{background:#2563eb;}
-        .btn-success{background:var(--success);}
-        .btn-outline{background:#f1f5f9;border:1px solid #cbd5e1;color:var(--dark);}
-        .btn-small{padding:8px 12px;font-size:12px;border-radius:8px;width:auto;}
-        .btn-danger{background:var(--accent);}
-        .form-group{margin-bottom:15px;}
-        .form-group label{display:block;margin-bottom:6px;font-size:13px;color:var(--dark);font-weight:600;}
-        input,select{width:100%;padding:14px;border:2px solid #e2e8f0;border-radius:12px;font-family:inherit;font-size:14px;background:#f8fafc;color:var(--dark);}
-        input:focus,select:focus{border-color:var(--primary);outline:none;background:white;}
-        .list-item{padding:16px;border-radius:16px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;border-left:5px solid var(--primary);background:white;box-shadow:0 4px 12px rgba(0,0,0,0.05);}
-        .list-item:active{background:#f1f5f9;}
-        .profile-img-container{width:100px;height:100px;margin:0 auto 15px auto;position:relative;border-radius:50%;border:4px solid #eff6ff;padding:2px;}
+        .home-title{font-size:30px;color:var(--dark);margin-bottom:35px;font-weight:800;text-align:center;line-height:1.3;}
+        .home-title span{color:#fff;background:linear-gradient(135deg,var(--primary),#312e81);padding:6px 14px;border-radius:12px;box-shadow:0 8px 15px rgba(79,70,229,0.3);}
+        .btn{width:100%;padding:15px;border:none;border-radius:14px;font-family:inherit;font-size:15px;font-weight:700;color:white;cursor:pointer;transition:all 0.2s cubic-bezier(0.4,0,0.2,1);display:flex;justify-content:center;align-items:center;gap:10px;box-shadow:0 8px 16px rgba(0,0,0,0.1);}
+        .btn:active{transform:scale(0.97);}
+        .btn-primary{background:linear-gradient(135deg,var(--primary),#4338ca);box-shadow:0 8px 20px rgba(79,70,229,0.3);}
+        .btn-success{background:linear-gradient(135deg,var(--success),#059669);box-shadow:0 8px 20px rgba(16,185,129,0.3);}
+        .btn-outline{background:rgba(255,255,255,0.8);border:1px solid #cbd5e1;color:var(--dark);box-shadow:none;}
+        .btn-small{padding:8px 16px;font-size:13px;border-radius:10px;width:auto;box-shadow:none;}
+        .btn-danger{background:linear-gradient(135deg,var(--accent),#e11d48);box-shadow:0 8px 20px rgba(244,63,94,0.3);}
+        .form-group{margin-bottom:18px;}
+        .form-group label{display:block;margin-bottom:8px;font-size:13px;color:var(--dark);font-weight:700;}
+        input,select{width:100%;padding:15px;border:2px solid transparent;border-radius:14px;font-family:inherit;font-size:14px;background:rgba(241,245,249,0.8);color:var(--dark);transition:all 0.3s;}
+        input:focus,select:focus{border-color:var(--primary);outline:none;background:white;box-shadow:0 8px 16px rgba(79,70,229,0.1);}
+        .list-item{padding:18px;border-radius:20px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;border-left:5px solid var(--primary);}
+        .list-item:active{transform:scale(0.98);}
+        .profile-img-container{width:110px;height:110px;margin:0 auto 20px auto;position:relative;border-radius:50%;border:4px solid white;padding:3px;box-shadow:0 15px 30px rgba(0,0,0,0.1);}
         .profile-img-container img{width:100%;height:100%;border-radius:50%;object-fit:cover;}
-        .cam-icon{position:absolute;bottom:0;right:0;background:var(--primary);color:white;width:30px;height:30px;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:14px;cursor:pointer;border:2px solid white;}
-        .fee-badge{background:#fef3c7;color:#b45309;padding:10px 15px;border-radius:12px;font-size:14px;font-weight:700;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;}
-        .lock-banner{background:#fee2e2;color:var(--accent);padding:12px;border-radius:10px;text-align:center;font-size:13px;margin-bottom:15px;display:none;font-weight:700;border:1px solid #fecaca;}
-        .finance-tabs{display:flex;background:#e2e8f0;border-radius:12px;margin-bottom:20px;padding:4px;}
-        .fin-tab{flex:1;padding:12px;text-align:center;font-weight:600;font-size:13px;color:var(--gray);cursor:pointer;border-radius:10px;}
-        .fin-tab.active{background:white;color:var(--primary);box-shadow:0 2px 5px rgba(0,0,0,0.05);}
-        .fin-card{padding:20px;border-radius:16px;text-align:center;margin-bottom:15px;border-top:5px solid var(--primary);}
-        .fin-card h4{margin:0 0 8px 0;color:var(--gray);font-size:13px;font-weight:600;}
-        .fin-card h2{margin:0;color:var(--dark);font-size:28px;font-weight:800;}
+        .cam-icon{position:absolute;bottom:0;right:0;background:var(--primary);color:white;width:34px;height:34px;border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:15px;cursor:pointer;border:3px solid white;box-shadow:0 4px 10px rgba(79,70,229,0.3);}
+        .fee-badge{background:var(--surface);border:1px solid var(--glass-border);color:var(--dark);padding:12px 18px;border-radius:16px;font-size:14px;font-weight:700;margin-bottom:15px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 4px 15px rgba(0,0,0,0.03);}
+        .lock-banner{background:linear-gradient(135deg,#fee2e2,#fecaca);color:#991b1b;padding:12px;border-radius:12px;text-align:center;font-size:13px;margin-bottom:15px;display:none;font-weight:700;box-shadow:0 4px 10px rgba(239,68,68,0.2);}
+        .finance-tabs{display:flex;background:rgba(241,245,249,0.8);border-radius:16px;margin-bottom:25px;padding:6px;}
+        .fin-tab{flex:1;padding:14px;text-align:center;font-weight:700;font-size:14px;color:var(--gray);cursor:pointer;border-radius:12px;transition:all 0.3s;}
+        .fin-tab.active{background:white;color:var(--primary);box-shadow:0 4px 12px rgba(0,0,0,0.05);}
+        .fin-card{padding:25px;text-align:center;margin-bottom:20px;border-top:5px solid var(--primary);}
+        .fin-card h4{margin:0 0 10px 0;color:var(--gray);font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;}
+        .fin-card h2{margin:0;color:var(--dark);font-size:32px;font-weight:800;letter-spacing:-1px;}
         .fin-card.due{border-top-color:var(--accent);}
         .fin-card.due h2{color:var(--accent);}
         .fin-card.success{border-top-color:var(--success);}
         .fin-card.success h2{color:var(--success);}
-        .class-stat-row{display:flex;justify-content:space-between;padding:12px;border-bottom:1px solid #f1f5f9;font-size:13px;align-items:center;}
+        .class-stat-row{display:flex;justify-content:space-between;padding:15px 12px;border-bottom:1px solid rgba(226,232,240,0.5);font-size:14px;align-items:center;}
         .class-stat-row:last-child{border-bottom:none;}
-        .class-stat-row span:nth-child(1){font-weight:600;color:var(--dark);}
-        .class-stat-row span:nth-child(2){color:var(--success);font-weight:700;}
-        .class-stat-row span:nth-child(3){color:var(--accent);font-weight:700;}
-        .student-info-card{background:linear-gradient(135deg,var(--primary),#8b5cf6);color:white;border-radius:20px;padding:25px;margin-bottom:20px;box-shadow:0 10px 30px rgba(59,130,246,0.3);}
-        .student-info-card h2{margin:10px 0 3px 0;font-size:22px;font-weight:800;}
-        .student-info-card p{margin:0;opacity:0.85;font-size:13px;}
-        .sbadge{background:rgba(255,255,255,0.2);display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;margin-top:8px;}
-        .month-card{background:white;border-radius:16px;padding:16px 20px;margin-bottom:12px;box-shadow:0 4px 15px rgba(0,0,0,0.05);border-left:5px solid #e2e8f0;}
+        .class-stat-row span:nth-child(1){font-weight:700;color:var(--dark);}
+        .class-stat-row span:nth-child(2){color:var(--success);font-weight:800;}
+        .class-stat-row span:nth-child(3){color:var(--accent);font-weight:800;}
+        .student-info-card{background:linear-gradient(135deg,var(--primary),#312e81);color:white;border-radius:24px;padding:30px;margin-bottom:25px;box-shadow:0 20px 40px rgba(79,70,229,0.3);position:relative;overflow:hidden;}
+        .student-info-card::after{content:'';position:absolute;top:-50%;right:-20%;width:200px;height:200px;background:rgba(255,255,255,0.1);border-radius:50%;filter:blur(20px);}
+        .student-info-card h2{margin:12px 0 4px 0;font-size:24px;font-weight:800;}
+        .student-info-card p{margin:0;opacity:0.9;font-size:14px;}
+        .sbadge{background:rgba(255,255,255,0.25);display:inline-block;padding:5px 14px;border-radius:20px;font-size:12px;margin-top:10px;font-weight:600;backdrop-filter:blur(5px);}
+        .month-card{padding:18px 22px;margin-bottom:15px;border-left:6px solid #e2e8f0;}
         .month-card.paid{border-left-color:var(--success);}
         .month-card.due-red{border-left-color:var(--accent);}
-        .status-pill{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:700;}
+        .status-pill{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:800;}
         .pill-paid{background:#d1fae5;color:#065f46;}
         .pill-due{background:#fee2e2;color:#991b1b;}
         .pill-pending{background:#f1f5f9;color:var(--gray);}
-        .pending-badge{background:var(--accent);color:white;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-left:8px;}
-        .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:100;justify-content:center;align-items:center;}
-        .modal-content{background:white;padding:25px;border-radius:20px;width:90%;max-width:400px;text-align:center;}
-        canvas{border:2px dashed #cbd5e1;border-radius:12px;background:#f8fafc;width:100%;height:180px;touch-action:none;margin-top:15px;}
-        .sign-preview{width:100%;max-width:130px;border:2px solid #e2e8f0;border-radius:10px;margin-top:10px;display:none;}
-        .loading-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.85);z-index:200;justify-content:center;align-items:center;flex-direction:column;gap:15px;}
+        .pending-badge{background:var(--accent);color:white;font-size:11px;font-weight:800;padding:3px 10px;border-radius:12px;margin-left:8px;box-shadow:0 4px 10px rgba(244,63,94,0.3);}
+        .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(15,23,42,0.6);z-index:100;justify-content:center;align-items:center;backdrop-filter:blur(5px);}
+        .modal-content{background:var(--surface);padding:30px;border-radius:28px;width:90%;max-width:400px;text-align:center;box-shadow:0 25px 50px rgba(0,0,0,0.2);animation:slideUp 0.3s;}
+        canvas{border:2px dashed #cbd5e1;border-radius:16px;background:rgba(248,250,252,0.8);width:100%;height:180px;touch-action:none;margin-top:15px;}
+        .sign-preview{width:100%;max-width:140px;border:2px solid #e2e8f0;border-radius:12px;margin-top:12px;display:none;background:white;}
+        .loading-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.9);z-index:200;justify-content:center;align-items:center;flex-direction:column;gap:15px;backdrop-filter:blur(5px);}
         .loading-overlay.show{display:flex;}
-        .spinner{width:45px;height:45px;border:4px solid #e2e8f0;border-top-color:var(--primary);border-radius:50%;animation:spin 0.8s linear infinite;}
+        .spinner{width:50px;height:50px;border:4px solid rgba(79,70,229,0.2);border-top-color:var(--primary);border-radius:50%;animation:spin 0.8s cubic-bezier(0.4,0,0.2,1) infinite;}
         @keyframes spin{to{transform:rotate(360deg)}}
-        .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:var(--dark);color:white;padding:12px 25px;border-radius:25px;font-size:13px;font-weight:600;z-index:300;opacity:0;transition:opacity 0.3s;pointer-events:none;white-space:nowrap;}
-        .toast.show{opacity:1;}
-        .error-msg{color:var(--accent);font-size:12px;margin-top:8px;text-align:center;display:none;font-weight:600;}
-        .readonly-note{background:#fef9c3;border:1px solid #fde047;border-radius:10px;padding:10px 14px;font-size:12px;color:#854d0e;font-weight:600;margin-bottom:15px;text-align:center;}
-        .divider{text-align:center;color:var(--gray);font-size:12px;margin:15px 0;}
+        .toast{position:fixed;bottom:35px;left:50%;transform:translateX(-50%);background:var(--dark);color:white;padding:14px 28px;border-radius:30px;font-size:14px;font-weight:700;z-index:300;opacity:0;transition:all 0.3s;pointer-events:none;white-space:nowrap;box-shadow:0 10px 20px rgba(0,0,0,0.2);}
+        .toast.show{opacity:1;transform:translateX(-50%) translateY(-10px);}
+        .error-msg{color:var(--accent);font-size:13px;margin-top:10px;text-align:center;display:none;font-weight:700;}
+        .readonly-note{background:linear-gradient(135deg,#fef9c3,#fef08a);border:none;border-radius:14px;padding:14px;font-size:13px;color:#854d0e;font-weight:700;margin-bottom:20px;text-align:center;box-shadow:0 4px 10px rgba(253,224,71,0.2);}
+        .divider{text-align:center;color:var(--gray);font-size:12px;margin:20px 0;font-weight:600;}
+        
+        /* Attendance styles */
+        .att-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;text-align:center;margin-bottom:8px;}
+        .att-day-header{font-size:12px;font-weight:800;color:var(--gray);text-transform:uppercase;padding-bottom:5px;}
+        .att-date{padding:10px 0;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;transition:all 0.2s;background:rgba(241,245,249,0.8);color:var(--dark);border:2px solid transparent;display:flex;align-items:center;justify-content:center;}
+        .att-date.present{background:#d1fae5;color:#065f46;border-color:var(--success);box-shadow:0 4px 10px rgba(16,185,129,0.15);}
+        .att-date.absent{background:#fee2e2;color:#991b1b;border-color:var(--accent);box-shadow:0 4px 10px rgba(244,63,94,0.15);}
+        .att-date.empty{background:transparent;cursor:default;}
+        .att-date:active{transform:scale(0.9);}
+        .att-date.disabled{pointer-events:none;}
     </style>
 </head>
 <body>
@@ -119,6 +131,9 @@
             <div id="loginForm">
                 <div class="form-group"><label>📧 Email</label><input type="email" id="authEmail" placeholder="Enter your email"></div>
                 <div class="form-group"><label>🔒 Password</label><input type="password" id="authPassword" placeholder="Enter password"></div>
+                <div style="text-align:right; margin-top:-10px; margin-bottom:15px;">
+                    <a href="#" onclick="doForgotPassword()" style="color:var(--primary); font-size:13px; font-weight:700; text-decoration:none;">Forgot Password?</a>
+                </div>
                 <div class="error-msg" id="authError"></div>
                 <button class="btn btn-primary" style="margin-top:10px;" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> Login</button>
                 <div id="studentSignupLink" style="display:none;">
@@ -176,8 +191,36 @@
         </div>
     </div>
     <div class="readonly-note"><i class="fas fa-lock"></i> Fee and payment data is managed by your teacher. You can only view it here.</div>
+    <button class="btn btn-outline" style="margin-bottom:20px;background:white;" onclick="openAttendance('student')"><i class="fas fa-calendar-alt" style="color:var(--primary);"></i> View Attendance Calendar</button>
     <h4 style="color:var(--dark);font-weight:700;margin-bottom:15px;font-size:14px;">📅 Monthly Fee Status</h4>
     <div id="studentMonthList"></div>
+</div>
+
+<!-- STUDENT MONTH VIEW -->
+<div id="studentMonthViewScreen" class="screen">
+    <div class="box">
+        <h3 id="svmMonthName" style="text-align:center;color:var(--primary);margin-top:0;padding-bottom:15px;border-bottom:2px dashed #e2e8f0;font-size:20px;"></h3>
+        <div style="background:#eff6ff;padding:12px;border-radius:12px;text-align:center;margin-bottom:20px;border:1px solid #bfdbfe;">
+            <span style="font-size:13px;color:var(--gray);font-weight:600;">Target Amount: </span>
+            <span style="font-size:18px;font-weight:800;color:var(--primary);">₹<span id="svmTargetFee"></span></span>
+        </div>
+        <div class="class-stat-row"><span>💰 Paid Amount</span><span id="svmPaid" style="color:var(--dark);font-weight:800;"></span></div>
+        <div class="class-stat-row"><span>📅 Paid Date</span><span id="svmDate" style="color:var(--dark);font-weight:800;"></span></div>
+        <div class="class-stat-row"><span>⚠️ Due Amount</span><span id="svmDue" style="color:var(--accent);font-weight:800;"></span></div>
+        <div class="grid-2" style="margin-top:25px;background:#f8fafc;padding:15px;border-radius:16px;border:1px solid #e2e8f0;">
+            <div style="text-align:center;">
+                <label style="font-size:12px;font-weight:700;color:var(--dark);">Student Sign</label>
+                <img id="svmStudentSign" class="sign-preview" style="display:block;margin:10px auto 0 auto;max-height:80px;object-fit:contain;">
+                <div id="svmNoStudentSign" style="font-size:11px;color:var(--gray);margin-top:10px;display:none;">Not Signed</div>
+                <button class="btn btn-primary btn-small" id="svmBtnStudentSign" style="margin-top:10px; display:none; margin-left:auto; margin-right:auto;" onclick="openSign('student_studentView')"><i class="fas fa-pen-nib"></i> Sign Here</button>
+            </div>
+            <div style="text-align:center;">
+                <label style="font-size:12px;font-weight:700;color:var(--dark);">Teacher Sign</label>
+                <img id="svmTeacherSign" class="sign-preview" style="display:block;margin:10px auto 0 auto;max-height:80px;object-fit:contain;">
+                <div id="svmNoTeacherSign" style="font-size:11px;color:var(--gray);margin-top:10px;display:none;">Not Signed</div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- MGMT -->
@@ -240,6 +283,11 @@
         <p style="margin:5px 0 15px 0;font-size:13px;color:var(--gray);">ID: <b id="profId" style="color:var(--primary);"></b> &nbsp;|&nbsp; Class: <b id="profClass"></b></p>
         <div class="fee-badge"><span>Monthly Fee: ₹<b id="profFee" style="font-size:16px;"></b></span><button class="btn btn-primary btn-small" id="btnEditFee" onclick="editFixedFee()">Edit</button></div>
         <p id="editCountMsg" style="font-size:11px;color:var(--accent);margin:-5px 0 10px 0;text-align:right;font-weight:600;"></p>
+        <div style="display:flex; justify-content:center; gap:10px; margin-bottom: 20px;">
+            <button class="btn btn-outline btn-small" onclick="openAttendance('teacher')"><i class="fas fa-calendar-check" style="color:var(--primary);"></i> Attendance</button>
+            <button class="btn btn-outline btn-small" onclick="triggerPasswordReset()"><i class="fas fa-key" style="color:#f59e0b;"></i> Reset Pass</button>
+            <button class="btn btn-outline btn-small" onclick="deleteCurrentStudent()" style="color:var(--accent);border-color:#fecaca;"><i class="fas fa-trash"></i> Delete</button>
+        </div>
     </div>
     <h4 style="color:var(--dark);margin-bottom:15px;font-size:14px;font-weight:700;text-align:center;">Academic Year (12 Months)</h4>
     <div class="grid-2" id="monthGrid"></div>
@@ -249,7 +297,7 @@
 <div id="monthDetailScreen" class="screen">
     <div class="box">
         <h3 id="detailMonthName" style="text-align:center;color:var(--primary);margin-top:0;padding-bottom:15px;border-bottom:2px dashed #e2e8f0;font-size:20px;"></h3>
-        <div id="lockBanner" class="lock-banner"><i class="fas fa-lock"></i> Edit locked (48 hours expired)</div>
+        <div id="lockBanner" class="lock-banner"><i class="fas fa-lock"></i> Edit locked (6 hours expired)</div>
         <div style="background:#eff6ff;padding:12px;border-radius:12px;text-align:center;margin-bottom:20px;border:1px solid #bfdbfe;">
             <span style="font-size:13px;color:var(--gray);font-weight:600;">Target Amount: </span>
             <span style="font-size:18px;font-weight:800;color:var(--primary);">₹<span id="targetFeeAmount"></span></span>
@@ -262,6 +310,28 @@
             <div style="text-align:center;"><label style="font-size:12px;font-weight:700;color:var(--dark);">Teacher Sign</label><img id="previewTeacherSign" class="sign-preview"><button class="btn btn-outline btn-small" id="btnTeacherSign" style="margin-top:10px;" onclick="openSign('teacher')"><i class="fas fa-pen-nib"></i> Sign Here</button></div>
         </div>
         <button class="btn btn-success" id="btnSaveMonth" onclick="saveMonthData()"><i class="fas fa-save"></i> Save Monthly Data</button>
+    </div>
+</div>
+
+<!-- ATTENDANCE SCREEN -->
+<div id="attendanceScreen" class="screen">
+    <div class="box">
+        <h3 style="text-align:center;color:var(--primary);margin-top:0;font-size:22px;font-weight:800;" id="attTitle">Attendance</h3>
+        <p style="text-align:center;font-size:13px;color:var(--gray);margin:-5px 0 20px 0;" id="attStudentName"></p>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;background:rgba(241,245,249,0.8);padding:8px;border-radius:14px;">
+            <button class="btn btn-outline btn-small" onclick="prevAttMonth()" style="background:white;"><i class="fas fa-chevron-left"></i></button>
+            <h4 id="attMonthDisplay" style="margin:0;font-size:16px;font-weight:800;"></h4>
+            <button class="btn btn-outline btn-small" onclick="nextAttMonth()" style="background:white;"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="att-grid" id="attDaysGrid">
+            <div class="att-day-header">Sun</div><div class="att-day-header">Mon</div><div class="att-day-header">Tue</div>
+            <div class="att-day-header">Wed</div><div class="att-day-header">Thu</div><div class="att-day-header">Fri</div><div class="att-day-header">Sat</div>
+        </div>
+        <div class="att-grid" id="attCalendarGrid"></div>
+        <div style="margin-top:25px;display:flex;justify-content:center;gap:20px;font-size:13px;font-weight:700;color:var(--dark);background:rgba(241,245,249,0.5);padding:15px;border-radius:16px;">
+            <span style="display:flex;align-items:center;"><span style="display:inline-block;width:14px;height:14px;background:var(--success);border-radius:4px;margin-right:8px;box-shadow:0 2px 5px rgba(16,185,129,0.3);"></span>Present</span>
+            <span style="display:flex;align-items:center;"><span style="display:inline-block;width:14px;height:14px;background:var(--accent);border-radius:4px;margin-right:8px;box-shadow:0 2px 5px rgba(244,63,94,0.3);"></span>Absent</span>
+        </div>
     </div>
 </div>
 
@@ -307,7 +377,7 @@
 
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import{getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,onAuthStateChanged}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import{getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,onAuthStateChanged,sendPasswordResetEmail}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import{getFirestore,doc,setDoc,getDoc,collection,getDocs,updateDoc,deleteDoc}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 // =============================================
@@ -344,7 +414,7 @@ function showScreen(id,title){
 }
 
 window.nav=function(id,title){screenStack.push(document.querySelector('.screen.active').id);showScreen(id,title);}
-window.goBack=function(){if(screenStack.length>0){let prev=screenStack.pop();let t={homeScreen:'Dashboard',mgmtScreen:'Student Management',classScreen:'Select Class',studentListScreen:currentClass||'Students',profileScreen:'Profile',financeScreen:'Financial Summary',studentHomeScreen:'My Dashboard',addStudentScreen:'Add Student',pendingScreen:'New Requests'};showScreen(prev,t[prev]||'Back');}}
+window.goBack=function(){if(screenStack.length>0){let prev=screenStack.pop();let t={homeScreen:'Dashboard',mgmtScreen:'Student Management',classScreen:'Select Class',studentListScreen:currentClass||'Students',profileScreen:'Profile',financeScreen:'Financial Summary',studentHomeScreen:'My Dashboard',studentMonthViewScreen:'My Dashboard',addStudentScreen:'Add Student',pendingScreen:'New Requests',attendanceScreen:'Attendance Calendar'};showScreen(prev,t[prev]||'Back');}}
 
 let selectedAuthRole='teacher';
 window.switchAuthRole=function(role){
@@ -386,6 +456,46 @@ window.doLogin=async function(){
     showLoading();
     try{await signInWithEmailAndPassword(auth,email,pass);}
     catch(e){hideLoading();err.innerText='❌ Wrong email or password!';err.style.display='block';}
+}
+
+window.doForgotPassword = async function() {
+    let email = document.getElementById('authEmail').value.trim();
+    if(!email) {
+        let err=document.getElementById('authError');
+        err.innerText='⚠️ Please enter your email in the email field first.';
+        err.style.display='block';
+        return;
+    }
+    showLoading();
+    try {
+        await sendPasswordResetEmail(auth, email);
+        hideLoading();
+        showToast('✅ Password reset email sent! Please check your inbox.');
+    } catch(e) {
+        hideLoading();
+        let err=document.getElementById('authError');
+        err.innerText='❌ ' + e.message;
+        err.style.display='block';
+    }
+}
+
+window.triggerPasswordReset = async function() {
+    if(!currentStudentId) return;
+    let s = allStudents[currentStudentId];
+    if(!s || !s.email) {
+        showToast('❌ Student email not found!');
+        return;
+    }
+    if(!confirm('Send a password reset email to ' + s.name + ' (' + s.email + ')?')) return;
+    showLoading();
+    try {
+        await sendPasswordResetEmail(auth, s.email);
+        hideLoading();
+        showToast('✅ Password reset link successfully sent!');
+    } catch(e) {
+        hideLoading();
+        showToast('❌ Error: ' + e.message);
+    }
 }
 
 window.doStudentSignup=async function(){
@@ -589,7 +699,7 @@ window.openMonth=function(month){
     document.getElementById('mDue').value=rec.due||'';
     tempSigns.student=rec.studentSign||null;tempSigns.teacher=rec.teacherSign||null;
     updateSignUI('student',rec.studentSign);updateSignUI('teacher',rec.teacherSign);
-    let isLocked=rec.firstSaveTime&&(Date.now()-rec.firstSaveTime>2*24*60*60*1000);
+    let isLocked=rec.firstSaveTime&&(Date.now()-rec.firstSaveTime>6*60*60*1000);
     const inp=['mPaid','mDate','mDue','btnStudentSign','btnTeacherSign','btnSaveMonth'];
     if(isLocked){document.getElementById('lockBanner').style.display='block';inp.forEach(id=>document.getElementById(id).disabled=true);document.getElementById('btnSaveMonth').innerText='Data Locked';document.getElementById('btnSaveMonth').style.background='var(--gray)';}
     else{document.getElementById('lockBanner').style.display='none';inp.forEach(id=>document.getElementById(id).disabled=false);document.getElementById('btnSaveMonth').style.background='';document.getElementById('btnSaveMonth').innerHTML='<i class="fas fa-save"></i> Save Monthly Data';}
@@ -636,8 +746,158 @@ function renderStudentHome(){
         let hasData=rec&&rec.firstSaveTime;
         let cardClass='month-card',pillClass='pill-pending',status='Not Updated Yet';
         if(hasData){if(due>0){cardClass+=' due-red';pillClass='pill-due';status='Due: ₹'+due;}else{cardClass+=' paid';pillClass='pill-paid';status='Paid ✓';}}
-        list.innerHTML+=`<div class="${cardClass}"><div style="display:flex;justify-content:space-between;align-items:center;"><div><h4 style="margin:0;font-size:15px;font-weight:700;">${m}</h4>${hasData?`<small style="color:var(--gray);">Paid: ₹${paid}${rec.date?' • '+rec.date:''}</small>`:'<small style="color:var(--gray);">Waiting for update</small>'}</div><span class="status-pill ${pillClass}">${status}</span></div></div>`;
+        if(hasData){
+            list.innerHTML+=`<div class="${cardClass}" onclick="openStudentMonthView('${m}')" style="cursor:pointer;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><h4 style="margin:0;font-size:15px;font-weight:700;">${m}</h4><small style="color:var(--gray);">Paid: ₹${paid}${rec.date?' • '+rec.date:''}</small></div><span class="status-pill ${pillClass}">${status}</span></div></div>`;
+        } else {
+            list.innerHTML+=`<div class="${cardClass}"><div style="display:flex;justify-content:space-between;align-items:center;"><div><h4 style="margin:0;font-size:15px;font-weight:700;">${m}</h4><small style="color:var(--gray);">Waiting for update</small></div><span class="status-pill ${pillClass}">${status}</span></div></div>`;
+        }
     });
+}
+
+window.openStudentMonthView = function(month) {
+    let s = allStudents[currentStudentId];
+    if(!s) return;
+    let rec = s.records && s.records[month] ? s.records[month] : null;
+
+    document.getElementById('svmMonthName').innerText = month;
+    document.getElementById('svmTargetFee').innerText = s.fixedFee || '0';
+    
+    if(rec && rec.firstSaveTime) {
+        document.getElementById('svmPaid').innerText = '₹' + (rec.paid || '0');
+        document.getElementById('svmDate').innerText = rec.date || '-';
+        document.getElementById('svmDue').innerText = '₹' + (rec.due || '0');
+        
+        let ss = document.getElementById('svmStudentSign');
+        let ns = document.getElementById('svmNoStudentSign');
+        let btnSign = document.getElementById('svmBtnStudentSign');
+        
+        let isLocked = rec.firstSaveTime && (Date.now() - rec.firstSaveTime > 6 * 60 * 60 * 1000);
+
+        if(rec.studentSign) {
+            ss.src = rec.studentSign; ss.style.display = 'block'; ns.style.display = 'none'; btnSign.style.display = 'none';
+        } else {
+            ss.style.display = 'none'; 
+            if (!isLocked) {
+                ns.style.display = 'none';
+                btnSign.style.display = 'block';
+            } else {
+                ns.style.display = 'block';
+                btnSign.style.display = 'none';
+            }
+        }
+        
+        let ts = document.getElementById('svmTeacherSign');
+        let nts = document.getElementById('svmNoTeacherSign');
+        if(rec.teacherSign) {
+            ts.src = rec.teacherSign; ts.style.display = 'block'; nts.style.display = 'none';
+        } else {
+            ts.style.display = 'none'; nts.style.display = 'block';
+        }
+    }
+    window.nav('studentMonthViewScreen', month + ' Details');
+}
+
+// ====== NEW: DELETE STUDENT ======
+window.deleteCurrentStudent = async function() {
+    if(!confirm("Are you sure you want to delete this student's data permanently?")) return;
+    showLoading();
+    try {
+        await deleteDoc(doc(db, 'students', currentStudentId));
+        delete allStudents[currentStudentId];
+        hideLoading();
+        showToast('✅ Student deleted successfully!');
+        window.goBack(); // back to student list
+    } catch(e) {
+        hideLoading();
+        showToast('❌ Error deleting student!');
+    }
+}
+
+// ====== NEW: ATTENDANCE CALENDAR ======
+let attDate = new Date();
+let attMode = 'teacher'; // or 'student'
+
+window.openAttendance = function(mode) {
+    let studentId = currentStudentId;
+    if(!studentId) return;
+    attMode = mode;
+    attDate = new Date();
+    document.getElementById('attStudentName').innerText = mode==='teacher' ? 'Student: ' + allStudents[studentId].name : 'Your Attendance';
+    
+    // Hide controls if student mode
+    if(mode === 'student') {
+        document.getElementById('attTitle').innerText = 'My Attendance';
+    } else {
+        document.getElementById('attTitle').innerText = 'Attendance';
+    }
+
+    renderCalendar();
+    window.nav('attendanceScreen', 'Attendance Calendar');
+}
+
+window.prevAttMonth = function() {
+    attDate.setMonth(attDate.getMonth() - 1);
+    renderCalendar();
+}
+
+window.nextAttMonth = function() {
+    attDate.setMonth(attDate.getMonth() + 1);
+    renderCalendar();
+}
+
+function renderCalendar() {
+    let y = attDate.getFullYear();
+    let m = attDate.getMonth();
+    let mNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    document.getElementById('attMonthDisplay').innerText = mNames[m] + " " + y;
+
+    let grid = document.getElementById('attCalendarGrid');
+    grid.innerHTML = '';
+
+    let firstDay = new Date(y, m, 1).getDay();
+    let daysInMonth = new Date(y, m + 1, 0).getDate();
+
+    // Fill blank days before 1st
+    for(let i=0; i<firstDay; i++) {
+        grid.innerHTML += `<div class="att-date empty"></div>`;
+    }
+
+    let s = allStudents[currentStudentId];
+    if(!s) return; // safety
+    let attData = s.attendance || {};
+
+    for(let d=1; d<=daysInMonth; d++) {
+        let dateStr = `${y}-${(m+1).toString().padStart(2, '0')}-${d.toString().padStart(2, '0')}`;
+        let status = attData[dateStr] || ''; 
+        
+        let cls = 'att-date';
+        if(status === 'present') cls += ' present';
+        if(status === 'absent') cls += ' absent';
+        
+        if(attMode === 'student') cls += ' disabled';
+
+        grid.innerHTML += `<div class="${cls}" onclick="toggleAttendance('${dateStr}')">${d}</div>`;
+    }
+}
+
+window.toggleAttendance = async function(dateStr) {
+    if(attMode === 'student') return; 
+
+    let s = allStudents[currentStudentId];
+    if(!s.attendance) s.attendance = {};
+    
+    let current = s.attendance[dateStr];
+    if(current === 'present') s.attendance[dateStr] = 'absent';
+    else if(current === 'absent') delete s.attendance[dateStr];
+    else s.attendance[dateStr] = 'present';
+
+    renderCalendar();
+
+    try {
+        await updateDoc(doc(db, 'students', currentStudentId), { attendance: s.attendance });
+    } catch(e) {
+        showToast('❌ Failed to save attendance!');
+    }
 }
 
 window.updateStudentPic=function(event){
@@ -705,8 +965,63 @@ canvas.addEventListener('mousedown',e=>{isDrawing=true;draw(e);});
 canvas.addEventListener('mousemove',draw);
 canvas.addEventListener('mouseup',()=>{isDrawing=false;ctx.beginPath();});
 function draw(e){if(!isDrawing)return;let rect=canvas.getBoundingClientRect();let x=(e.clientX||(e.touches&&e.touches[0].clientX))-rect.left;let y=(e.clientY||(e.touches&&e.touches[0].clientY))-rect.top;ctx.lineWidth=3;ctx.lineCap='round';ctx.strokeStyle='#1e293b';ctx.lineTo(x,y);ctx.stroke();ctx.beginPath();ctx.moveTo(x,y);}
-window.saveSignature=function(){const blank=document.createElement('canvas');blank.width=canvas.width;blank.height=canvas.height;if(canvas.toDataURL()===blank.toDataURL()){showToast('⚠️ Please draw signature!');return;}let dataUrl=canvas.toDataURL();if(activeSigner==='student')tempSigns.student=dataUrl;else tempSigns.teacher=dataUrl;updateSignUI(activeSigner,dataUrl);document.getElementById('signModal').style.display='none';}
-function updateSignUI(type,dataUrl){let img=document.getElementById(type==='student'?'previewStudentSign':'previewTeacherSign');let btn=document.getElementById(type==='student'?'btnStudentSign':'btnTeacherSign');if(dataUrl){img.src=dataUrl;img.style.display='inline-block';btn.innerHTML='<i class="fas fa-redo"></i> Retake';}else{img.style.display='none';btn.innerHTML='<i class="fas fa-pen-nib"></i> Sign Here';}}
+window.saveSignature=async function(){
+    const blank=document.createElement('canvas');
+    blank.width=canvas.width;blank.height=canvas.height;
+    if(canvas.toDataURL()===blank.toDataURL()){showToast('⚠️ Please draw signature!');return;}
+    let dataUrl=canvas.toDataURL();
+    
+    if(activeSigner==='student_studentView'){
+        // Save directly to db
+        if(currentStudentId && currentMonth){
+            let s = allStudents[currentStudentId];
+            if(s && s.records && s.records[currentMonth]){
+                s.records[currentMonth].studentSign = dataUrl;
+                showLoading();
+                try {
+                    await updateDoc(doc(db, 'students', currentStudentId), { records: s.records });
+                    hideLoading();
+                    showToast('✅ Signature saved successfully!');
+                    updateSignUI(activeSigner, dataUrl);
+                    document.getElementById('signModal').style.display='none';
+                } catch(e) {
+                    hideLoading();
+                    showToast('❌ Failed to save signature!');
+                }
+            }
+        }
+    } else {
+        if(activeSigner==='student')tempSigns.student=dataUrl;
+        else tempSigns.teacher=dataUrl;
+        updateSignUI(activeSigner,dataUrl);
+        document.getElementById('signModal').style.display='none';
+    }
+}
+function updateSignUI(type,dataUrl){
+    if (type === 'student_studentView') {
+        let img = document.getElementById('svmStudentSign');
+        let btn = document.getElementById('svmBtnStudentSign');
+        let ns = document.getElementById('svmNoStudentSign');
+        if (dataUrl) {
+            img.src = dataUrl;
+            img.style.display = 'block';
+            btn.style.display = 'none';
+            ns.style.display = 'none';
+        }
+        return;
+    }
+    let img=document.getElementById(type==='student'?'previewStudentSign':'previewTeacherSign');
+    let btn=document.getElementById(type==='student'?'btnStudentSign':'btnTeacherSign');
+    if(dataUrl){
+        img.src=dataUrl;
+        img.style.display='inline-block';
+        btn.innerHTML='<i class="fas fa-redo"></i> Retake';
+    }else{
+        img.style.display='none';
+        btn.innerHTML='<i class="fas fa-pen-nib"></i> Sign Here';
+    }
+}
+
 </script>
 </body>
 </html>
