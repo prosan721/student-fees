@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-        :root { --primary:#4f46e5;--secondary:#818cf8;--accent:#f43f5e;--success:#10b981;--dark:#0f172a;--gray:#64748b; --surface:rgba(255, 255, 255, 0.85); --glass-border:rgba(255, 255, 255, 0.5); }
+        :root { --primary:#f59e0b;--secondary:#fcd34d;--accent:#ef4444;--success:#10b981;--dark:#1e293b;--gray:#64748b; --surface:rgba(255, 255, 255, 0.95); --glass-border:rgba(255, 255, 255, 0.6); }
         *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-        body{font-family:'Plus Jakarta Sans',sans-serif;margin:0;padding:0;min-height:100vh;color:var(--dark);overflow-x:hidden;background:linear-gradient(135deg,#fdfbfb 0%,#ebedee 100%);background-attachment:fixed;}
-        .app-bar{background:linear-gradient(135deg, var(--primary), #312e81);color:white;padding:16px 20px;display:flex;align-items:center;box-shadow:0 10px 30px rgba(79, 70, 229, 0.2);position:sticky;top:0;z-index:10;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
+        body{font-family:'Plus Jakarta Sans',sans-serif;margin:0;padding:0;min-height:100vh;color:var(--dark);overflow-x:hidden;background:linear-gradient(135deg,#fffbeb 0%,#fef3c7 100%);background-attachment:fixed;}
+        .app-bar{background:linear-gradient(135deg, var(--primary), #d97706);color:white;padding:16px 20px;display:flex;align-items:center;box-shadow:0 10px 30px rgba(245, 158, 11, 0.2);position:sticky;top:0;z-index:10;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
         .app-bar h3{margin:0;font-size:18px;font-weight:700;flex-grow:1;text-align:center;letter-spacing:0.5px;}
         .back-btn,.logout-btn{background:none;border:none;color:white;font-size:20px;cursor:pointer;transition:transform 0.2s;display:none;padding:0 5px;}
         .back-btn:active,.logout-btn:active{transform:scale(0.85);}
@@ -23,9 +23,9 @@
         .auth-logo i{font-size:55px;color:var(--primary);background:-webkit-linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 10px 15px rgba(79,70,229,0.3));}
         .auth-logo h2{margin:15px 0 5px 0;font-size:24px;font-weight:800;color:var(--dark);letter-spacing:-0.5px;}
         .auth-logo p{margin:0;font-size:14px;color:var(--gray);}
-        .role-tabs{display:flex;background:rgba(241,245,249,0.7);border-radius:14px;margin-bottom:25px;padding:5px;}
+        .role-tabs{display:flex;background:white;border-radius:14px;margin-bottom:25px;padding:5px;box-shadow:inset 0 2px 4px rgba(0,0,0,0.03);}
         .role-tab{flex:1;padding:12px;text-align:center;font-weight:700;font-size:13px;color:var(--gray);cursor:pointer;border-radius:12px;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);}
-        .role-tab.active{background:var(--primary);color:white;box-shadow:0 8px 16px rgba(79,70,229,0.3);}
+        .role-tab.active{background:linear-gradient(135deg,var(--primary),#d97706);color:white;box-shadow:0 8px 16px rgba(245,158,11,0.3);}
         .box,.square-tab,.list-item,.fin-card,.month-card{background:var(--surface);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--glass-border);border-radius:24px;box-shadow:0 12px 24px rgba(0,0,0,0.04);transition:transform 0.2s;}
         .box{padding:25px;margin-bottom:20px;}
         .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:15px;width:100%;max-width:500px;}
@@ -38,10 +38,10 @@
         .class-box h4{font-size:18px;color:var(--primary);}
         .home-wrapper{display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:calc(100vh - 120px);}
         .home-title{font-size:30px;color:var(--dark);margin-bottom:35px;font-weight:800;text-align:center;line-height:1.3;}
-        .home-title span{color:#fff;background:linear-gradient(135deg,var(--primary),#312e81);padding:6px 14px;border-radius:12px;box-shadow:0 8px 15px rgba(79,70,229,0.3);}
+        .home-title span{color:#fff;background:linear-gradient(135deg,var(--primary),#d97706);padding:6px 14px;border-radius:12px;box-shadow:0 8px 15px rgba(245,158,11,0.3);}
         .btn{width:100%;padding:15px;border:none;border-radius:14px;font-family:inherit;font-size:15px;font-weight:700;color:white;cursor:pointer;transition:all 0.2s cubic-bezier(0.4,0,0.2,1);display:flex;justify-content:center;align-items:center;gap:10px;box-shadow:0 8px 16px rgba(0,0,0,0.1);}
         .btn:active{transform:scale(0.97);}
-        .btn-primary{background:linear-gradient(135deg,var(--primary),#4338ca);box-shadow:0 8px 20px rgba(79,70,229,0.3);}
+        .btn-primary{background:linear-gradient(135deg,var(--primary),#d97706);box-shadow:0 8px 20px rgba(245,158,11,0.3);}
         .btn-success{background:linear-gradient(135deg,var(--success),#059669);box-shadow:0 8px 20px rgba(16,185,129,0.3);}
         .btn-outline{background:rgba(255,255,255,0.8);border:1px solid #cbd5e1;color:var(--dark);box-shadow:none;}
         .btn-small{padding:8px 16px;font-size:13px;border-radius:10px;width:auto;box-shadow:none;}
@@ -72,7 +72,7 @@
         .class-stat-row span:nth-child(1){font-weight:700;color:var(--dark);}
         .class-stat-row span:nth-child(2){color:var(--success);font-weight:800;}
         .class-stat-row span:nth-child(3){color:var(--accent);font-weight:800;}
-        .student-info-card{background:linear-gradient(135deg,var(--primary),#312e81);color:white;border-radius:24px;padding:30px;margin-bottom:25px;box-shadow:0 20px 40px rgba(79,70,229,0.3);position:relative;overflow:hidden;}
+        .student-info-card{background:linear-gradient(135deg,var(--primary),#d97706);color:white;border-radius:24px;padding:30px;margin-bottom:25px;box-shadow:0 20px 40px rgba(245,158,11,0.3);position:relative;overflow:hidden;}
         .student-info-card::after{content:'';position:absolute;top:-50%;right:-20%;width:200px;height:200px;background:rgba(255,255,255,0.1);border-radius:50%;filter:blur(20px);}
         .student-info-card h2{margin:12px 0 4px 0;font-size:24px;font-weight:800;}
         .student-info-card p{margin:0;opacity:0.9;font-size:14px;}
@@ -80,10 +80,12 @@
         .month-card{padding:18px 22px;margin-bottom:15px;border-left:6px solid #e2e8f0;}
         .month-card.paid{border-left-color:var(--success);}
         .month-card.due-red{border-left-color:var(--accent);}
+        .month-card.extra-paid{border-left-color:#3b82f6;}
         .status-pill{padding:6px 14px;border-radius:20px;font-size:12px;font-weight:800;}
         .pill-paid{background:#d1fae5;color:#065f46;}
         .pill-due{background:#fee2e2;color:#991b1b;}
         .pill-pending{background:#f1f5f9;color:var(--gray);}
+        .pill-extra{background:#dbeafe;color:#1e40af;}
         .pending-badge{background:var(--accent);color:white;font-size:11px;font-weight:800;padding:3px 10px;border-radius:12px;margin-left:8px;box-shadow:0 4px 10px rgba(244,63,94,0.3);}
         .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(15,23,42,0.6);z-index:100;justify-content:center;align-items:center;backdrop-filter:blur(5px);}
         .modal-content{background:var(--surface);padding:30px;border-radius:28px;width:90%;max-width:400px;text-align:center;box-shadow:0 25px 50px rgba(0,0,0,0.2);animation:slideUp 0.3s;}
@@ -108,9 +110,23 @@
         .att-date.empty{background:transparent;cursor:default;}
         .att-date:active{transform:scale(0.9);}
         .att-date.disabled{pointer-events:none;}
+        
+        /* Update Modal */
+        .update-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(15,23,42,0.85);z-index:9999;justify-content:center;align-items:center;backdrop-filter:blur(8px);}
+        .update-box{background:var(--surface);padding:35px 25px;border-radius:28px;text-align:center;width:90%;max-width:400px;box-shadow:0 25px 50px rgba(0,0,0,0.3);animation:slideUp 0.4s;}
+        .update-box h2{color:var(--dark);margin-top:0;font-weight:800;}
+        .update-box p{color:var(--gray);font-size:14px;margin-bottom:25px;line-height:1.5;}
     </style>
 </head>
 <body>
+<div class="update-modal" id="updateModal">
+    <div class="update-box">
+        <i class="fas fa-arrow-circle-up" style="font-size:60px;color:var(--primary);margin-bottom:15px;"></i>
+        <h2>Update Available!</h2>
+        <p>A new version of the app is available. Please update to continue using Tuition Manager.</p>
+        <button class="btn btn-primary" onclick="downloadUpdate()"><i class="fas fa-download"></i> Download Update</button>
+    </div>
+</div>
 <div class="loading-overlay" id="loadingOverlay"><div class="spinner"></div><p style="color:var(--gray);font-size:14px;font-weight:600;">Please wait...</p></div>
 <div class="toast" id="toast"></div>
 <div class="app-bar">
@@ -165,11 +181,11 @@
             <div class="square-tab" onclick="nav('mgmtScreen','Student Management')"><i class="fas fa-user-graduate"></i><h4>Student Management</h4></div>
             <div class="square-tab" onclick="openFinance()"><i class="fas fa-chart-pie" style="color:#f59e0b;"></i><h4>Financial Summary</h4></div>
         </div>
-        <div class="square-tab" onclick="openPendingRequests()" style="margin-top:15px;width:calc(50% - 7px);max-width:240px;aspect-ratio:1;">
-            <i class="fas fa-user-clock" style="color:#8b5cf6;"></i>
-            <h4>New Requests <span class="pending-badge" id="pendingCount" style="display:none;">0</span></h4>
+        <div class="grid-2" style="margin-top:15px;">
+            <div class="square-tab" onclick="openPendingRequests()"><i class="fas fa-user-clock" style="color:#8b5cf6;"></i><h4>New Requests <span class="pending-badge" id="pendingCount" style="display:none;">0</span></h4></div>
+            <div class="square-tab" onclick="openUpdateSettings()"><i class="fas fa-cloud-upload-alt" style="color:#10b981;"></i><h4>Push Update</h4></div>
         </div>
-        <p style="margin-top:25px;color:var(--gray);font-size:12px;">App Version 7.0 • Firebase Live</p>
+        <p style="margin-top:25px;color:var(--gray);font-size:12px;">App Version 8.0 • Firebase Live</p>
     </div>
 </div>
 
@@ -207,6 +223,7 @@
         <div class="class-stat-row"><span>💰 Paid Amount</span><span id="svmPaid" style="color:var(--dark);font-weight:800;"></span></div>
         <div class="class-stat-row"><span>📅 Paid Date</span><span id="svmDate" style="color:var(--dark);font-weight:800;"></span></div>
         <div class="class-stat-row"><span>⚠️ Due Amount</span><span id="svmDue" style="color:var(--accent);font-weight:800;"></span></div>
+        <div class="class-stat-row" id="svmExtraRow" style="display:none;"><span>🎁 Extra Pay</span><span id="svmExtra" style="color:#3b82f6;font-weight:800;"></span></div>
         <div class="grid-2" style="margin-top:25px;background:#f8fafc;padding:15px;border-radius:16px;border:1px solid #e2e8f0;">
             <div style="text-align:center;">
                 <label style="font-size:12px;font-weight:700;color:var(--dark);">Student Sign</label>
@@ -305,6 +322,7 @@
         <div class="form-group"><label>💰 Paid Amount (₹)</label><input type="number" id="mPaid" placeholder="Enter collected amount"></div>
         <div class="form-group"><label>📅 Paid Date</label><input type="date" id="mDate"></div>
         <div class="form-group"><label>⚠️ Due Amount (₹)</label><input type="number" id="mDue" placeholder="Enter remaining due"></div>
+        <div class="form-group"><label>🎁 Extra Pay / Advance (₹)</label><input type="number" id="mExtra" placeholder="Enter extra pay if any"></div>
         <div class="grid-2" style="margin-bottom:25px;background:#f8fafc;padding:15px;border-radius:16px;border:1px solid #e2e8f0;">
             <div style="text-align:center;"><label style="font-size:12px;font-weight:700;color:var(--dark);">Student Sign</label><img id="previewStudentSign" class="sign-preview"><button class="btn btn-outline btn-small" id="btnStudentSign" style="margin-top:10px;" onclick="openSign('student')"><i class="fas fa-pen-nib"></i> Sign Here</button></div>
             <div style="text-align:center;"><label style="font-size:12px;font-weight:700;color:var(--dark);">Teacher Sign</label><img id="previewTeacherSign" class="sign-preview"><button class="btn btn-outline btn-small" id="btnTeacherSign" style="margin-top:10px;" onclick="openSign('teacher')"><i class="fas fa-pen-nib"></i> Sign Here</button></div>
@@ -375,6 +393,17 @@
     </div>
 </div>
 
+<!-- UPDATE SETTINGS SCREEN -->
+<div id="updateSettingsScreen" class="screen">
+    <div class="box">
+        <h3 style="text-align:center;color:var(--primary);margin-top:0;"><i class="fas fa-cloud-upload-alt"></i> App Update Alert</h3>
+        <p style="font-size:13px;color:var(--gray);text-align:center;margin-bottom:20px;">Force all your students to download the new version of the app when they open it.</p>
+        <div class="form-group"><label>🚀 New Version Number</label><input type="number" step="0.1" id="updVersion" placeholder="E.g., 8.0"></div>
+        <div class="form-group"><label>🔗 APK Download Link (Drive/MediaFire)</label><input type="url" id="updLink" placeholder="https://..."></div>
+        <button class="btn btn-primary" style="margin-top:10px;" onclick="saveUpdateSettings()"><i class="fas fa-paper-plane"></i> Send Update Alert</button>
+    </div>
+</div>
+
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import{getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,onAuthStateChanged,sendPasswordResetEmail}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
@@ -414,7 +443,7 @@ function showScreen(id,title){
 }
 
 window.nav=function(id,title){screenStack.push(document.querySelector('.screen.active').id);showScreen(id,title);}
-window.goBack=function(){if(screenStack.length>0){let prev=screenStack.pop();let t={homeScreen:'Dashboard',mgmtScreen:'Student Management',classScreen:'Select Class',studentListScreen:currentClass||'Students',profileScreen:'Profile',financeScreen:'Financial Summary',studentHomeScreen:'My Dashboard',studentMonthViewScreen:'My Dashboard',addStudentScreen:'Add Student',pendingScreen:'New Requests',attendanceScreen:'Attendance Calendar'};showScreen(prev,t[prev]||'Back');}}
+window.goBack=function(){if(screenStack.length>0){let prev=screenStack.pop();let t={homeScreen:'Dashboard',mgmtScreen:'Student Management',classScreen:'Select Class',studentListScreen:currentClass||'Students',profileScreen:'Profile',financeScreen:'Financial Summary',studentHomeScreen:'My Dashboard',studentMonthViewScreen:'My Dashboard',addStudentScreen:'Add Student',pendingScreen:'New Requests',attendanceScreen:'Attendance Calendar',updateSettingsScreen:'App Update'};showScreen(prev,t[prev]||'Back');}}
 
 let selectedAuthRole='teacher';
 window.switchAuthRole=function(role){
@@ -427,9 +456,36 @@ window.switchAuthRole=function(role){
 window.showLoginForm=function(){document.getElementById('loginForm').style.display='block';document.getElementById('signupForm').style.display='none';}
 window.showSignupForm=function(){document.getElementById('loginForm').style.display='none';document.getElementById('signupForm').style.display='block';}
 
+const CURRENT_APP_VERSION = 8.0;
+let appVersionInfo = { latestVersion: 8.0, apkLink: "" };
+
+async function checkForUpdates() {
+    try {
+        let snap = await getDoc(doc(db, "settings", "app_config"));
+        if (snap.exists()) {
+            appVersionInfo = snap.data();
+            if (appVersionInfo.latestVersion > CURRENT_APP_VERSION) {
+                document.getElementById('updateModal').style.display = 'flex';
+                return true;
+            }
+        }
+    } catch(e) { console.log("Update check error", e); }
+    return false;
+}
+
+window.downloadUpdate = function() {
+    if(appVersionInfo.apkLink) window.location.href = appVersionInfo.apkLink;
+    else alert("Please contact your teacher for the update link.");
+}
+
 onAuthStateChanged(auth,async(user)=>{
+    showLoading();
+    if(await checkForUpdates()) {
+        hideLoading();
+        return; // Block execution
+    }
+    
     if(user){
-        showLoading();
         if(user.email===TEACHER_EMAIL){
             await loadAllStudents();
             hideLoading();
@@ -598,6 +654,35 @@ window.rejectPending=function(pendingId){
     deleteDoc(doc(db,'pending',pendingId)).then(()=>{hideLoading();showToast('Rejected!');window.openPendingRequests();updatePendingBadge();});
 }
 
+window.openUpdateSettings = async function() {
+    showLoading();
+    try {
+        let snap = await getDoc(doc(db, "settings", "app_config"));
+        if(snap.exists()) {
+            document.getElementById('updVersion').value = snap.data().latestVersion || '';
+            document.getElementById('updLink').value = snap.data().apkLink || '';
+        }
+    }catch(e){}
+    hideLoading();
+    window.nav('updateSettingsScreen', 'Push App Update');
+}
+
+window.saveUpdateSettings = async function() {
+    let v = parseFloat(document.getElementById('updVersion').value);
+    let l = document.getElementById('updLink').value.trim();
+    if(!v || !l) { showToast('⚠️ Field missing!'); return; }
+    showLoading();
+    try {
+        await setDoc(doc(db, "settings", "app_config"), { latestVersion: v, apkLink: l });
+        hideLoading();
+        showToast('✅ Update alert sent to all users!');
+        setTimeout(() => window.goBack(), 1000);
+    } catch(e) {
+        hideLoading();
+        showToast('❌ Error saving link!');
+    }
+}
+
 window.addStudentByTeacher=async function(){
     let name=document.getElementById('stuName').value.trim();
     let email=document.getElementById('stuEmail').value.trim();
@@ -697,11 +782,36 @@ window.openMonth=function(month){
     document.getElementById('mPaid').value=rec.paid||'';
     document.getElementById('mDate').value=rec.date||'';
     document.getElementById('mDue').value=rec.due||'';
+    document.getElementById('mExtra').value=rec.extraPay||'';
     tempSigns.student=rec.studentSign||null;tempSigns.teacher=rec.teacherSign||null;
     updateSignUI('student',rec.studentSign);updateSignUI('teacher',rec.teacherSign);
-    let isLocked=rec.firstSaveTime&&(Date.now()-rec.firstSaveTime>6*60*60*1000);
-    const inp=['mPaid','mDate','mDue','btnStudentSign','btnTeacherSign','btnSaveMonth'];
-    if(isLocked){document.getElementById('lockBanner').style.display='block';inp.forEach(id=>document.getElementById(id).disabled=true);document.getElementById('btnSaveMonth').innerText='Data Locked';document.getElementById('btnSaveMonth').style.background='var(--gray)';}
+    
+    let isLocked = false;
+    let bannerMsg = "";
+    if (rec.firstSaveTime) {
+        let due = parseInt(rec.due) || 0;
+        let extra = parseInt(rec.extraPay) || 0;
+        if (extra > 0) {
+            isLocked = false;
+        } else if (due > 0) {
+            isLocked = false;
+        } else {
+            if (rec.dueClearTime) {
+                if (Date.now() - rec.dueClearTime > 2 * 60 * 60 * 1000) {
+                    isLocked = true;
+                    bannerMsg = "Edit locked (2 hours after due cleared)";
+                }
+            } else {
+                if (Date.now() - rec.firstSaveTime > 6 * 60 * 60 * 1000) {
+                    isLocked = true;
+                    bannerMsg = "Edit locked (6 hours expired)";
+                }
+            }
+        }
+    }
+    
+    const inp=['mPaid','mDate','mDue','mExtra','btnStudentSign','btnTeacherSign','btnSaveMonth'];
+    if(isLocked){document.getElementById('lockBanner').style.display='block';document.getElementById('lockBanner').innerHTML='<i class="fas fa-lock"></i> ' + bannerMsg;inp.forEach(id=>document.getElementById(id).disabled=true);document.getElementById('btnSaveMonth').innerText='Data Locked';document.getElementById('btnSaveMonth').style.background='var(--gray)';}
     else{document.getElementById('lockBanner').style.display='none';inp.forEach(id=>document.getElementById(id).disabled=false);document.getElementById('btnSaveMonth').style.background='';document.getElementById('btnSaveMonth').innerHTML='<i class="fas fa-save"></i> Save Monthly Data';}
     window.nav('monthDetailScreen',month+' Entry');
 }
@@ -711,11 +821,26 @@ window.saveMonthData=async function(){
     if(!s.records)s.records={};
     if(!s.records[currentMonth])s.records[currentMonth]={};
     let rec=s.records[currentMonth];
+    
+    let oldDue = (rec.due !== undefined && rec.due !== "") ? parseInt(rec.due) : parseInt(s.fixedFee);
+    let newDue = parseInt(document.getElementById('mDue').value) || 0;
+    
     rec.paid=document.getElementById('mPaid').value;
     rec.date=document.getElementById('mDate').value;
     rec.due=document.getElementById('mDue').value;
+    rec.extraPay=document.getElementById('mExtra').value;
     rec.studentSign=tempSigns.student;rec.teacherSign=tempSigns.teacher;
-    if(!rec.firstSaveTime)rec.firstSaveTime=Date.now();
+    
+    if(!rec.firstSaveTime){
+        rec.firstSaveTime=Date.now();
+    } else {
+        if (oldDue > 0 && newDue === 0 && !rec.dueClearTime) {
+            rec.dueClearTime = Date.now();
+        } else if (newDue > 0) {
+            rec.dueClearTime = null;
+        }
+    }
+
     showLoading();
     try{
         await updateDoc(doc(db,'students',currentStudentId),{records:s.records});
@@ -743,9 +868,14 @@ function renderStudentHome(){
         let rec=s.records?s.records[m]:null;
         let paid=rec&&rec.paid?parseInt(rec.paid):0;
         let due=rec&&rec.due?parseInt(rec.due):0;
+        let ext=(rec&&rec.extraPay)?parseInt(rec.extraPay):0;
         let hasData=rec&&rec.firstSaveTime;
         let cardClass='month-card',pillClass='pill-pending',status='Not Updated Yet';
-        if(hasData){if(due>0){cardClass+=' due-red';pillClass='pill-due';status='Due: ₹'+due;}else{cardClass+=' paid';pillClass='pill-paid';status='Paid ✓';}}
+        if(hasData){
+            if(ext>0){cardClass+=' extra-paid';pillClass='pill-extra';status='Extra: ₹'+ext;}
+            else if(due>0){cardClass+=' due-red';pillClass='pill-due';status='Due: ₹'+due;}
+            else{cardClass+=' paid';pillClass='pill-paid';status='Paid ✓';}
+        }
         if(hasData){
             list.innerHTML+=`<div class="${cardClass}" onclick="openStudentMonthView('${m}')" style="cursor:pointer;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><h4 style="margin:0;font-size:15px;font-weight:700;">${m}</h4><small style="color:var(--gray);">Paid: ₹${paid}${rec.date?' • '+rec.date:''}</small></div><span class="status-pill ${pillClass}">${status}</span></div></div>`;
         } else {
@@ -767,11 +897,31 @@ window.openStudentMonthView = function(month) {
         document.getElementById('svmDate').innerText = rec.date || '-';
         document.getElementById('svmDue').innerText = '₹' + (rec.due || '0');
         
+        let ext = parseInt(rec.extraPay) || 0;
+        if (ext > 0) {
+            document.getElementById('svmExtraRow').style.display = 'flex';
+            document.getElementById('svmExtra').innerText = '₹' + ext;
+        } else {
+            document.getElementById('svmExtraRow').style.display = 'none';
+        }
+
         let ss = document.getElementById('svmStudentSign');
         let ns = document.getElementById('svmNoStudentSign');
         let btnSign = document.getElementById('svmBtnStudentSign');
         
-        let isLocked = rec.firstSaveTime && (Date.now() - rec.firstSaveTime > 6 * 60 * 60 * 1000);
+        let isLocked = false;
+        let due_val = parseInt(rec.due) || 0;
+        if (ext > 0) {
+            isLocked = false;
+        } else if (due_val > 0) {
+            isLocked = false;
+        } else {
+            if (rec.dueClearTime) {
+                isLocked = (Date.now() - rec.dueClearTime > 2 * 60 * 60 * 1000);
+            } else {
+                isLocked = (Date.now() - rec.firstSaveTime > 6 * 60 * 60 * 1000);
+            }
+        }
 
         if(rec.studentSign) {
             ss.src = rec.studentSign; ss.style.display = 'block'; ns.style.display = 'none'; btnSign.style.display = 'none';
