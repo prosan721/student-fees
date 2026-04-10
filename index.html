@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-        :root { --primary:#f59e0b;--secondary:#fcd34d;--accent:#ef4444;--success:#10b981;--dark:#1e293b;--gray:#64748b; --surface:rgba(255, 255, 255, 0.95); --glass-border:rgba(255, 255, 255, 0.6); }
+        :root { --bg-1:#ecfdf5;--bg-2:#d1fae5; --primary:#b33939;--secondary:#10b981;--accent:#ef4444;--success:#10b981;--dark:#1e293b;--gray:#64748b; --surface:rgba(255, 255, 255, 0.95); --glass-border:rgba(255, 255, 255, 0.6); }
         *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-        body{font-family:'Plus Jakarta Sans',sans-serif;margin:0;padding:0;min-height:100vh;color:var(--dark);overflow-x:hidden;background:linear-gradient(135deg,#fffbeb 0%,#fef3c7 100%);background-attachment:fixed;}
-        .app-bar{background:linear-gradient(135deg, var(--primary), #d97706);color:white;padding:16px 20px;display:flex;align-items:center;box-shadow:0 10px 30px rgba(245, 158, 11, 0.2);position:sticky;top:0;z-index:10;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
+        body{font-family:'Plus Jakarta Sans',sans-serif;margin:0;padding:0;min-height:100vh;color:var(--dark);overflow-x:hidden;background:linear-gradient(135deg,var(--bg-1) 0%,var(--bg-2) 100%);background-attachment:fixed;}
+        .app-bar{background:linear-gradient(135deg, var(--primary),#8f2828);color:white;padding:16px 20px;display:flex;align-items:center;box-shadow:0 10px 30px rgba(5, 150, 105, 0.2);position:sticky;top:0;z-index:10;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
         .app-bar h3{margin:0;font-size:18px;font-weight:700;flex-grow:1;text-align:center;letter-spacing:0.5px;}
         .back-btn,.logout-btn{background:none;border:none;color:white;font-size:20px;cursor:pointer;transition:transform 0.2s;display:none;padding:0 5px;}
         .back-btn:active,.logout-btn:active{transform:scale(0.85);}
@@ -18,14 +18,14 @@
         .screen.active{display:block;}
         @keyframes slideUp{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
         .auth-wrapper{display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:calc(100vh - 70px);padding:20px;}
-        .auth-box{background:var(--surface);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:28px;padding:35px 25px;width:100%;max-width:400px;box-shadow:0 20px 40px rgba(0,0,0,0.08);}
+        .auth-box{background:var(--surface);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:28px;padding:35px 25px;width:100%;max-width:500px;box-shadow:0 20px 40px rgba(0,0,0,0.08);}
         .auth-logo{text-align:center;margin-bottom:30px;}
         .auth-logo i{font-size:55px;color:var(--primary);background:-webkit-linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 10px 15px rgba(79,70,229,0.3));}
         .auth-logo h2{margin:15px 0 5px 0;font-size:24px;font-weight:800;color:var(--dark);letter-spacing:-0.5px;}
         .auth-logo p{margin:0;font-size:14px;color:var(--gray);}
         .role-tabs{display:flex;background:white;border-radius:14px;margin-bottom:25px;padding:5px;box-shadow:inset 0 2px 4px rgba(0,0,0,0.03);}
         .role-tab{flex:1;padding:12px;text-align:center;font-weight:700;font-size:13px;color:var(--gray);cursor:pointer;border-radius:12px;transition:all 0.3s cubic-bezier(0.4,0,0.2,1);}
-        .role-tab.active{background:linear-gradient(135deg,var(--primary),#d97706);color:white;box-shadow:0 8px 16px rgba(245,158,11,0.3);}
+        .role-tab.active{background:linear-gradient(135deg,var(--primary),#8f2828);color:white;box-shadow:0 8px 16px rgba(5,150,105,0.3);}
         .box,.square-tab,.list-item,.fin-card,.month-card{background:var(--surface);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--glass-border);border-radius:24px;box-shadow:0 12px 24px rgba(0,0,0,0.04);transition:transform 0.2s;}
         .box{padding:25px;margin-bottom:20px;}
         .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:15px;width:100%;max-width:500px;}
@@ -38,10 +38,10 @@
         .class-box h4{font-size:18px;color:var(--primary);}
         .home-wrapper{display:flex;flex-direction:column;justify-content:center;align-items:center;min-height:calc(100vh - 120px);}
         .home-title{font-size:30px;color:var(--dark);margin-bottom:35px;font-weight:800;text-align:center;line-height:1.3;}
-        .home-title span{color:#fff;background:linear-gradient(135deg,var(--primary),#d97706);padding:6px 14px;border-radius:12px;box-shadow:0 8px 15px rgba(245,158,11,0.3);}
+        .home-title span{color:#fff;background:linear-gradient(135deg,var(--primary),#8f2828);padding:6px 14px;border-radius:12px;box-shadow:0 8px 15px rgba(5,150,105,0.3);}
         .btn{width:100%;padding:15px;border:none;border-radius:14px;font-family:inherit;font-size:15px;font-weight:700;color:white;cursor:pointer;transition:all 0.2s cubic-bezier(0.4,0,0.2,1);display:flex;justify-content:center;align-items:center;gap:10px;box-shadow:0 8px 16px rgba(0,0,0,0.1);}
         .btn:active{transform:scale(0.97);}
-        .btn-primary{background:linear-gradient(135deg,var(--primary),#d97706);box-shadow:0 8px 20px rgba(245,158,11,0.3);}
+        .btn-primary{background:linear-gradient(135deg,var(--primary),#8f2828);box-shadow:0 8px 20px rgba(5,150,105,0.3);}
         .btn-success{background:linear-gradient(135deg,var(--success),#059669);box-shadow:0 8px 20px rgba(16,185,129,0.3);}
         .btn-outline{background:rgba(255,255,255,0.8);border:1px solid #cbd5e1;color:var(--dark);box-shadow:none;}
         .btn-small{padding:8px 16px;font-size:13px;border-radius:10px;width:auto;box-shadow:none;}
@@ -72,7 +72,7 @@
         .class-stat-row span:nth-child(1){font-weight:700;color:var(--dark);}
         .class-stat-row span:nth-child(2){color:var(--success);font-weight:800;}
         .class-stat-row span:nth-child(3){color:var(--accent);font-weight:800;}
-        .student-info-card{background:linear-gradient(135deg,var(--primary),#d97706);color:white;border-radius:24px;padding:30px;margin-bottom:25px;box-shadow:0 20px 40px rgba(245,158,11,0.3);position:relative;overflow:hidden;}
+        .student-info-card{background:linear-gradient(135deg,var(--primary),#8f2828);color:white;border-radius:24px;padding:30px;margin-bottom:25px;box-shadow:0 20px 40px rgba(5,150,105,0.3);position:relative;overflow:hidden;}
         .student-info-card::after{content:'';position:absolute;top:-50%;right:-20%;width:200px;height:200px;background:rgba(255,255,255,0.1);border-radius:50%;filter:blur(20px);}
         .student-info-card h2{margin:12px 0 4px 0;font-size:24px;font-weight:800;}
         .student-info-card p{margin:0;opacity:0.9;font-size:14px;}
@@ -89,7 +89,7 @@
         .pending-badge{background:var(--accent);color:white;font-size:11px;font-weight:800;padding:3px 10px;border-radius:12px;margin-left:8px;box-shadow:0 4px 10px rgba(244,63,94,0.3);}
         .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(15,23,42,0.6);z-index:100;justify-content:center;align-items:center;backdrop-filter:blur(5px);}
         .modal-content{background:var(--surface);padding:30px;border-radius:28px;width:90%;max-width:400px;text-align:center;box-shadow:0 25px 50px rgba(0,0,0,0.2);animation:slideUp 0.3s;}
-        canvas{border:2px dashed #cbd5e1;border-radius:16px;background:rgba(248,250,252,0.8);width:100%;height:180px;touch-action:none;margin-top:15px;}
+        canvas{border:2px dashed #cbd5e1;border-radius:16px;background:rgba(248,250,252,0.8);width:100%;height:350px;touch-action:none;margin-top:15px;}
         .sign-preview{width:100%;max-width:140px;border:2px solid #e2e8f0;border-radius:12px;margin-top:12px;display:none;background:white;}
         .loading-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(255,255,255,0.9);z-index:200;justify-content:center;align-items:center;flex-direction:column;gap:15px;backdrop-filter:blur(5px);}
         .loading-overlay.show{display:flex;}
@@ -116,6 +116,29 @@
         .update-box{background:var(--surface);padding:35px 25px;border-radius:28px;text-align:center;width:90%;max-width:400px;box-shadow:0 25px 50px rgba(0,0,0,0.3);animation:slideUp 0.4s;}
         .update-box h2{color:var(--dark);margin-top:0;font-weight:800;}
         .update-box p{color:var(--gray);font-size:14px;margin-bottom:25px;line-height:1.5;}
+    
+        [data-theme="dark"] {
+            --dark: #f8fafc;
+            --gray: #94a3b8;
+            --surface: rgba(30, 41, 59, 0.95);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --bg-1: #380808;
+            --bg-2: #210202;
+        }
+        [data-theme="dark"] input, [data-theme="dark"] select { background: rgba(15, 23, 42, 0.8); color: white; border-color: rgba(255,255,255,0.1); }
+        [data-theme="dark"] input:focus, [data-theme="dark"] select:focus { background: #1e293b; border-color: var(--primary); }
+        [data-theme="dark"] .class-box { background: rgba(30, 41, 59, 0.8); }
+        [data-theme="dark"] .fee-badge, [data-theme="dark"] .month-card, [data-theme="dark"] .role-tabs { background: var(--surface); color: white; }
+        [data-theme="dark"] .readonly-note { background: linear-gradient(135deg, #422006, #713f12); color: #fef08a; }
+        [data-theme="dark"] .role-tab { color:var(--gray); }
+        [data-theme="dark"] .role-tab.active { color:white; }
+        [data-theme="dark"] .att-date { background: rgba(30, 41, 59, 0.8); color: white; }
+        [data-theme="dark"] canvas { background: rgba(30, 41, 59, 0.8); }
+        [data-theme="dark"] .app-bar h3 { color: white; }
+        [data-theme="dark"] .app-bar { background: var(--surface); color: var(--dark); border-bottom: 1px solid var(--glass-border); text-shadow: none; }
+        [data-theme="dark"] .app-bar .back-btn, [data-theme="dark"] .app-bar .logout-btn, [data-theme="dark"] #themeToggle { color: var(--dark); }
+        [data-theme="dark"] .home-title span { color: white; }
+
     </style>
 </head>
 <body>
@@ -132,20 +155,32 @@
 <div class="app-bar">
     <button class="back-btn" id="backBtn" onclick="goBack()"><i class="fas fa-arrow-left"></i></button>
     <h3 id="appBarTitle">Tuition Manager</h3>
+    <button id="themeToggle" onclick="toggleTheme()" style="background:none;border:none;color:white;font-size:20px;cursor:pointer;margin-right:15px;display:block;"><i class="fas fa-moon"></i></button>
     <button class="logout-btn" id="logoutBtn" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i></button>
 </div>
 
 <!-- AUTH -->
 <div id="authScreen" class="screen active">
-    <div class="auth-wrapper">
-        <div class="auth-box">
-            <div class="auth-logo"><i class="fas fa-graduation-cap"></i><h2>Tuition Manager</h2><p>Login to continue</p></div>
-            <div class="role-tabs">
-                <div class="role-tab active" id="tabTeacher" onclick="switchAuthRole('teacher')"><i class="fas fa-chalkboard-teacher"></i> Teacher</div>
-                <div class="role-tab" id="tabStudent" onclick="switchAuthRole('student')"><i class="fas fa-user-graduate"></i> Student</div>
+    <div class="auth-wrapper" style="width: 100%;">
+        <div class="auth-logo" id="authMainLogo" style="margin-bottom:30px;"><i class="fas fa-graduation-cap" style="font-size:60px;color:var(--primary);background:-webkit-linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;"></i><h2 style="font-size:28px;margin-top:15px;color:var(--dark);font-weight:800;letter-spacing:-0.5px;">Tuition Manager</h2><p style="color:var(--gray);">Select your role to continue</p></div>
+        
+        <div class="grid-2" id="roleSelectionGrid" style="max-width:500px; margin:0 auto; width:100%;">
+            <div class="square-tab" onclick="openLoginBox('teacher')" style="background:var(--surface);"><i class="fas fa-chalkboard-teacher"></i><h4>Teacher Login</h4></div>
+            <div class="square-tab" onclick="openLoginBox('student')" style="background:var(--surface);"><i class="fas fa-user-graduate"></i><h4>Student Login</h4></div>
+        </div>
+
+        <div class="auth-box" id="authBoxContainer" style="display:none; margin:0 auto;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;padding-bottom:15px;border-bottom:1px solid rgba(226,232,240,0.8);">
+                <button onclick="backToRoleGrid()" style="background:none;border:none;cursor:pointer;color:var(--primary);font-size:18px;"><i class="fas fa-arrow-left"></i></button>
+                <h3 id="authBoxTitle" style="margin:0;font-size:18px;font-weight:700;">Login</h3>
             </div>
             <div id="loginForm">
-                <div class="form-group"><label>📧 Email</label><input type="email" id="authEmail" placeholder="Enter your email"></div>
+                <div class="role-tabs" id="loginToggleTabs" style="background:rgba(226,232,240,0.5); margin-bottom: 15px;">
+                    <div class="role-tab active" id="typeEmailTab" onclick="switchLoginType('email')" style="padding:8px;">📧 Email</div>
+                    <div class="role-tab" id="typeMobileTab" onclick="switchLoginType('mobile')" style="padding:8px;">📱 Mobile No.</div>
+                </div>
+                <div class="form-group" id="loginEmailGroup"><label>📧 Email</label><input type="email" id="authEmail" placeholder="Enter your email"></div>
+                <div class="form-group" id="loginMobileGroup" style="display:none;"><label>📱 Mobile No.</label><input type="tel" id="authMobile" placeholder="10-digit mobile number"></div>
                 <div class="form-group"><label>🔒 Password</label><input type="password" id="authPassword" placeholder="Enter password"></div>
                 <div style="text-align:right; margin-top:-10px; margin-bottom:15px;">
                     <a href="#" onclick="doForgotPassword()" style="color:var(--primary); font-size:13px; font-weight:700; text-decoration:none;">Forgot Password?</a>
@@ -162,9 +197,14 @@
                     <button onclick="showLoginForm()" style="background:none;border:none;cursor:pointer;color:var(--primary);font-size:18px;"><i class="fas fa-arrow-left"></i></button>
                     <h3 style="margin:0;font-size:16px;font-weight:700;">Create Student Account</h3>
                 </div>
+                <div class="role-tabs" style="background:rgba(226,232,240,0.5); margin-bottom: 15px;">
+                    <div class="role-tab active" id="suTypeEmailTab" onclick="switchSignupType('email')" style="padding:8px;">📧 Email</div>
+                    <div class="role-tab" id="suTypeMobileTab" onclick="switchSignupType('mobile')" style="padding:8px;">📱 Mobile No.</div>
+                </div>
                 <div class="form-group"><label>👤 Full Name</label><input type="text" id="signupName" placeholder="Your full name"></div>
-                <div class="form-group"><label>📱 Mobile Number</label><input type="tel" id="signupMobile" placeholder="Your mobile number"></div>
-                <div class="form-group"><label>📧 Email</label><input type="email" id="signupEmail" placeholder="Your email"></div>
+                <div class="form-group" id="suEmailGroup"><label>📧 Email</label><input type="email" id="signupEmail" placeholder="Your email address"></div>
+                <div class="form-group" id="suMobileGroup" style="display:none;"><label>📱 Mobile Number</label><input type="tel" id="signupMobile" placeholder="10-digit mobile number"></div>
+                <div class="form-group"><label>🏫 Class</label><input type="text" id="signupClass" placeholder="E.g., Class 9"></div>
                 <div class="form-group"><label>🔒 Password</label><input type="password" id="signupPassword" placeholder="Min 6 characters"></div>
                 <div class="error-msg" id="signupError"></div>
                 <button class="btn btn-success" style="margin-top:10px;" onclick="doStudentSignup()"><i class="fas fa-user-plus"></i> Create Account</button>
@@ -179,7 +219,7 @@
         <h2 class="home-title">Institution <br><span>Manager Pro</span></h2>
         <div class="grid-2">
             <div class="square-tab" onclick="nav('mgmtScreen','Student Management')"><i class="fas fa-user-graduate"></i><h4>Student Management</h4></div>
-            <div class="square-tab" onclick="openFinance()"><i class="fas fa-chart-pie" style="color:#f59e0b;"></i><h4>Financial Summary</h4></div>
+            <div class="square-tab" onclick="openFinance()"><i class="fas fa-chart-pie" style="color:#059669;"></i><h4>Financial Summary</h4></div>
         </div>
         <div class="grid-2" style="margin-top:15px;">
             <div class="square-tab" onclick="openPendingRequests()"><i class="fas fa-user-clock" style="color:#8b5cf6;"></i><h4>New Requests <span class="pending-badge" id="pendingCount" style="display:none;">0</span></h4></div>
@@ -254,8 +294,13 @@
 <div id="addStudentScreen" class="screen">
     <div class="box">
         <p style="font-size:13px;color:var(--gray);margin-top:0;text-align:center;">Add student manually. Their login account will be created automatically.</p>
+        <div class="role-tabs" style="background:rgba(226,232,240,0.5); margin-bottom: 15px;">
+            <div class="role-tab active" id="addTypeEmailTab" onclick="switchAddType('email')" style="padding:8px;">📧 Email</div>
+            <div class="role-tab" id="addTypeMobileTab" onclick="switchAddType('mobile')" style="padding:8px;">📱 Mobile No.</div>
+        </div>
         <div class="form-group"><label>👤 Student Full Name</label><input type="text" id="stuName" placeholder="E.g., Rahul Das"></div>
-        <div class="form-group"><label>📧 Student Email</label><input type="email" id="stuEmail" placeholder="Student's email address"></div>
+        <div class="form-group" id="addEmailGroup"><label>📧 Student Email</label><input type="email" id="stuEmail" placeholder="Student's email address"></div>
+        <div class="form-group" id="addMobileGroup" style="display:none;"><label>📱 Student Mobile No.</label><input type="tel" id="stuMobile" placeholder="10-digit mobile number"></div>
         <div class="form-group"><label>🔒 Password for Student</label><input type="text" id="stuPass" placeholder="Set a login password"></div>
         <div class="form-group"><label>🏫 Class</label>
             <select id="stuClass"><option value="" disabled selected>Choose Class...</option>
@@ -302,7 +347,7 @@
         <p id="editCountMsg" style="font-size:11px;color:var(--accent);margin:-5px 0 10px 0;text-align:right;font-weight:600;"></p>
         <div style="display:flex; justify-content:center; gap:10px; margin-bottom: 20px;">
             <button class="btn btn-outline btn-small" onclick="openAttendance('teacher')"><i class="fas fa-calendar-check" style="color:var(--primary);"></i> Attendance</button>
-            <button class="btn btn-outline btn-small" onclick="triggerPasswordReset()"><i class="fas fa-key" style="color:#f59e0b;"></i> Reset Pass</button>
+            <button class="btn btn-outline btn-small" onclick="triggerPasswordReset()"><i class="fas fa-key" style="color:#059669;"></i> Reset Pass</button>
             <button class="btn btn-outline btn-small" onclick="deleteCurrentStudent()" style="color:var(--accent);border-color:#fecaca;"><i class="fas fa-trash"></i> Delete</button>
         </div>
     </div>
@@ -423,11 +468,79 @@ const TEACHER_EMAIL="prosan721@gmail.com";
 const fireApp=initializeApp(firebaseConfig);
 const auth=getAuth(fireApp);
 const db=getFirestore(fireApp);
+
+window.toggleTheme = function() {
+    const bd = document.body;
+    if(bd.getAttribute('data-theme') === 'dark') {
+        bd.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+    } else {
+        bd.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+    }
+    updateThemeIcon();
+}
+function updateThemeIcon() {
+    const icon = document.querySelector('#themeToggle i');
+    const isDark = document.body.getAttribute('data-theme') === 'dark';
+    if(isDark) {
+        icon.className = 'fas fa-sun';
+        document.getElementById('themeToggle').style.color = 'var(--dark)';
+    } else {
+        icon.className = 'fas fa-moon';
+        document.getElementById('themeToggle').style.color = 'white';
+    }
+}
+window.addEventListener('DOMContentLoaded', () => {
+    if(localStorage.getItem('theme') === 'dark') {
+        document.body.setAttribute('data-theme', 'dark');
+    }
+    updateThemeIcon();
+});
+
 const monthsList=["January","February","March","April","May","June","July","August","September","October","November","December"];
 let currentStudentId=null,currentMonth=null,currentClass=null,activeSigner='';
 let tempSigns={student:null,teacher:null};
 let screenStack=[];
 let allStudents={};
+
+
+
+let loginType = 'email', signupType = 'email', addType = 'email';
+window.switchLoginType = function(type) {
+    loginType = type;
+    document.getElementById('typeEmailTab').classList.toggle('active', type==='email');
+    document.getElementById('typeMobileTab').classList.toggle('active', type==='mobile');
+    document.getElementById('loginEmailGroup').style.display = type==='email' ? 'block' : 'none';
+    document.getElementById('loginMobileGroup').style.display = type==='mobile' ? 'block' : 'none';
+}
+window.switchSignupType = function(type) {
+    signupType = type;
+    document.getElementById('suTypeEmailTab').classList.toggle('active', type==='email');
+    document.getElementById('suTypeMobileTab').classList.toggle('active', type==='mobile');
+    document.getElementById('suEmailGroup').style.display = type==='email' ? 'block' : 'none';
+    document.getElementById('suMobileGroup').style.display = type==='mobile' ? 'block' : 'none';
+}
+window.switchAddType = function(type) {
+    addType = type;
+    document.getElementById('addTypeEmailTab').classList.toggle('active', type==='email');
+    document.getElementById('addTypeMobileTab').classList.toggle('active', type==='mobile');
+    document.getElementById('addEmailGroup').style.display = type==='email' ? 'block' : 'none';
+    document.getElementById('addMobileGroup').style.display = type==='mobile' ? 'block' : 'none';
+}
+
+window.formatClass = function(c) {
+    if(!c) return "";
+    return c.toString().trim().replace(/\b\w/g, l => l.toUpperCase());
+}
+
+window.formatLoginId = function(inputId) {
+    if(!inputId) return inputId;
+    inputId = inputId.trim();
+    if (/^\+?\d{8,15}$/.test(inputId)) return inputId + "@tuition.app";
+    return inputId;
+}
+
 
 function showLoading(){document.getElementById('loadingOverlay').classList.add('show');}
 function hideLoading(){document.getElementById('loadingOverlay').classList.remove('show');}
@@ -446,15 +559,30 @@ window.nav=function(id,title){screenStack.push(document.querySelector('.screen.a
 window.goBack=function(){if(screenStack.length>0){let prev=screenStack.pop();let t={homeScreen:'Dashboard',mgmtScreen:'Student Management',classScreen:'Select Class',studentListScreen:currentClass||'Students',profileScreen:'Profile',financeScreen:'Financial Summary',studentHomeScreen:'My Dashboard',studentMonthViewScreen:'My Dashboard',addStudentScreen:'Add Student',pendingScreen:'New Requests',attendanceScreen:'Attendance Calendar',updateSettingsScreen:'App Update'};showScreen(prev,t[prev]||'Back');}}
 
 let selectedAuthRole='teacher';
-window.switchAuthRole=function(role){
+window.openLoginBox=function(role){
     selectedAuthRole=role;
-    document.getElementById('tabTeacher').classList.toggle('active',role==='teacher');
-    document.getElementById('tabStudent').classList.toggle('active',role==='student');
+    document.getElementById('roleSelectionGrid').style.display='none';
+    document.getElementById('authMainLogo').style.display='none';
+    document.getElementById('authBoxContainer').style.display='block';
     document.getElementById('studentSignupLink').style.display=role==='student'?'block':'none';
+    document.getElementById('authBoxTitle').innerText = role==='teacher' ? 'Teacher Login' : 'Student Login';
+    
+    if(role === 'teacher') {
+        document.getElementById('loginToggleTabs').style.display = 'none';
+        switchLoginType('email');
+    } else {
+        document.getElementById('loginToggleTabs').style.display = 'flex';
+    }
+    
     showLoginForm();
 }
-window.showLoginForm=function(){document.getElementById('loginForm').style.display='block';document.getElementById('signupForm').style.display='none';}
-window.showSignupForm=function(){document.getElementById('loginForm').style.display='none';document.getElementById('signupForm').style.display='block';}
+window.backToRoleGrid=function(){
+    document.getElementById('authBoxContainer').style.display='none';
+    document.getElementById('roleSelectionGrid').style.display='grid';
+    document.getElementById('authMainLogo').style.display='block';
+}
+window.showLoginForm=function(){document.getElementById('loginForm').style.display='block';document.getElementById('signupForm').style.display='none';document.getElementById('authBoxTitle').innerText = selectedAuthRole==='teacher' ? 'Teacher Login' : 'Student Login';}
+window.showSignupForm=function(){document.getElementById('loginForm').style.display='none';document.getElementById('signupForm').style.display='block';document.getElementById('authBoxTitle').innerText = 'Create Account';}
 
 const CURRENT_APP_VERSION = 8.0;
 let appVersionInfo = { latestVersion: 8.0, apkLink: "" };
@@ -503,14 +631,15 @@ onAuthStateChanged(auth,async(user)=>{
 });
 
 window.doLogin=async function(){
-    let email=document.getElementById('authEmail').value.trim();
+    let email = loginType==='email' ? document.getElementById('authEmail').value.trim() : document.getElementById('authMobile').value.trim();
+    let loginId = window.formatLoginId(email);
     let pass=document.getElementById('authPassword').value;
     let err=document.getElementById('authError');
     err.style.display='none';
     if(!email||!pass){err.innerText='⚠️ Please fill all fields';err.style.display='block';return;}
     if(selectedAuthRole==='teacher'&&email!==TEACHER_EMAIL){err.innerText='❌ Not a teacher account! Use Student tab.';err.style.display='block';return;}
     showLoading();
-    try{await signInWithEmailAndPassword(auth,email,pass);}
+    try{await signInWithEmailAndPassword(auth,loginId,pass);}
     catch(e){hideLoading();err.innerText='❌ Wrong email or password!';err.style.display='block';}
 }
 
@@ -524,6 +653,7 @@ window.doForgotPassword = async function() {
     }
     showLoading();
     try {
+        if(/@tuition\.app$/.test(window.formatLoginId(email))) { err.innerText='⚠️ Mobile accounts cannot receive reset links. Ask your teacher.'; err.style.display='block'; hideLoading(); return; }
         await sendPasswordResetEmail(auth, email);
         hideLoading();
         showToast('✅ Password reset email sent! Please check your inbox.');
@@ -556,18 +686,21 @@ window.triggerPasswordReset = async function() {
 
 window.doStudentSignup=async function(){
     let name=document.getElementById('signupName').value.trim();
-    let mobile=document.getElementById('signupMobile').value.trim();
-    let email=document.getElementById('signupEmail').value.trim();
+    let mobile = signupType==='mobile' ? document.getElementById('signupMobile').value.trim() : '';
+    let email = signupType==='email' ? document.getElementById('signupEmail').value.trim() : '';
+    let cls=document.getElementById('signupClass').value;
     let pass=document.getElementById('signupPassword').value;
     let err=document.getElementById('signupError');
     err.style.display='none';
-    if(!name||!mobile||!email||!pass){err.innerText='⚠️ Fill all fields!';err.style.display='block';return;}
+    if(!name || (!mobile && !email) || !pass){err.innerText='⚠️ Fill Name, Password, and at least Email or Mobile!';err.style.display='block';return;}
     if(pass.length<6){err.innerText='⚠️ Password min 6 characters!';err.style.display='block';return;}
-    if(email===TEACHER_EMAIL){err.innerText='❌ This email is not allowed!';err.style.display='block';return;}
+    let primaryEmail = email || mobile;
+    let loginId = window.formatLoginId(primaryEmail);
+    if(loginId===TEACHER_EMAIL){err.innerText='❌ This email is not allowed!';err.style.display='block';return;}
     showLoading();
     try{
-        let cred=await createUserWithEmailAndPassword(auth,email,pass);
-        await setDoc(doc(db,'pending',cred.user.uid),{uid:cred.user.uid,name,mobile,email,createdAt:Date.now()});
+        let cred=await createUserWithEmailAndPassword(auth,loginId,pass);
+        await setDoc(doc(db,'pending',cred.user.uid),{uid:cred.user.uid,name,mobile,email,cls,createdAt:Date.now()});
         await signOut(auth);
         hideLoading();
         showToast('✅ Account created! Wait for teacher approval.');
@@ -613,20 +746,39 @@ window.openPendingRequests=async function(){
         snap.forEach(d=>{
             let p=d.data();
             list.innerHTML+=`<div class="box" style="margin-bottom:15px;">
-                <h4 style="margin:0 0 5px 0;color:var(--dark);">${p.name}</h4>
-                <p style="margin:0 0 3px 0;font-size:13px;color:var(--gray);">📧 ${p.email}</p>
-                <p style="margin:0 0 15px 0;font-size:13px;color:var(--gray);">📱 ${p.mobile}</p>
-                <div style="display:flex;gap:10px;">
-                    <button class="btn btn-success btn-small" onclick="approvePending('${d.id}','${p.name}','${p.email}','${p.uid}','${p.mobile}')"><i class="fas fa-check"></i> Approve</button>
-                    <button class="btn btn-danger btn-small" onclick="rejectPending('${d.id}')"><i class="fas fa-times"></i> Reject</button>
+                <h4 style="margin:0 0 5px 0;color:var(--dark);">${p.name} <small style="color:var(--primary);">${p.cls?'('+p.cls+')':''}</small></h4>
+                <p style="margin:0 0 3px 0;font-size:13px;color:var(--gray);">📧 ${p.email || 'None'}</p>
+                <p style="margin:0 0 15px 0;font-size:13px;color:var(--gray);">📱 ${p.mobile || 'None'}</p>
+                <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                    <button class="btn btn-success btn-small" onclick="approvePending('${d.id}','${p.name}','${p.email}','${p.uid}','${p.mobile}','${p.cls||''}')" style="flex:1;"><i class="fas fa-check"></i> Approve New</button>
+                    <button class="btn btn-primary btn-small" onclick="linkPending('${d.id}','${p.uid}','${p.email||p.mobile}')" style="flex:1;background:var(--gray);"><i class="fas fa-link"></i> Link Ext.</button>
+                    <button class="btn btn-danger btn-small" onclick="rejectPending('${d.id}')"><i class="fas fa-times"></i></button>
                 </div></div>`;
         });
     }
     window.nav('pendingScreen','New Requests');
 }
 
-window.approvePending=function(pendingId,name,email,uid,mobile){
-    let cls=prompt('Assign class for '+name+':\n(Class 2 / Class 6 / Class 7 / Class 9 / Class 10 / Other Batch)');
+
+window.linkPending = async function(pendingId, newUid, newEmailOrMobile) {
+    let stuListStr = Object.keys(allStudents).map(k => `${k}: ${allStudents[k].name} (${allStudents[k].cls})`).join('\n');
+    let selId = prompt("Enter Student ID to merge credentials with:\n\n" + stuListStr);
+    if(!selId) return;
+    selId = selId.trim().toUpperCase();
+    if(!allStudents[selId]) { showToast('❌ Student ID not found!'); return; }
+    if(!confirm(`Merge new login credentials to ${allStudents[selId].name}?`)) return;
+    showLoading();
+    try {
+        await updateDoc(doc(db,'students',selId),{uid: newUid});
+        await deleteDoc(doc(db,'pending',pendingId));
+        allStudents[selId].uid = newUid;
+        hideLoading(); showToast('✅ Account Linked Successfully!'); window.openPendingRequests();
+    } catch(e) { hideLoading(); showToast('❌ Error linking account.'); }
+}
+
+window.approvePending=function(pendingId,name,email,uid,mobile,s_cls){
+    let cls=prompt('Assign class for '+name+':\n(Class 2 / Class 6 / Class 7 / Class 9 / Class 10 / Other Batch)', s_cls||'');
+    if(cls) cls = window.formatClass(cls);
     if(!cls)return;
     let fee=prompt('Monthly fee for '+name+' (₹):');
     if(!fee||isNaN(fee))return;
@@ -685,7 +837,8 @@ window.saveUpdateSettings = async function() {
 
 window.addStudentByTeacher=async function(){
     let name=document.getElementById('stuName').value.trim();
-    let email=document.getElementById('stuEmail').value.trim();
+    let email = addType==='email' ? document.getElementById('stuEmail').value.trim() : document.getElementById('stuMobile').value.trim();
+    let loginId = window.formatLoginId(email);
     let pass=document.getElementById('stuPass').value.trim();
     let cls=document.getElementById('stuClass').value;
     let fee=document.getElementById('stuFee').value;
@@ -693,7 +846,7 @@ window.addStudentByTeacher=async function(){
     if(!name||!email||!pass||!cls||!fee||!date){showToast('⚠️ Fill all fields!');return;}
     showLoading();
     try{
-        let cred=await createUserWithEmailAndPassword(auth,email,pass);
+        let cred=await createUserWithEmailAndPassword(auth,loginId,pass);
         let id='STU'+Date.now().toString().slice(-5);
         let monthRecords={};
         monthsList.forEach(m=>{monthRecords[m]={paid:"",date:"",due:"",studentSign:null,teacherSign:null,firstSaveTime:null};});
@@ -709,11 +862,15 @@ window.addStudentByTeacher=async function(){
 window.loadClasses=async function(){
     showLoading();await loadAllStudents();hideLoading();
     let classes=new Set();
-    for(let k in allStudents)classes.add(allStudents[k].cls);
+    for(let k in allStudents)if(allStudents[k].cls){ allStudents[k].cls = window.formatClass(allStudents[k].cls); classes.add(allStudents[k].cls); }
     let grid=document.getElementById('classGrid');
     grid.innerHTML='';
     if(classes.size===0){document.getElementById('noClassMsg').style.display='block';}
-    else{document.getElementById('noClassMsg').style.display='none';classes.forEach(c=>{grid.innerHTML+=`<div class="square-tab class-box" onclick="openClass('${c}')"><i class="fas fa-chalkboard-teacher"></i><h4>${c}</h4></div>`;});}
+    else{
+        document.getElementById('noClassMsg').style.display='none';
+        let classArray = Array.from(classes).sort((a,b) => a.localeCompare(b, undefined, {numeric: true, sensitivity: 'base'}));
+        classArray.forEach(c=>{grid.innerHTML+=`<div class="square-tab class-box" onclick="openClass('${c}')"><i class="fas fa-chalkboard-teacher"></i><h4>${c}</h4></div>`;});
+    }
     window.nav('classScreen','Select Class');
 }
 
