@@ -2528,7 +2528,28 @@ async function loadMyStudentData(uid){
 }
 window.updatePendingBadge=async function(){ let snap=await getDocs(collection(db,'pending')); let badge=document.getElementById('pendingCount'); if(snap.size>0){badge.style.display='inline';badge.innerText=snap.size;} else{badge.style.display='none';} }
 
-window.openPendingRequests=async function(){ showLoading(); let snap=await getDocs(collection(db,'pending')); hideLoading(); let list=document.getElementById('pendingList'); list.innerHTML=''; if(snap.empty){ document.getElementById('noPendingMsg').style.display='block'; }else{ document.getElementById('noPendingMsg').style.display='none'; snap.forEach(d=>{ let p=d.data(); list.innerHTML+=`<div class="box" style="margin-bottom:15px;"><h4 style="margin:0 0 5px 0;color:var(--dark);">${p.name} <small style="color:var(--primary);">${p.cls?'('+p.cls+')':''}</small></h4><p style="margin:0 0 3px 0;font-size:13px;color:var(--gray);">📧 ${p.email || 'None'}</p><p style="margin:0 0 15px 0;font-size:13px;color:var(--gray);">📱 ${p.mobile || 'None'}</p><div style="display:flex;gap:10px;flex-wrap:wrap;"><button class="btn btn-success btn-small" onclick="approvePending('${d.id}','${p.name}','${p.email||''}','${p.uid}','${p.mobile||''}','${p.cls||''}')" style="flex:1;"><i class="fas fa-check"></i> Approve New</button><button class="btn btn-primary btn-small" onclick="linkPending('${d.id}','${p.uid}','${p.email||p.mobile||''}')" style="flex:1;background:var(--gray);"><i class="fas fa-link"></i> Link Ext.</button><button class="btn btn-danger btn-small" onclick="rejectPending('${d.id}')"><i class="fas fa-times"></i></button></div></div>`; }); } window.nav('pendingScreen','New Requests'); }
+window.openPendingRequests=async function(){ 
+    showLoading(); 
+    try {
+        let snap=await getDocs(collection(db,'pending')); 
+        hideLoading(); 
+        let list=document.getElementById('pendingList'); 
+        list.innerHTML=''; 
+        if(snap.empty){ 
+            document.getElementById('noPendingMsg').style.display='block'; 
+        }else{ 
+            document.getElementById('noPendingMsg').style.display='none'; 
+            snap.forEach(d=>{ 
+                let p=d.data(); 
+                list.innerHTML+=`<div class="box" style="margin-bottom:15px;"><h4 style="margin:0 0 5px 0;color:var(--dark);">${p.name} <small style="color:var(--primary);">${p.cls?'('+p.cls+')':''}</small></h4><p style="margin:0 0 3px 0;font-size:13px;color:var(--gray);">📧 ${p.email || 'None'}</p><p style="margin:0 0 15px 0;font-size:13px;color:var(--gray);">📱 ${p.mobile || 'None'}</p><div style="display:flex;gap:10px;flex-wrap:wrap;"><button class="btn btn-success btn-small" onclick="approvePending('${d.id}','${p.name}','${p.email||''}','${p.uid}','${p.mobile||''}','${p.cls||''}')" style="flex:1;"><i class="fas fa-check"></i> Approve New</button><button class="btn btn-primary btn-small" onclick="linkPending('${d.id}','${p.uid}','${p.email||p.mobile||''}')" style="flex:1;background:var(--gray);"><i class="fas fa-link"></i> Link Ext.</button><button class="btn btn-danger btn-small" onclick="rejectPending('${d.id}')"><i class="fas fa-times"></i></button></div></div>`; 
+            }); 
+        } 
+        window.nav('pendingScreen','New Requests'); 
+    } catch(e) {
+        hideLoading();
+        showToast("❌ Failed to load requests!");
+    }
+}
 window.linkPending = async function(pendingId, newUid, newEmailOrMobile) { let stuListStr = Object.keys(allStudents).map(k => `${k}: ${allStudents[k].name} (${allStudents[k].cls})`).join('\n'); let selId = prompt("Enter Student ID to merge credentials with:\n\n" + stuListStr); if(!selId) return; selId = selId.trim().toUpperCase(); if(!allStudents[selId]) { showToast('❌ Student ID not found!'); return; } if(!confirm(`Merge new login credentials to ${allStudents[selId].name}?`)) return; showLoading(); try { await updateDoc(doc(db,'students',selId),{uid: newUid}); await deleteDoc(doc(db,'pending',pendingId)); allStudents[selId].uid = newUid; hideLoading(); showToast('✅ Account Linked Successfully!'); window.openPendingRequests(); } catch(e) { hideLoading(); showToast('❌ Error linking account.'); } }
 window.approvePending=function(pendingId,name,email,uid,mobile,s_cls){ let cls=prompt('Assign class for '+name+':\n(Class 2 / Class 6 / Class 7 / Class 9 / Class 10 / Other Batch)', s_cls||''); if(cls) cls = window.formatClass(cls); if(!cls)return; let fee=prompt('Monthly fee for '+name+' (₹):'); if(!fee||isNaN(fee))return; let date=prompt('Joining date (YYYY-MM-DD):'); if(!date)return; showLoading(); let id='STU'+Date.now().toString().slice(-5); let monthRecords={}; monthsList.forEach(m=>{monthRecords[m]={paid:"",date:"",due:"",studentSign:null,teacherSign:null,firstSaveTime:null};}); let stuData={id,name,email,mobile,cls,date,fixedFee:fee,feeEditCount:0,profilePic:null,records:monthRecords,uid,routine:{},teacherFiles:[],ownFiles:[]}; setDoc(doc(db,'students',id),stuData).then(()=>{ deleteDoc(doc(db,'pending',pendingId)).then(()=>{ allStudents[id]=stuData; hideLoading(); showToast('✅ Student approved!'); window.openPendingRequests(); window.updatePendingBadge(); }); }).catch(e=>{hideLoading();showToast('❌ Error: '+e.message);}); }
 window.rejectPending=function(pendingId){ if(!confirm('Reject this request?'))return; showLoading(); deleteDoc(doc(db,'pending',pendingId)).then(()=>{hideLoading();showToast('Rejected!');window.openPendingRequests();window.updatePendingBadge();}); }
@@ -2536,26 +2557,43 @@ window.addStudentByTeacher=async function(){ let name=document.getElementById('s
 
 window.loadClasses=async function(){
     let grid=document.getElementById('classGrid');
-    grid.innerHTML=window.getGridShimmerHTML(4);
     document.getElementById('noClassMsg').style.display='none';
     window.nav('classScreen','Select Class');
-    await loadAllStudents();
-    let classes=new Set();
-    for(let k in allStudents)if(allStudents[k].cls){
-        allStudents[k].cls = window.formatClass(allStudents[k].cls);
-        classes.add(allStudents[k].cls);
+    
+    const renderClasses = () => {
+        let classes=new Set();
+        for(let k in allStudents)if(allStudents[k].cls){
+            allStudents[k].cls = window.formatClass(allStudents[k].cls);
+            classes.add(allStudents[k].cls);
+        }
+        grid.innerHTML='';
+        if(classes.size===0){
+            document.getElementById('noClassMsg').style.display='block';
+        } else{
+            document.getElementById('noClassMsg').style.display='none';
+            let classArray = Array.from(classes).sort((a,b) => a.localeCompare(b, undefined, {numeric: true, sensitivity: 'base'}));
+            let idx = 0;
+            classArray.forEach(c=>{
+                grid.innerHTML+=`<div class="square-tab class-box staggered-entry" style="--delay:${idx * 30}ms;" onclick="openClass('${c}')"><i class="fas fa-chalkboard-teacher"></i><h4>${c}</h4></div>`;
+                idx++;
+            });
+        }
+    };
+
+    if(Object.keys(allStudents).length > 0) {
+        renderClasses();
+    } else {
+        grid.innerHTML=window.getGridShimmerHTML(4);
     }
-    grid.innerHTML='';
-    if(classes.size===0){
-        document.getElementById('noClassMsg').style.display='block';
-    } else{
-        document.getElementById('noClassMsg').style.display='none';
-        let classArray = Array.from(classes).sort((a,b) => a.localeCompare(b, undefined, {numeric: true, sensitivity: 'base'}));
-        let idx = 0;
-        classArray.forEach(c=>{
-            grid.innerHTML+=`<div class="square-tab class-box staggered-entry" style="--delay:${idx * 30}ms;" onclick="openClass('${c}')"><i class="fas fa-chalkboard-teacher"></i><h4>${c}</h4></div>`;
-            idx++;
-        });
+
+    try {
+        await loadAllStudents();
+        renderClasses();
+    } catch(e) {
+        console.error(e);
+        if(Object.keys(allStudents).length === 0) {
+            grid.innerHTML='<div style="text-align:center;padding:30px;color:var(--accent);font-weight:700;"><i class="fas fa-exclamation-triangle" style="font-size:40px;margin-bottom:10px;display:block;"></i> Failed to load classes.</div>';
+        }
     }
 }
 window.openClass=function(cls){
@@ -2795,13 +2833,23 @@ new MutationObserver(()=>{if(document.getElementById('studentHomeScreen').classL
 window.openFinance=async function(){
     let grid=document.getElementById('finMonthGrid');
     window.nav('financeScreen','Financial Summary');
-    // Only show shimmer if no data yet
-    if(Object.keys(allStudents).length === 0) {
-        grid.innerHTML=window.getGridShimmerHTML(6);
-        await loadAllStudents();
-    }
     switchFinanceTab('monthly');
-    renderFinMonthlyGrid();
+    
+    if(Object.keys(allStudents).length > 0) {
+        renderFinMonthlyGrid();
+    } else {
+        grid.innerHTML=window.getGridShimmerHTML(6);
+    }
+
+    try {
+        await loadAllStudents();
+        renderFinMonthlyGrid();
+    } catch(e) {
+        console.error(e);
+        if(Object.keys(allStudents).length === 0) {
+            grid.innerHTML='<div style="text-align:center;padding:30px;color:var(--accent);font-weight:700;"><i class="fas fa-exclamation-triangle" style="font-size:40px;margin-bottom:10px;display:block;"></i> Failed to load data.</div>';
+        }
+    }
 }
 window.switchFinanceTab=function(tab){ document.getElementById('tabMonthly').classList.toggle('active',tab==='monthly'); document.getElementById('tabYearly').classList.toggle('active',tab==='yearly'); document.getElementById('finMonthlyContent').style.display=tab==='monthly'?'block':'none'; document.getElementById('finYearlyContent').style.display=tab==='yearly'?'block':'none'; if(tab==='monthly')renderFinMonthlyGrid();else renderFinYearly(); }
 function renderFinMonthlyGrid(){
