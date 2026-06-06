@@ -1812,7 +1812,7 @@ const translations = {
     ko: { appTitle: "수업 관리자", studentMgmt: "학생 관리", financeSummary: "재무 요약", newRequests: "새 요청", monthlyFees: "월 사용료", files: "파일들" }
 };
 
-window.changeLanguage = function() { let lang = document.getElementById('langSelect').value; localStorage.setItem('appLang', lang); applyLanguage(lang); }
+window.changeLanguage = function() { let lang = document.getElementById('langSelect').value; if(!lang) return; localStorage.setItem('appLang', lang); applyLanguage(lang); const langNames = { en: 'English', bn: 'Bengali', hi: 'Hindi', as: 'Assamese', ko: 'Korean' }; showToast('🌐 Language: ' + (langNames[lang] || lang)); }
 function applyLanguage(lang) { if(!translations[lang]) return; document.querySelectorAll('[data-i18n]').forEach(el => { let key = el.getAttribute('data-i18n'); if(translations[lang][key]) el.innerText = translations[lang][key]; }); }
 window.changeThemeColor = function(color) { 
     document.documentElement.style.setProperty('--primary', color); 
@@ -1869,7 +1869,16 @@ window.changeThemeColor = function(color) {
         }
     }
 }
-window.openSettingsModal = function() { openModal('settingsModal'); }
+window.openSettingsModal = function() {
+    // Sync language dropdown UI with saved value
+    let savedLang = localStorage.getItem('appLang') || 'en';
+    const langLabels = { en: 'English', bn: 'Bengali (বাংলা)', hi: 'Hindi (हिंदी)', as: 'Assamese (অসমীয়া)', ko: 'Korean (한국어)' };
+    let labelEl = document.getElementById('langSelectLabel');
+    let hiddenInput = document.getElementById('langSelect');
+    if (labelEl) labelEl.innerText = langLabels[savedLang] || 'English';
+    if (hiddenInput) hiddenInput.value = savedLang;
+    openModal('settingsModal');
+}
 
 window.toggleTheme = function() {
     const bd = document.body;
@@ -1916,9 +1925,6 @@ window.selectCustomOption = function(inputId, value, label) {
     const input = document.getElementById(inputId);
     if (input) {
         input.value = value;
-        // Trigger change event if inline listener or EventListener exists
-        const event = new Event('change', { bubbles: true });
-        input.dispatchEvent(event);
     }
     const labelEl = document.getElementById(inputId + 'Label');
     if (labelEl) {
@@ -1926,6 +1932,10 @@ window.selectCustomOption = function(inputId, value, label) {
     }
     const dropdown = document.getElementById(inputId + 'Dropdown');
     if (dropdown) dropdown.classList.remove('show');
+    // Directly invoke associated handlers (hidden inputs don't reliably fire 'change')
+    if (inputId === 'langSelect') {
+        window.changeLanguage();
+    }
 };
 
 // Close custom selects on outside clicks
