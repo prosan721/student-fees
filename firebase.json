@@ -1,0 +1,29 @@
+{
+  "hosting": {
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "lib/**",
+      "build/**",
+      "test/**",
+      "pubspec.yaml",
+      "pubspec.lock",
+      "server.js",
+      "run_app.bat",
+      "analysis_options.yaml",
+      "*.iml",
+      ".idea/**",
+      ".dart_tool/**",
+      "index_vanilla.html",
+      "index.html.bak"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
