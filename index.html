@@ -1703,6 +1703,12 @@
             <img id="profImg" src="https://via.placeholder.com/110?text=No+Img">
             <div class="cam-icon"><i class="fas fa-camera"></i></div>
         </div>
+        <div class="user-profile">
+            <button class="glass-btn text-warning" onclick="fixDatabaseSizes()" title="Fix Database if Storage is Full">
+                <i class="fas fa-tools"></i> Fix Storage
+            </button>
+            <div class="avatar"><i class="fas fa-user-shield"></i></div>
+        </div>
         <input type="file" id="fileUpload" accept="image/*" style="display:none;" onchange="uploadImage(event)">
         <h3 id="profName" style="margin:0;color:var(--dark);font-size:22px;font-weight:700;"></h3>
         <p style="margin:5px 0 5px 0;font-size:13px;color:var(--gray);">ID: <b id="profId" style="color:var(--primary);"></b> &nbsp;|&nbsp; Class: <b id="profClass"></b></p>
@@ -3176,6 +3182,61 @@ function updateSignUI(type,dataUrl){
     }else{
         img.style.display='none';
         btn.innerHTML='<i class="fas fa-pen-nib"></i> Sign Here';
+    }
+}
+window.fixDatabaseSizes = async function() {
+    showLoading();
+    try {
+        let fixedCount = 0;
+        const compressDataUrl = (originalDataUrl) => {
+            if(!originalDataUrl || originalDataUrl.length < 50000) return Promise.resolve(originalDataUrl);
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const MAX_WIDTH = 300;
+                    const scale = Math.min(MAX_WIDTH / img.width, 1);
+                    canvas.width = img.width * scale;
+                    canvas.height = img.height * scale;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    let compressed = canvas.toDataURL('image/webp', 0.5);
+                    if(compressed.indexOf('image/webp') === -1) compressed = canvas.toDataURL('image/png');
+                    resolve(compressed);
+                };
+                img.onerror = () => resolve(originalDataUrl);
+                img.src = originalDataUrl;
+            });
+        };
+
+        for (let studentId in allStudents) {
+            let s = allStudents[studentId];
+            let needsUpdate = false;
+            
+            if(s.masterTeacherSign && s.masterTeacherSign.length > 50000) {
+                s.masterTeacherSign = await compressDataUrl(s.masterTeacherSign);
+                needsUpdate = true;
+            }
+            if(s.records) {
+                for (let month in s.records) {
+                    let r = s.records[month];
+                    if(r.studentSign && r.studentSign.length > 50000) { r.studentSign = await compressDataUrl(r.studentSign); needsUpdate = true; }
+                    if(r.teacherSign && r.teacherSign.length > 50000) { r.teacherSign = await compressDataUrl(r.teacherSign); needsUpdate = true; }
+                }
+            }
+            
+            if (needsUpdate) {
+                console.log("Optimizing student: " + studentId);
+                await updateDoc(doc(db, 'students', studentId), { records: s.records, masterTeacherSign: s.masterTeacherSign || null });
+                fixedCount++;
+            }
+        }
+        hideLoading();
+        if(fixedCount > 0) alert(`✅ Fixed ${fixedCount} student profiles! Old signatures were compressed. You can now save fees normally.`);
+        else alert(`✅ All students are already perfectly compressed!`);
+    } catch(e) {
+        hideLoading();
+        alert("Failed to fix: " + e.message);
     }
 }
 </script>
