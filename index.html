@@ -3076,7 +3076,20 @@ window.saveSignature=async function(){
     blank.width=canvas.width;
     blank.height=canvas.height;
     if(canvas.toDataURL()===blank.toDataURL()){showToast('⚠️ Please draw your signature first!');return;}
-    let dataUrl=canvas.toDataURL();
+    let dataUrl = canvas.toDataURL();
+    try {
+        const tempCanvas = document.createElement('canvas');
+        const MAX_WIDTH = 300;
+        const scale = Math.min(MAX_WIDTH / canvas.width, 1);
+        tempCanvas.width = canvas.width * scale;
+        tempCanvas.height = canvas.height * scale;
+        const tempCtx = tempCanvas.getContext('2d');
+        tempCtx.drawImage(canvas, 0, 0, tempCanvas.width, tempCanvas.height);
+        dataUrl = tempCanvas.toDataURL('image/webp', 0.5);
+        if (dataUrl.indexOf('image/webp') === -1) {
+            dataUrl = tempCanvas.toDataURL('image/png');
+        }
+    } catch(err) { console.error("Compression failed", err); }
     if(activeSigner==='student_studentView'){
         if(currentStudentId && currentMonth){
             let s = allStudents[currentStudentId];
@@ -3110,6 +3123,8 @@ window.saveSignature=async function(){
                 closeModal('signModal');
             } catch(e) {
                 hideLoading();
+                console.error(e);
+                alert("Master Sign Error: " + e.message);
                 showToast('❌ Failed to save master signature!');
             }
         }
