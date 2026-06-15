@@ -1199,6 +1199,99 @@
             width: 88%;
             height: 88%;
         }
+        /* 3D Monthly Card Styles */
+        .month-3d-wrapper {
+            perspective: 1000px;
+            margin: 0;
+            cursor: pointer;
+            touch-action: pan-y;
+        }
+        .month-3d-card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            padding: 20px 10px;
+            border-radius: 18px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(255,255,255,0.4));
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05), inset 0 2px 10px rgba(255, 255, 255, 0.8);
+            transform-style: preserve-3d;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        [data-theme="dark"] .month-3d-card {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.6), rgba(15, 23, 42, 0.4));
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), inset 0 2px 10px rgba(255, 255, 255, 0.05);
+        }
+        .month-3d-wrapper:hover .month-3d-card {
+            transform: translateY(-8px) rotateX(8deg) rotateY(-5deg);
+            box-shadow: -10px 20px 30px rgba(var(--primary-rgb, 179, 57, 57), 0.15);
+        }
+        .month-3d-icon {
+            font-size: 28px;
+            margin-bottom: 12px;
+            transform: translateZ(25px);
+            transition: transform 0.3s;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+            color: var(--primary);
+        }
+        .month-3d-wrapper:hover .month-3d-icon {
+            transform: translateZ(40px) scale(1.1);
+        }
+        .month-3d-title {
+            font-size: 15px;
+            font-weight: 800;
+            margin: 0;
+            transform: translateZ(15px);
+            color: var(--dark);
+        }
+        .month-status-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 10px;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-weight: 800;
+            transform: translateZ(20px);
+            background: var(--surface);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .month-status-badge.paid {
+            color: var(--success);
+            background: rgba(16,185,129,0.15);
+            border: 1px solid rgba(16,185,129,0.3);
+        }
+        .month-status-badge.due {
+            color: var(--accent);
+            background: rgba(244,63,94,0.15);
+            border: 1px solid rgba(244,63,94,0.3);
+        }
+        .month-status-badge.pending {
+            color: var(--gray);
+            background: rgba(161, 161, 170, 0.15);
+            border: 1px solid rgba(161, 161, 170, 0.3);
+        }
+        .month-3d-card.paid-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
+            transform: skewX(-20deg);
+            animation: shimmer 4s infinite;
+        }
+        @keyframes shimmer {
+            0% { left: -100%; }
+            20% { left: 200%; }
+            100% { left: 200%; }
+        }
     </style>
 <body>
 
@@ -1468,6 +1561,12 @@
             <button class="btn btn-outline btn-small" onclick="deleteCurrentStudent()" style="color:var(--accent);border-color:var(--glass-border);"><i class="fas fa-trash"></i> Delete</button>
         </div>
     </div>
+    <div style="background:rgba(15, 23, 42, 0.4);padding:15px;border-radius:16px;margin-bottom:20px;border:1px solid var(--glass-border);text-align:center;">
+        <h4 style="margin:0 0 10px 0;font-size:14px;color:var(--dark);">Master Teacher Signature</h4>
+        <img id="masterTeacherSignImg" class="sign-preview" style="display:none;margin:0 auto 10px auto;">
+        <p id="noMasterTeacherSign" style="color:var(--gray);font-size:12px;margin:0 0 10px 0;">No signature saved.</p>
+        <button class="btn btn-outline btn-small" onclick="openSign('masterTeacher')" style="margin:0 auto;"><i class="fas fa-pen-nib"></i> Add/Update Signature</button>
+    </div>
     <h4 style="color:var(--dark);margin-bottom:15px;font-size:14px;font-weight:700;text-align:center;">Academic Year (12 Months)</h4>
     <div class="grid-2" id="monthGrid"></div>
 </div>
@@ -1486,7 +1585,7 @@
         <div class="form-group"><label>🎁 Extra Pay / Advance (₹)</label><input type="number" id="mExtra" placeholder="Enter extra pay if any"></div>
         <div class="grid-2" style="margin-bottom:25px;background:rgba(15, 23, 42, 0.3);padding:15px;border-radius:16px;border:1px solid var(--glass-border);">
             <div style="text-align:center;"><label style="font-size:12px;font-weight:700;color:var(--dark);">Student Sign</label><img id="previewStudentSign" class="sign-preview"><button class="btn btn-outline btn-small" id="btnStudentSign" style="margin-top:10px;" onclick="openSign('student')"><i class="fas fa-pen-nib"></i> Sign Here</button></div>
-            <div style="text-align:center;"><label style="font-size:12px;font-weight:700;color:var(--dark);">Teacher Sign</label><img id="previewTeacherSign" class="sign-preview"><button class="btn btn-outline btn-small" id="btnTeacherSign" style="margin-top:10px;" onclick="openSign('teacher')"><i class="fas fa-pen-nib"></i> Sign Here</button></div>
+            <div style="text-align:center;"><label style="font-size:12px;font-weight:700;color:var(--dark);">Teacher Sign</label><img id="previewTeacherSign" class="sign-preview"><button class="btn btn-outline btn-small" id="btnTeacherSign" style="margin-top:10px;" onclick="openSign('teacher')"><i class="fas fa-pen-nib"></i> Sign Here</button><button class="btn btn-outline btn-small" id="btnUseMasterSign" style="margin-top:5px;display:none;margin-left:auto;margin-right:auto;background:rgba(16,185,129,0.15);border-color:#10b981;color:#10b981;" onclick="useMasterSignature()"><i class="fas fa-magic"></i> Auto Sign</button></div>
         </div>
         <button class="btn btn-success" id="btnSaveMonth" onclick="saveMonthData()"><i class="fas fa-save"></i> Save Monthly Data</button>
     </div>
@@ -2353,14 +2452,40 @@ window.openProfile=function(id, sourceImgEl){
     document.getElementById('profFee').innerText=s.fixedFee;
     document.getElementById('profEmail').innerText=s.email || "No Email";
     document.getElementById('profPhone').innerText=s.mobile || "No Phone";
+    let msImg = document.getElementById('masterTeacherSignImg');
+    let msNo = document.getElementById('noMasterTeacherSign');
+    if (s.masterTeacherSign) {
+        msImg.src = s.masterTeacherSign;
+        msImg.style.display = 'block';
+        msNo.style.display = 'none';
+    } else {
+        msImg.style.display = 'none';
+        msNo.style.display = 'block';
+    }
     let grid=document.getElementById('monthGrid');
     grid.innerHTML='';
     let idx = 0;
     monthsList.forEach(m=>{
         let rec=s.records?s.records[m]:null;
         let color=(rec&&rec.firstSaveTime)?"color:var(--success);":"color:#cbd5e1;";
-        let lockIcon=(rec && window.isMonthLocked(rec))?`<i class="fas fa-lock" style="position:absolute;top:10px;right:10px;font-size:11px;color:var(--accent);"></i>`:'';
-        grid.innerHTML+=`<div class="square-tab box staggered-entry" style="--delay:${idx * 30}ms; padding:15px 5px;border-radius:16px;margin:0;" onclick="openMonth('${m}')">${lockIcon}<h4 style="font-size:14px;">${m}</h4><i class="fas fa-check-circle" style="font-size:22px;margin-top:10px;margin-bottom:0;${color}"></i></div>`;
+        let isLocked = rec && window.isMonthLocked(rec);
+        let lockIcon=isLocked?`<i class="fas fa-lock" style="position:absolute;top:10px;left:10px;font-size:11px;color:var(--accent);transform:translateZ(20px);"></i>`:'';
+        let statusClass = (rec&&rec.firstSaveTime) ? "paid-card" : "";
+        let statusBadge = "";
+        let checkIconClass = (rec&&rec.firstSaveTime) ? "fa-check-circle" : "fa-circle";
+        if(rec && rec.firstSaveTime) {
+            statusBadge = `<div class="month-status-badge paid">PAID</div>`;
+        } else {
+            statusBadge = `<div class="month-status-badge pending">PENDING</div>`;
+        }
+        grid.innerHTML+=`<div class="month-3d-wrapper staggered-entry" style="--delay:${idx * 30}ms;" onclick="openMonth('${m}')">
+            <div class="month-3d-card ${statusClass}">
+                ${lockIcon}
+                ${statusBadge}
+                <i class="fas ${checkIconClass} month-3d-icon" style="${color}"></i>
+                <h4 class="month-3d-title">${m}</h4>
+            </div>
+        </div>`;
         idx++;
     });
     window.runHeroAnimation(sourceImgEl, 'profImg', () => {
@@ -2382,6 +2507,14 @@ window.openMonth=function(month){
     document.getElementById('targetFeeAmount').innerText=s.fixedFee; 
     document.getElementById('mPaid').value=rec.paid||''; 
     document.getElementById('mDate').value=rec.date||''; 
+    let btnUseMaster = document.getElementById('btnUseMasterSign');
+    if (btnUseMaster) {
+        if (s.masterTeacherSign) {
+            btnUseMaster.style.display = 'inline-block';
+        } else {
+            btnUseMaster.style.display = 'none';
+        }
+    }
     document.getElementById('mDue').value=rec.due||''; 
     document.getElementById('mExtra').value=rec.extraPay||''; 
     tempSigns.student=rec.studentSign||null;tempSigns.teacher=rec.teacherSign||null; 
@@ -2419,14 +2552,20 @@ window.saveMonthData=async function(){
     if(!s.records[currentMonth])s.records[currentMonth]={}; 
     let rec=s.records[currentMonth]; 
     
+    let mDueEl = document.getElementById('mDue');
+    let mPaidEl = document.getElementById('mPaid');
+    let mDateEl = document.getElementById('mDate');
+    let mExtraEl = document.getElementById('mExtra');
+
     let oldDue = (rec.due !== undefined && rec.due !== "") ? parseInt(rec.due) : parseInt(s.fixedFee);
-    let newDue = parseInt(document.getElementById('mDue').value) || 0;
+    let newDue = mDueEl ? (parseInt(mDueEl.value) || 0) : 0;
     
-    rec.paid=document.getElementById('mPaid').value; 
-    rec.date=document.getElementById('mDate').value; 
-    rec.due=document.getElementById('mDue').value; 
-    rec.extraPay=document.getElementById('mExtra').value; 
-    rec.studentSign=tempSigns.student;rec.teacherSign=tempSigns.teacher; 
+    rec.paid = mPaidEl ? mPaidEl.value || '' : ''; 
+    rec.date = mDateEl ? mDateEl.value || '' : ''; 
+    rec.due = mDueEl ? mDueEl.value || '' : ''; 
+    rec.extraPay = mExtraEl ? mExtraEl.value || '' : ''; 
+    rec.studentSign = tempSigns.student || null;
+    rec.teacherSign = tempSigns.teacher || null; 
     
     let hasData = rec.paid || rec.due || rec.extraPay || rec.date || rec.studentSign || rec.teacherSign;
     if (hasData) {
@@ -2446,12 +2585,13 @@ window.saveMonthData=async function(){
     
     showLoading(); 
     try{ 
-        await updateDoc(doc(db,'students',currentStudentId),{records:s.records}); 
+        await updateDoc(doc(db,'students',currentStudentId),{[`records.${currentMonth}`]: rec}); 
         hideLoading(); 
         document.getElementById('btnSaveMonth').innerHTML='<i class="fas fa-check"></i> Saved!';
         setTimeout(()=>{window.goBack();window.openProfile(currentStudentId);},800); 
     }catch(e){
         hideLoading();
+        console.error(e);
         showToast('❌ Save failed!');
     } 
 }
@@ -2540,7 +2680,12 @@ function renderFinMonthlyGrid(){
     grid.innerHTML='';
     let idx = 0;
     monthsList.forEach(m=>{
-        grid.innerHTML+=`<div class="square-tab box staggered-entry" style="--delay:${idx * 30}ms; padding:20px 5px;border-radius:16px;margin:0;" onclick="openFinMonth('${m}')"><i class="fas fa-calendar-alt" style="font-size:30px;margin-bottom:10px;color:var(--primary);"></i><h4 style="font-size:14px;">${m}</h4></div>`;
+        grid.innerHTML+=`<div class="month-3d-wrapper staggered-entry" style="--delay:${idx * 30}ms;" onclick="openFinMonth('${m}')">
+            <div class="month-3d-card">
+                <i class="fas fa-calendar-alt month-3d-icon"></i>
+                <h4 class="month-3d-title">${m}</h4>
+            </div>
+        </div>`;
         idx++;
     });
 }
@@ -2552,8 +2697,9 @@ window.openSign=function(type){activeSigner=type;document.getElementById('signTi
 window.clearCanvas=function(){ctx.clearRect(0,0,canvas.width,canvas.height);}
 canvas.addEventListener('touchstart',e=>{isDrawing=true;draw(e);e.preventDefault();},{passive:false}); canvas.addEventListener('touchmove',e=>{draw(e);e.preventDefault();},{passive:false}); canvas.addEventListener('touchend',()=>{isDrawing=false;ctx.beginPath();}); canvas.addEventListener('mousedown',e=>{isDrawing=true;draw(e);}); canvas.addEventListener('mousemove',draw); canvas.addEventListener('mouseup',()=>{isDrawing=false;ctx.beginPath();});
 function draw(e){if(!isDrawing)return;let rect=canvas.getBoundingClientRect();let clientX = e.clientX !== undefined ? e.clientX : (e.touches && e.touches[0] ? e.touches[0].clientX : 0);let clientY = e.clientY !== undefined ? e.clientY : (e.touches && e.touches[0] ? e.touches[0].clientY : 0);let x=clientX-rect.left;let y=clientY-rect.top;ctx.lineWidth=3;ctx.lineCap='round';ctx.strokeStyle='#ffffff';ctx.lineTo(x,y);ctx.stroke();ctx.beginPath();ctx.moveTo(x,y);}
-window.saveSignature=async function(){ const blank=document.createElement('canvas'); blank.width=canvas.width;blank.height=canvas.height; if(canvas.toDataURL()===blank.toDataURL()){showToast('⚠️ Please draw signature!');return;} let dataUrl=canvas.toDataURL(); if(activeSigner==='student_studentView'){ if(currentStudentId && currentMonth){ let s = allStudents[currentStudentId]; if(s && s.records && s.records[currentMonth]){ s.records[currentMonth].studentSign = dataUrl; showLoading(); try { await updateDoc(doc(db, 'students', currentStudentId), { records: s.records }); hideLoading(); showToast('✅ Signature saved successfully!'); updateSignUI(activeSigner, dataUrl); closeModal('signModal'); } catch(e) { hideLoading(); showToast('❌ Failed to save signature!'); } } } } else { if(activeSigner==='student')tempSigns.student=dataUrl; else tempSigns.teacher=dataUrl; updateSignUI(activeSigner,dataUrl); closeModal('signModal'); } }
-function updateSignUI(type,dataUrl){ if (type === 'student_studentView') { let img = document.getElementById('svmStudentSign'); let btn = document.getElementById('svmBtnStudentSign'); let ns = document.getElementById('svmNoStudentSign'); if (dataUrl) { img.src = dataUrl; img.style.display = 'block'; btn.style.display = 'none'; ns.style.display = 'none'; } return; } let img=document.getElementById(type==='student'?'previewStudentSign':'previewTeacherSign'); let btn=document.getElementById(type==='student'?'btnStudentSign':'btnTeacherSign'); if(dataUrl){ img.src=dataUrl; img.style.display='inline-block'; btn.innerHTML='<i class="fas fa-redo"></i> Retake'; }else{ img.style.display='none'; btn.innerHTML='<i class="fas fa-pen-nib"></i> Sign Here'; } }
+window.saveSignature=async function(){ const blank=document.createElement('canvas'); blank.width=canvas.width;blank.height=canvas.height; if(canvas.toDataURL()===blank.toDataURL()){showToast('⚠️ Please draw signature!');return;} let dataUrl=canvas.toDataURL(); if(activeSigner==='student_studentView'){ if(currentStudentId && currentMonth){ let s = allStudents[currentStudentId]; if(s && s.records && s.records[currentMonth]){ s.records[currentMonth].studentSign = dataUrl; showLoading(); try { await updateDoc(doc(db, 'students', currentStudentId), { records: s.records }); hideLoading(); showToast('✅ Signature saved successfully!'); updateSignUI(activeSigner, dataUrl); closeModal('signModal'); } catch(e) { hideLoading(); showToast('❌ Failed to save signature!'); } } } } else if(activeSigner==='masterTeacher'){ if(currentStudentId) { let s = allStudents[currentStudentId]; s.masterTeacherSign = dataUrl; showLoading(); try { await updateDoc(doc(db, 'students', currentStudentId), { masterTeacherSign: dataUrl }); hideLoading(); showToast('✅ Master Signature saved successfully!'); updateSignUI(activeSigner, dataUrl); closeModal('signModal'); } catch(e) { hideLoading(); showToast('❌ Failed to save master signature!'); } } } else { if(activeSigner==='student')tempSigns.student=dataUrl; else tempSigns.teacher=dataUrl; updateSignUI(activeSigner,dataUrl); closeModal('signModal'); } }
+window.useMasterSignature = function() { let s = allStudents[currentStudentId]; if (s && s.masterTeacherSign) { tempSigns.teacher = s.masterTeacherSign; updateSignUI('teacher', tempSigns.teacher); showToast('✅ Saved Master Signature applied!'); } else { showToast('⚠️ No Master Signature found!'); } }
+function updateSignUI(type,dataUrl){ if (type === 'student_studentView') { let img = document.getElementById('svmStudentSign'); let btn = document.getElementById('svmBtnStudentSign'); let ns = document.getElementById('svmNoStudentSign'); if (dataUrl) { img.src = dataUrl; img.style.display = 'block'; btn.style.display = 'none'; ns.style.display = 'none'; } return; } if (type === 'masterTeacher') { let img = document.getElementById('masterTeacherSignImg'); let noMsg = document.getElementById('noMasterTeacherSign'); if (dataUrl) { img.src = dataUrl; img.style.display = 'block'; noMsg.style.display = 'none'; } else { img.style.display = 'none'; noMsg.style.display = 'block'; } return; } let img=document.getElementById(type==='student'?'previewStudentSign':'previewTeacherSign'); let btn=document.getElementById(type==='student'?'btnStudentSign':'btnTeacherSign'); if(dataUrl){ img.src=dataUrl; img.style.display='inline-block'; btn.innerHTML='<i class="fas fa-redo"></i> Retake'; }else{ img.style.display='none'; btn.innerHTML='<i class="fas fa-pen-nib"></i> Sign Here'; } }
 </script>
 </body>
 </html>

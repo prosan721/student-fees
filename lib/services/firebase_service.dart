@@ -269,20 +269,8 @@ class FirebaseService {
     required String month,
     required Map<String, dynamic> monthData,
   }) async {
-    final docRef = db.collection('students').doc(studentId);
-    
-    // We update the specific monthly record inside the records map field
-    await db.runTransaction((transaction) async {
-      final snapshot = await transaction.get(docRef);
-      if (!snapshot.exists) return;
-      
-      final data = snapshot.data();
-      if (data == null) return;
-      
-      final Map<String, dynamic> records = Map<String, dynamic>.from(data['records'] ?? {});
-      records[month] = monthData;
-      
-      transaction.update(docRef, {'records': records});
+    await db.collection('students').doc(studentId).update({
+      'records.$month': monthData,
     });
   }
 
@@ -310,14 +298,8 @@ class FirebaseService {
   }
 
   Future<void> addTeacherNote(String studentId, Map<String, dynamic> noteData) async {
-    final docRef = db.collection('students').doc(studentId);
-    await db.runTransaction((transaction) async {
-      final snapshot = await transaction.get(docRef);
-      if (!snapshot.exists) return;
-      final data = snapshot.data()!;
-      final List<dynamic> teacherFiles = List<dynamic>.from(data['teacherFiles'] ?? []);
-      teacherFiles.add(noteData);
-      transaction.update(docRef, {'teacherFiles': teacherFiles});
+    await db.collection('students').doc(studentId).update({
+      'teacherFiles': FieldValue.arrayUnion([noteData])
     });
   }
 
@@ -330,14 +312,8 @@ class FirebaseService {
   }
 
   Future<void> addOwnFile(String studentId, Map<String, dynamic> fileData) async {
-    final docRef = db.collection('students').doc(studentId);
-    await db.runTransaction((transaction) async {
-      final snapshot = await transaction.get(docRef);
-      if (!snapshot.exists) return;
-      final data = snapshot.data()!;
-      final List<dynamic> ownFiles = List<dynamic>.from(data['ownFiles'] ?? []);
-      ownFiles.add(fileData);
-      transaction.update(docRef, {'ownFiles': ownFiles});
+    await db.collection('students').doc(studentId).update({
+      'ownFiles': FieldValue.arrayUnion([fileData])
     });
   }
 
@@ -354,15 +330,14 @@ class FirebaseService {
     }
 
     // Delete from Firestore list
-    await db.runTransaction((transaction) async {
-      final snapshot = await transaction.get(docRef);
-      if (!snapshot.exists) return;
-      final data = snapshot.data()!;
-      final List<dynamic> ownFiles = List<dynamic>.from(data['ownFiles'] ?? []);
-      if (index >= 0 && index < ownFiles.length) {
-        ownFiles.removeAt(index);
-        transaction.update(docRef, {'ownFiles': ownFiles});
-      }
-    });
+    final snapshot = await docRef.get();
+    if (!snapshot.exists) return;
+    final data = snapshot.data();
+    if (data == null) return;
+    final List<dynamic> ownFiles = List<dynamic>.from(data['ownFiles'] ?? []);
+    if (index >= 0 && index < ownFiles.length) {
+      ownFiles.removeAt(index);
+      await docRef.update({'ownFiles': ownFiles});
+    }
   }
 }
