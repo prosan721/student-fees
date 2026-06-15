@@ -504,22 +504,36 @@
             justify-content: center;
             aspect-ratio: 1;
             position: relative;
+            transform-style: preserve-3d;
+            perspective: 800px;
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1.15), box-shadow 0.5s ease, border-color 0.5s ease;
+        }
+        .square-tab:hover {
+            transform: translateY(-8px) rotateX(10deg) rotateY(-5deg) scale(1.03);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.15), 0 0 15px rgba(var(--primary-rgb), 0.2);
+            border-color: rgba(var(--primary-rgb), 0.4);
         }
         .square-tab i {
             font-size: 42px;
             margin-bottom: 15px;
             color: var(--primary);
             filter: drop-shadow(0 8px 10px rgba(var(--primary-rgb),0.2));
-            transition: transform 0.3s ease;
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1.15);
+            transform: translateZ(20px);
         }
         .square-tab:hover i {
-            transform: translateY(-5px);
+            transform: translateZ(35px) translateY(-5px) scale(1.1);
         }
         .square-tab h4 {
             margin: 0;
             font-size: 15px;
             color: var(--dark);
             font-weight: 700;
+            transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1.15);
+            transform: translateZ(15px);
+        }
+        .square-tab:hover h4 {
+            transform: translateZ(25px) scale(1.05);
         }
         .class-box {
             background: rgba(30, 41, 59, 0.75);
