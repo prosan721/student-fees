@@ -414,6 +414,61 @@
             color: white;
             box-shadow: 0 8px 16px rgba(var(--primary-rgb), 0.25);
         }
+        .role-tab {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* Modern Animated Toggle Switch styling */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 42px;
+            height: 22px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(148, 163, 184, 0.3);
+            transition: .4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 22px;
+            border: 1px solid var(--glass-border);
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        input:checked + .slider {
+            background-color: var(--secondary);
+            border-color: rgba(16, 185, 129, 0.3);
+        }
+        input:checked + .slider:before {
+            transform: translateX(20px);
+        }
+        .toggle-switch-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+        .toggle-switch-container:active {
+            transform: scale(0.95);
+        }
 
         /* Cards & Containers style */
         .box, .square-tab, .list-item, .fin-card, .month-card {
@@ -1755,7 +1810,7 @@
         <div class="form-group"><label>🎁 Extra Pay / Advance (₹)</label><input type="number" id="mExtra" placeholder="Enter extra pay if any"></div>
         <div class="grid-2" style="margin-bottom:25px;background:rgba(15, 23, 42, 0.3);padding:15px;border-radius:16px;border:1px solid var(--glass-border);">
             <div style="text-align:center;"><label style="font-size:12px;font-weight:700;color:var(--dark);">Student Sign</label><img id="previewStudentSign" class="sign-preview"><button class="btn btn-outline btn-small" id="btnStudentSign" style="margin-top:10px;" onclick="openSign('student')"><i class="fas fa-pen-nib"></i> Sign Here</button></div>
-            <div style="text-align:center;"><label style="font-size:12px;font-weight:700;color:var(--dark);">Teacher Sign</label><img id="previewTeacherSign" class="sign-preview"><button class="btn btn-outline btn-small" id="btnTeacherSign" style="margin-top:10px;" onclick="openSign('teacher')"><i class="fas fa-pen-nib"></i> Sign Here</button><button class="btn btn-outline btn-small" id="btnUseMasterSign" style="margin-top:5px;display:none;margin-left:auto;margin-right:auto;background:rgba(16,185,129,0.15);border-color:#10b981;color:#10b981;" onclick="useMasterSignature()"><i class="fas fa-magic"></i> Auto Sign</button></div>
+            <div style="text-align:center;"><label style="font-size:12px;font-weight:700;color:var(--dark);">Teacher Sign</label><img id="previewTeacherSign" class="sign-preview"><button class="btn btn-outline btn-small" id="btnTeacherSign" style="margin-top:10px;" onclick="openSign('teacher')"><i class="fas fa-pen-nib"></i> Sign Here</button><div class="toggle-switch-container" id="useMasterSignToggleContainer" style="display:none; justify-content:center; align-items:center; gap:8px; margin-top:8px;"><span style="font-size:11px;font-weight:700;color:var(--gray);">Auto Sign</span><label class="switch"><input type="checkbox" id="masterSignToggle" onchange="handleMasterSignToggle(this.checked)"><span class="slider round"></span></label></div></div>
         </div>
         <button class="btn btn-success" id="btnSaveMonth" onclick="saveMonthData()"><i class="fas fa-save"></i> Save Monthly Data</button>
     </div>
@@ -2814,12 +2869,15 @@ window.openMonth=function(month){
         window.flatpickrInstances.mDate.setDate(rec.date || '');
     }
     
-    let btnUseMaster = document.getElementById('btnUseMasterSign');
-    if (btnUseMaster) {
+    let toggleContainer = document.getElementById('useMasterSignToggleContainer');
+    let toggleInput = document.getElementById('masterSignToggle');
+    if (toggleContainer && toggleInput) {
         if (s.masterTeacherSign) {
-            btnUseMaster.style.display = 'inline-block';
+            toggleContainer.style.display = 'flex';
+            toggleInput.checked = !!(tempSigns.teacher && tempSigns.teacher === s.masterTeacherSign);
         } else {
-            btnUseMaster.style.display = 'none';
+            toggleContainer.style.display = 'none';
+            toggleInput.checked = false;
         }
     }
     document.getElementById('mDue').value=rec.due||''; 
@@ -2986,8 +3044,8 @@ window.prevAttMonth = function() { attDate.setMonth(attDate.getMonth() - 1); ren
 window.nextAttMonth = function() { attDate.setMonth(attDate.getMonth() + 1); renderCalendar(); }
 function renderCalendar() { let y = attDate.getFullYear(); let m = attDate.getMonth(); let mNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; document.getElementById('attMonthDisplay').innerText = mNames[m] + " " + y; let grid = document.getElementById('attCalendarGrid'); grid.innerHTML = ''; let firstDay = new Date(y, m, 1).getDay(); let daysInMonth = new Date(y, m + 1, 0).getDate(); for(let i=0; i<firstDay; i++) { grid.innerHTML += `<div class="att-date empty"></div>`; } let s = allStudents[currentStudentId]; if(!s) return; let attData = s.attendance || {}; for(let d=1; d<=daysInMonth; d++) { let dateStr = `${y}-${(m+1).toString().padStart(2, '0')}-${d.toString().padStart(2, '0')}`; let status = attData[dateStr] || ''; let cls = 'att-date'; if(status === 'present') cls += ' present'; if(status === 'absent') cls += ' absent'; if(attMode === 'student') cls += ' disabled'; grid.innerHTML += `<div class="${cls}" onclick="toggleAttendance('${dateStr}')">${d}</div>`; } }
 window.toggleAttendance = async function(dateStr) { if(attMode === 'student') return; let s = allStudents[currentStudentId]; if(!s.attendance) s.attendance = {}; let current = s.attendance[dateStr]; if(current === 'present') s.attendance[dateStr] = 'absent'; else if(current === 'absent') delete s.attendance[dateStr]; else s.attendance[dateStr] = 'present'; renderCalendar(); try { await updateDoc(doc(db, 'students', currentStudentId), { attendance: s.attendance }); } catch(e) { showToast('❌ Failed to save attendance!'); } }
-window.updateStudentPic=function(event){ let file=event.target.files[0];if(!file||!currentStudentId)return; let reader=new FileReader(); reader.onload=async function(e){ allStudents[currentStudentId].profilePic=e.target.result; await updateDoc(doc(db,'students',currentStudentId),{profilePic:e.target.result}); document.getElementById('stuCardImg').src=e.target.result; showToast('✅ Profile picture updated!'); };reader.readAsDataURL(file); }
-window.uploadImage=function(event){ let file=event.target.files[0];if(!file||!currentStudentId)return; let reader=new FileReader(); reader.onload=async function(e){ allStudents[currentStudentId].profilePic=e.target.result; try { await updateDoc(doc(db,'students',currentStudentId),{profilePic:e.target.result}); document.getElementById('profImg').src=e.target.result; showToast('✅ Profile picture updated!'); } catch(err) { showToast('❌ Error updating picture!'); } };reader.readAsDataURL(file); }
+window.updateStudentPic=function(event){ let file=event.target.files[0];if(!file||!currentStudentId)return; showLoading(); let reader=new FileReader(); reader.onload=async function(e){ const img = new Image(); img.onload = async function() { const canvas = document.createElement('canvas'); const MAX_SIZE = 150; let width = img.width; let height = img.height; if (width > height) { if (width > MAX_SIZE) { height *= MAX_SIZE / width; width = MAX_SIZE; } } else { if (height > MAX_SIZE) { width *= MAX_SIZE / height; height = MAX_SIZE; } } canvas.width = width; canvas.height = height; const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, width, height); let compressed = canvas.toDataURL('image/jpeg', 0.6); allStudents[currentStudentId].profilePic=compressed; try { await updateDoc(doc(db,'students',currentStudentId),{profilePic:compressed}); document.getElementById('stuCardImg').src=compressed; hideLoading(); showToast('✅ Profile picture updated!'); } catch(err) { hideLoading(); showToast('❌ Error updating picture!'); } }; img.onerror = () => { hideLoading(); showToast('❌ Error loading image!'); }; img.src = e.target.result; }; reader.onerror = () => { hideLoading(); showToast('❌ Error reading file!'); }; reader.readAsDataURL(file); }
+window.uploadImage=function(event){ let file=event.target.files[0];if(!file||!currentStudentId)return; showLoading(); let reader=new FileReader(); reader.onload=async function(e){ const img = new Image(); img.onload = async function() { const canvas = document.createElement('canvas'); const MAX_SIZE = 150; let width = img.width; let height = img.height; if (width > height) { if (width > MAX_SIZE) { height *= MAX_SIZE / width; width = MAX_SIZE; } } else { if (height > MAX_SIZE) { width *= MAX_SIZE / height; height = MAX_SIZE; } } canvas.width = width; canvas.height = height; const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, width, height); let compressed = canvas.toDataURL('image/jpeg', 0.6); allStudents[currentStudentId].profilePic=compressed; try { await updateDoc(doc(db,'students',currentStudentId),{profilePic:compressed}); document.getElementById('profImg').src=compressed; hideLoading(); showToast('✅ Profile picture updated!'); } catch(err) { hideLoading(); showToast('❌ Error updating picture!'); } }; img.onerror = () => { hideLoading(); showToast('❌ Error loading image!'); }; img.src = e.target.result; }; reader.onerror = () => { hideLoading(); showToast('❌ Error reading file!'); }; reader.readAsDataURL(file); }
 new MutationObserver(()=>{if(document.getElementById('studentHomeScreen').classList.contains('active'))window.renderStudentHome();}).observe(document.getElementById('studentHomeScreen'),{attributes:true,attributeFilter:['class']});
 window.openFinance=async function(){
     let grid=document.getElementById('finMonthGrid');
@@ -3152,6 +3210,24 @@ window.useMasterSignature = function() {
         showToast('⚠️ No Master Signature found!');
     }
 }
+window.handleMasterSignToggle = function(checked) {
+    let s = allStudents[currentStudentId];
+    if (checked) {
+        if (s && s.masterTeacherSign) {
+            tempSigns.teacher = s.masterTeacherSign;
+            updateSignUI('teacher', tempSigns.teacher);
+            showToast('✅ Auto Sign applied!');
+        } else {
+            let chk = document.getElementById('masterSignToggle');
+            if (chk) chk.checked = false;
+            showToast('⚠️ No Master Signature found!');
+        }
+    } else {
+        tempSigns.teacher = null;
+        updateSignUI('teacher', null);
+        showToast('❌ Auto Sign cleared!');
+    }
+}
 function updateSignUI(type,dataUrl){
     if (type === 'student_studentView') {
         let img = document.getElementById('svmStudentSign');
@@ -3213,6 +3289,10 @@ window.fixDatabaseSizes = async function() {
             let s = allStudents[studentId];
             let needsUpdate = false;
             
+            if(s.profilePic && s.profilePic.length > 50000) {
+                s.profilePic = await compressDataUrl(s.profilePic);
+                needsUpdate = true;
+            }
             if(s.masterTeacherSign && s.masterTeacherSign.length > 50000) {
                 s.masterTeacherSign = await compressDataUrl(s.masterTeacherSign);
                 needsUpdate = true;
@@ -3227,7 +3307,11 @@ window.fixDatabaseSizes = async function() {
             
             if (needsUpdate) {
                 console.log("Optimizing student: " + studentId);
-                await updateDoc(doc(db, 'students', studentId), { records: s.records, masterTeacherSign: s.masterTeacherSign || null });
+                await updateDoc(doc(db, 'students', studentId), { 
+                    records: s.records, 
+                    masterTeacherSign: s.masterTeacherSign || null,
+                    profilePic: s.profilePic || null
+                });
                 fixedCount++;
             }
         }
