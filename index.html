@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-        :root { 
+        :root {
             --bg-1-rgb: 15, 23, 42; /* slate-900 */
             --bg-2-rgb: 30, 41, 59; /* slate-800 */
             --primary:#b33939;
@@ -20,9 +20,9 @@
             --success:#10b981;
             --dark:#f1f5f9; /* slate-100 */
             --gray:#94a3b8; /* slate-400 */
-            --surface:rgba(30, 41, 59, 0.7); 
-            --glass-border:rgba(255, 255, 255, 0.08); 
-            --card-bg-gradient: linear-gradient(rgba(30, 41, 59, 0.7), rgba(30, 41, 59, 0.7));
+            --surface:rgba(var(--bg-2-rgb), 0.7);
+            --glass-border:rgba(255, 255, 255, 0.08);
+            --card-bg-gradient: linear-gradient(rgba(var(--bg-2-rgb), 0.7), rgba(var(--bg-2-rgb), 0.7));
         }
         * {
             box-sizing: border-box;
@@ -41,7 +41,7 @@
             background: transparent;
             transition: color 0.3s ease;
         }
-        
+
         /* Dynamic Animated Background Overlay */
         .app-bg-container {
             position: fixed;
@@ -89,10 +89,10 @@
             50% { transform: scale(1.08) translate(-1%, -1%) rotate(0.5deg); }
             100% { transform: scale(1) translate(0, 0) rotate(0deg); }
         }
-        
+
         /* Glassmorphic Responsive App Bar */
         .app-bar {
-            background: rgba(15, 23, 42, 0.7);
+            background: rgba(var(--bg-1-rgb), 0.7);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--glass-border);
@@ -285,7 +285,7 @@
                 transform: translate3d(100%, 0, 0);
             }
         }
-        
+
         .shimmer-circle {
             width: 50px;
             height: 50px;
@@ -329,10 +329,10 @@
         [data-theme="dark"] .ripple-effect {
             background: rgba(255, 255, 255, 0.18);
         }
-        .btn-outline .ripple-effect, 
-        .square-tab .ripple-effect, 
-        .list-item .ripple-effect, 
-        .role-tab:not(.active) .ripple-effect, 
+        .btn-outline .ripple-effect,
+        .square-tab .ripple-effect,
+        .list-item .ripple-effect,
+        .role-tab:not(.active) .ripple-effect,
         .att-date .ripple-effect,
         .fin-tab:not(.active) .ripple-effect {
             background: rgba(var(--primary-rgb, 179, 57, 57), 0.15);
@@ -392,7 +392,7 @@
         }
         .role-tabs {
             display: flex;
-            background: rgba(15, 23, 42, 0.6);
+            background: rgba(var(--bg-1-rgb), 0.6);
             border-radius: 14px;
             margin-bottom: 25px;
             padding: 5px;
@@ -536,7 +536,7 @@
             transform: translateZ(25px) scale(1.05);
         }
         .class-box {
-            background: rgba(30, 41, 59, 0.75);
+            background: rgba(var(--bg-2-rgb), 0.75);
         }
         .class-box h4 {
             font-size: 18px;
@@ -631,7 +631,7 @@
             border-radius: 14px;
             font-family: inherit;
             font-size: 14px;
-            background: rgba(15, 23, 42, 0.6);
+            background: rgba(var(--bg-1-rgb), 0.6);
             color: var(--dark);
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -716,7 +716,7 @@
         }
         .finance-tabs {
             display: flex;
-            background: rgba(15, 23, 42, 0.6);
+            background: rgba(var(--bg-1-rgb), 0.6);
             border-radius: 16px;
             margin-bottom: 25px;
             padding: 6px;
@@ -762,7 +762,7 @@
         .fin-card.due h2 { color: var(--accent); }
         .fin-card.success { border-top-color: var(--success); }
         .fin-card.success h2 { color: var(--success); }
-        
+
         .class-stat-row {
             display: flex;
             justify-content: space-between;
@@ -775,7 +775,7 @@
         .class-stat-row span:nth-child(1) { font-weight: 700; color: var(--dark); }
         .class-stat-row span:nth-child(2) { color: var(--success); font-weight: 800; }
         .class-stat-row span:nth-child(3) { color: var(--accent); font-weight: 800; }
-        
+
         .student-info-card {
             background: linear-gradient(135deg,var(--primary),var(--primary-dark));
             color: white;
@@ -817,7 +817,7 @@
         .month-card.paid { border-left-color: var(--success); }
         .month-card.due-red { border-left-color: var(--accent); }
         .month-card.extra-paid { border-left-color: #3b82f6; }
-        
+
         .status-pill {
             padding: 6px 14px;
             border-radius: 20px;
@@ -847,7 +847,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(15, 23, 42, 0.45);
+            background: rgba(var(--bg-1-rgb), 0.45);
             z-index: 1000;
             justify-content: center;
             align-items: center;
@@ -910,7 +910,7 @@
         canvas {
             border: 2px dashed var(--glass-border);
             border-radius: 16px;
-            background: rgba(30, 41, 59, 0.6);
+            background: rgba(var(--bg-2-rgb), 0.6);
             width: 100%;
             height: 350px;
             touch-action: none;
@@ -923,7 +923,7 @@
             border-radius: 12px;
             margin-top: 12px;
             display: none;
-            background: rgba(30, 41, 59, 0.6);
+            background: rgba(var(--bg-2-rgb), 0.6);
         }
 
         /* Material Circular Progress Spinner overlay */
@@ -961,7 +961,7 @@
             animation: spin 0.85s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
-        
+
         .toast {
             position: fixed;
             bottom: 35px;
@@ -1011,7 +1011,7 @@
             margin: 20px 0;
             font-weight: 600;
         }
-        
+
         /* Attendance styles */
         .att-grid {
             display: grid;
@@ -1055,7 +1055,7 @@
         }
         .att-date.empty { background: transparent; cursor: default; }
         .att-date.disabled { pointer-events: none; }
-        
+
         /* Study Files */
         .file-item {
             display: flex;
@@ -1077,7 +1077,7 @@
             margin-right: 10px;
         }
         .file-item button { background: none; border: none; color: var(--accent); cursor: pointer; padding: 5px; }
-        
+
         input[type="color"] {
             padding: 0;
             width: 100%;
@@ -1125,9 +1125,9 @@
             color: var(--dark);
             border-bottom: 1px solid var(--glass-border);
         }
-        [data-theme="dark"] .app-bar .back-btn, 
-        [data-theme="dark"] .app-bar .logout-btn, 
-        [data-theme="dark"] #themeToggle, 
+        [data-theme="dark"] .app-bar .back-btn,
+        [data-theme="dark"] .app-bar .logout-btn,
+        [data-theme="dark"] #themeToggle,
         [data-theme="dark"] #settingsBtn {
             color: var(--dark);
         }
@@ -1172,7 +1172,7 @@
             backface-visibility: hidden;
             pointer-events: none;
         }
-        
+
         /* Layer 1: Ambient Shadow & Glow */
         .logo-3d-layer.back-glow {
             background: radial-gradient(circle, rgba(var(--primary-rgb, 179, 57, 57), 0.4) 0%, transparent 70%);
@@ -1181,13 +1181,13 @@
             opacity: 0.8;
             transition: opacity 0.3s;
         }
-        
+
         /* Layer 2: Outer Plate / Shield */
         .logo-3d-layer.shield-base {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.05) 100%);
             border: 1.5px solid rgba(255, 255, 255, 0.4);
             border-radius: 36px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08), 
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08),
                         inset 0 4px 10px rgba(255, 255, 255, 0.5),
                         inset 0 -4px 10px rgba(0, 0, 0, 0.05);
             backdrop-filter: blur(12px);
@@ -1196,12 +1196,12 @@
             transition: border-color 0.3s, box-shadow 0.3s;
         }
         [data-theme="dark"] .logo-3d-layer.shield-base {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.2) 100%);
+            background: linear-gradient(135deg, rgba(var(--bg-2-rgb), 0.4) 0%, rgba(var(--bg-1-rgb), 0.2) 100%);
             border: 1.5px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3),
                         inset 0 4px 10px rgba(255, 255, 255, 0.05);
         }
-        
+
         /* Layer 3: Rotating Neon Rings */
         .logo-3d-layer.ring-accent {
             border: 2px dashed var(--primary);
@@ -1229,7 +1229,7 @@
             from { transform: translateZ(5px) rotate(360deg); }
             to { transform: translateZ(5px) rotate(0deg); }
         }
-        
+
         /* Layer 4: Main 3D Icon & Floating Emblems */
         .logo-3d-layer.icon-wrapper {
             transform: translateZ(35px);
@@ -1244,7 +1244,7 @@
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 1px rgba(255,255,255,0.1);
         }
-        
+
         /* Hover micro-interactions */
         .logo-3d-wrapper:hover .logo-3d-card {
             animation-play-state: paused;
@@ -1281,7 +1281,7 @@
 
         /* Custom styled Flatpickr for glassmorphism and rounded corners */
         .flatpickr-calendar {
-            background: rgba(30, 41, 59, 0.85) !important;
+            background: rgba(var(--bg-2-rgb), 0.85) !important;
             backdrop-filter: blur(20px) !important;
             -webkit-backdrop-filter: blur(20px) !important;
             border: 1px solid var(--glass-border) !important;
@@ -1294,13 +1294,13 @@
             background: rgba(9, 9, 11, 0.85) !important;
         }
         .flatpickr-calendar.arrowTop:after, .flatpickr-calendar.arrowTop:before {
-            border-bottom-color: rgba(30, 41, 59, 0.85) !important;
+            border-bottom-color: rgba(var(--bg-2-rgb), 0.85) !important;
         }
         [data-theme="dark"] .flatpickr-calendar.arrowTop:after {
             border-bottom-color: rgba(9, 9, 11, 0.85) !important;
         }
         .flatpickr-calendar.arrowBottom:after, .flatpickr-calendar.arrowBottom:before {
-            border-top-color: rgba(30, 41, 59, 0.85) !important;
+            border-top-color: rgba(var(--bg-2-rgb), 0.85) !important;
         }
         [data-theme="dark"] .flatpickr-calendar.arrowBottom:after {
             border-top-color: rgba(9, 9, 11, 0.85) !important;
@@ -1367,7 +1367,7 @@
             border: 2px solid rgba(255, 255, 255, 0.08);
             border-radius: 14px;
             font-size: 14px;
-            background: rgba(15, 23, 42, 0.6);
+            background: rgba(var(--bg-1-rgb), 0.6);
             color: var(--dark);
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -1385,7 +1385,7 @@
             top: calc(100% + 5px);
             left: 0;
             width: 100%;
-            background: rgba(30, 41, 59, 0.95);
+            background: rgba(var(--bg-2-rgb), 0.95);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
@@ -1445,7 +1445,7 @@
             backdrop-filter: blur(10px);
         }
         [data-theme="dark"] .month-3d-card {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.6), rgba(15, 23, 42, 0.4));
+            background: linear-gradient(135deg, rgba(var(--bg-2-rgb), 0.6), rgba(var(--bg-1-rgb), 0.4));
             border: 1px solid rgba(255,255,255,0.08);
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3), inset 0 2px 10px rgba(255, 255, 255, 0.05);
         }
@@ -1512,6 +1512,147 @@
             20% { left: 200%; }
             100% { left: 200%; }
         }
+    /* One consistent palette inspired by the cream, forest-green and gold reference. */
+:root {
+    --bg-1-rgb: 250, 247, 232;
+    --bg-2-rgb: 224, 234, 209;
+    --primary: #124734;
+    --primary-dark: #092f23;
+    --primary-rgb: 18, 71, 52;
+    --secondary: #bf963a;
+    --secondary-rgb: 191, 150, 58;
+    --accent: #b84535;
+    --success: #24764d;
+    --dark: #173d2e;
+    --gray: #617361;
+    --surface: rgba(255, 253, 242, .84);
+    --glass-border: rgba(164, 132, 52, .3);
+    --card-bg-gradient: linear-gradient(145deg, rgba(255,253,242,.94), rgba(241,244,224,.8));
+}
+[data-theme="dark"] {
+    --bg-1-rgb: 10, 30, 23;
+    --bg-2-rgb: 20, 49, 36;
+    --primary: #c9dfae;
+    --primary-dark: #a4c78a;
+    --primary-rgb: 201, 223, 174;
+    --dark: #f8f4df;
+    --gray: #c2ceb9;
+    --surface: rgba(21, 48, 35, .9);
+    --glass-border: rgba(211, 174, 76, .3);
+    --card-bg-gradient: linear-gradient(145deg, rgba(26,55,40,.95), rgba(15,40,29,.9));
+    --success: #a8d399;
+    --accent: #ffb09f;
+}
+body { background: rgb(var(--bg-1-rgb)); }
+.app-bg-image { background-image: none; animation: none; }
+.app-bg-overlay, [data-theme="dark"] .app-bg-overlay {
+    background: radial-gradient(ellipse at 85% 10%, rgba(191,150,58,.12), transparent 48%),
+        linear-gradient(145deg, rgb(var(--bg-1-rgb)), rgb(var(--bg-2-rgb)));
+}
+.app-bar, [data-theme="dark"] .app-bar {
+    background: #103d2c; border-bottom: 1px solid #c4a14d;
+}
+.app-bar h3, [data-theme="dark"] .app-bar h3,
+.app-bar button, [data-theme="dark"] .app-bar button { color: #fff9df !important; }
+.box, .square-tab, .class-box, [data-theme="dark"] .class-box,
+.list-item, .fin-card, .month-card, .modal-content,
+.month-3d-card, [data-theme="dark"] .month-3d-card {
+    background: var(--card-bg-gradient); border: 1px solid var(--glass-border);
+    border-radius: 26px; box-shadow: 0 8px 24px rgba(22,61,43,.07);
+    backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+}
+.square-tab, .month-3d-card { transform-style: flat; }
+.square-tab:hover, .month-3d-wrapper:hover .month-3d-card { transform: translateY(-3px); }
+.square-tab i { color: var(--primary) !important; }
+.square-tab h4, .class-box h4 { color: var(--dark); }
+.btn, .btn-small { border-radius: 999px; }
+.btn-primary, .btn-success { background: linear-gradient(125deg, #1b583e, #103d2c); color: #fff9df; }
+.btn-danger { background: #a34232; }
+.btn-outline, [data-theme="dark"] .btn-outline { background: var(--surface); color: var(--dark); border-color: var(--glass-border); }
+input, select, textarea, .custom-select-trigger, [data-theme="dark"] input,
+[data-theme="dark"] select, [data-theme="dark"] .custom-select-trigger {
+    background: var(--surface); color: var(--dark); border: 1px solid var(--glass-border); border-radius: 18px;
+}
+.custom-select-options, [data-theme="dark"] .custom-select-options { background: rgb(var(--bg-1-rgb)); }
+input::placeholder { color: var(--gray); }
+.role-tabs, .fin-tabs { background: rgba(var(--primary-rgb), .07); border-radius: 22px; }
+.role-tab.active, .fin-tab.active { background: #174d36; color: #fff9df; border-radius: 18px; }
+.auth-subtitle, .form-group label { color: var(--gray); }
+.home-title span { background: #124734; color: #fff9df; }
+.student-info-card { background: linear-gradient(125deg, #1d5b40, #0d3928); color: #fff9df; border: 1px solid #c4a14d; }
+.readonly-note, [data-theme="dark"] .readonly-note { background: var(--surface); color: var(--dark); }
+.year-register { width: 100%; max-width: 500px; margin-bottom: 24px; padding: 20px; }
+.year-heading { display: flex; gap: 12px; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+.year-heading h3 { margin: 0 0 5px; font-size: 18px; }
+.year-heading p { margin: 0; color: var(--gray); font-size: 12px; }
+.year-heading .btn { flex-shrink: 0; }
+.year-folder-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.year-folder { display: flex; flex-direction: column; align-items: flex-start; gap: 7px; padding: 18px; border: 1px solid var(--glass-border); border-radius: 20px; background: var(--surface); color: var(--dark); font: inherit; cursor: pointer; transition: transform .2s, background .2s; }
+.year-folder i { color: #b18b32; font-size: 25px; }
+.year-folder strong { font-size: 24px; }
+.year-folder small { color: var(--gray); }
+.year-folder.selected { background: #174d36; color: #fff9df; border-color: #c4a14d; }
+.year-folder.selected small { color: #e2e9cf; }
+.year-folder:hover { transform: translateY(-2px); }
+.year-note { color: var(--gray); font-size: 12px; line-height: 1.6; margin: 14px 0 0; }
+.year-toolbar { padding: 15px 18px; margin-bottom: 20px; }
+.year-toolbar label { display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--dark); font-size: 13px; font-weight: 700; }
+.year-toolbar select { width: auto; padding: 8px 15px; font: inherit; }
+.year-student-count { display: block; margin-top: 8px; color: var(--gray); font-size: 12px; }
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+@media (max-width: 360px) {
+    .year-heading { flex-wrap: wrap; }
+    .year-toolbar label { flex-wrap: wrap; }
+}
+
+    /* Rounded glass and metallic rims throughout, including inline legacy panels. */
+:root { --metal-rim: linear-gradient(125deg, #eadfa7, #ad8c3f 35%, #f6ebc1 56%, #b5913e); }
+.box, .square-tab, .list-item, .fin-card, .month-card, .modal-content,
+.month-3d-card, [data-theme="dark"] .month-3d-card, .year-folder,
+.role-tabs, .fin-tabs, .student-info-card, .readonly-note {
+    border-radius: 32px !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.75), inset 0 -1px 0 rgba(165,132,51,.15), 0 8px 25px rgba(24,61,40,.09);
+    backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+}
+.btn, .btn-small, input:not([type="checkbox"]), select, textarea,
+.custom-select-trigger, [data-theme="dark"] .custom-select-trigger,
+.role-tab, .role-tab.active, .fin-tab, .fin-tab.active,
+.status-pill, .month-status-badge, .sbadge, .fee-badge, .year-folder {
+    border-radius: 999px !important;
+}
+.btn, .role-tab.active, .fin-tab.active {
+    border: 1px solid rgba(193,157,70,.55);
+    background-image: linear-gradient(115deg, rgba(255,255,255,.2), transparent 35%, rgba(215,184,102,.16) 62%, transparent);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.45), inset 0 -2px 3px rgba(20,48,31,.08), 0 4px 14px rgba(19,59,39,.1);
+}
+.btn-primary, .btn-success {
+    background: linear-gradient(125deg, #337154 0%, #174d36 40%, #2c6547 64%, #113c2b 100%);
+}
+.btn-outline, [data-theme="dark"] .btn-outline {
+    background: linear-gradient(120deg, rgba(255,255,255,.35), transparent 45%, rgba(204,173,88,.12)), var(--surface);
+}
+input:not([type="checkbox"]), select, .custom-select-trigger {
+    box-shadow: inset 0 2px 5px rgba(57,73,32,.04), inset 0 1px 0 rgba(255,255,255,.5);
+}
+.custom-select-options, [data-theme="dark"] .custom-select-options { border-radius: 26px; }
+.custom-option { border-radius: 999px; margin: 4px 6px; }
+.year-folder { align-items: center; padding: 22px 18px; background: linear-gradient(120deg, rgba(255,255,255,.32), transparent 45%, rgba(204,173,88,.13)), var(--surface); }
+.year-folder.selected { background: linear-gradient(125deg, #337154, #174d36 40%, #2c6547 64%, #113c2b); }
+.att-date, [data-theme="dark"] .att-date { border-radius: 999px; background: var(--surface); }
+.att-date.present { background: #d1e7bd; color: #15462e; }
+.att-date.absent { background: #f6d8cb; color: #863527; }
+#toast, .switch, .slider, .slider::before { border-radius: 999px; }
+/* Rounded inset areas keep signature writing and calendar content usable. */
+.screen [style*="border-radius"], .modal [style*="border-radius"] { border-radius: 28px !important; }
+.screen img[style*="border-radius:50%"], .screen [style*="border-radius:50%"] { border-radius: 50% !important; }
+.sign-preview, canvas { border-radius: 22px; }
+.square-tab { aspect-ratio: auto; min-height: 150px; }
+.year-folder small { white-space: nowrap; }
+[data-theme="dark"] .box, [data-theme="dark"] .square-tab,
+[data-theme="dark"] .modal-content { box-shadow: inset 0 1px 0 rgba(239,219,157,.16), 0 8px 25px rgba(0,0,0,.2); }
+
     </style>
 <body>
 
@@ -1548,7 +1689,7 @@
             <h2 style="font-size:28px;margin-top:10px;color:var(--dark);font-weight:800;letter-spacing:-0.5px;">Tuition Manager</h2>
             <p style="color:var(--gray);">Select your role to continue</p>
         </div>
-        
+
         <div class="grid-2" id="roleSelectionGrid" style="max-width:500px; margin:0 auto; width:100%;">
             <div class="square-tab" onclick="openLoginBox('teacher')" style="background:var(--surface);"><i class="fas fa-chalkboard-teacher"></i><h4>Teacher Login</h4></div>
             <div class="square-tab" onclick="openLoginBox('student')" style="background:var(--surface);"><i class="fas fa-user-graduate"></i><h4>Student Login</h4></div>
@@ -1612,6 +1753,11 @@
             </div>
         </div>
         <h2 class="home-title">Institution <br><span>Manager Pro</span></h2>
+        <section class="year-register box" aria-label="Yearly student registers">
+            <div class="year-heading"><div><h3>Yearly Registers</h3><p>বছর অনুযায়ী ছাত্র ও ফি হিসাব</p></div><button class="btn btn-outline btn-small" onclick="addAcademicYear()">+ New Year</button></div>
+            <div id="yearFolderGrid" class="year-folder-grid"></div>
+            <p class="year-note">Each year keeps its own students and fee records. Previous years stay available.</p>
+        </section>
         <div class="grid-2">
             <div class="square-tab" onclick="nav('mgmtScreen','Student Management')"><i class="fas fa-user-graduate"></i><h4 data-i18n="studentMgmt">Student Management</h4></div>
             <div class="square-tab" onclick="openFinance()"><i class="fas fa-chart-pie" style="color:#059669;"></i><h4 data-i18n="financeSummary">Financial Summary</h4></div>
@@ -1619,7 +1765,7 @@
         <div class="grid-2" style="margin-top:15px;">
             <div class="square-tab" onclick="openPendingRequests()"><i class="fas fa-user-clock" style="color:#8b5cf6;"></i><h4 data-i18n="newRequests">New Requests</h4> <span class="pending-badge" id="pendingCount" style="display:none;position:absolute;top:10px;right:10px;">0</span></div>
         </div>
-        <p style="margin-top:25px;color:var(--gray);font-size:12px;">App Version 9.2 • Firebase Live</p>
+        <p style="margin-top:25px;color:var(--gray);font-size:12px;">App Version 9.3 • Firebase Live</p>
     </div>
 </div>
 
@@ -1640,7 +1786,7 @@
             </div>
         </div>
     </div>
-    
+
     <button class="btn btn-outline" style="margin-bottom:15px;" onclick="openAttendance('student')"><i class="fas fa-calendar-alt" style="color:var(--primary);"></i> View Attendance Calendar</button>
 
     <div class="box" style="margin-bottom: 15px; padding: 15px;">
@@ -1653,30 +1799,14 @@
             <i class="fas fa-indian-rupee-sign" style="color: var(--success); font-size: 30px;"></i>
             <h4 data-i18n="monthlyFees">Monthly Fees</h4>
         </div>
-        <div class="square-tab" onclick="openStudentFilesScreen()" style="background:var(--surface);">
-            <i class="fas fa-folder-open" style="color: #3b82f6; font-size: 30px;"></i>
-            <h4 data-i18n="files">Files</h4>
-        </div>
+
     </div>
 </div>
 
 <div id="studentFeeScreen" class="screen">
+    <p id="studentAcademicYearLabel" class="year-note"></p>
     <div class="readonly-note"><i class="fas fa-lock"></i> Fee and payment data is managed by your teacher. You can only view it here.</div>
     <div id="studentFeeMonthList"></div>
-</div>
-
-<div id="studentFilesScreen" class="screen">
-    <div class="role-tabs" style="margin-bottom: 15px;">
-        <div class="role-tab active" id="tabTeacherFiles" onclick="switchFileTab('teacher')" style="padding:8px;">👨‍🏫 Teacher Notes</div>
-        <div class="role-tab" id="tabOwnFiles" onclick="switchFileTab('own')" style="padding:8px;">📁 My Files</div>
-    </div>
-    <div id="teacherFilesView"><div id="teacherPdfList"></div></div>
-    <div id="ownFilesView" style="display:none;">
-        <p style="font-size: 12px; color: var(--gray); text-align:center; margin-bottom: 15px;">Your personal uploaded files</p>
-        <button class="btn btn-outline" style="margin-bottom: 15px;" onclick="document.getElementById('ownFileUpload').click()"><i class="fas fa-upload"></i> Upload File</button>
-        <input type="file" id="ownFileUpload" accept="application/pdf,image/*" style="display:none;" onchange="uploadOwnFile(event)">
-        <div id="ownFilesList"></div>
-    </div>
 </div>
 
 <div id="studentMonthViewScreen" class="screen">
@@ -1690,7 +1820,7 @@
         <div class="class-stat-row"><span>📅 Paid Date</span><span id="svmDate" style="color:var(--dark);font-weight:800;"></span></div>
         <div class="class-stat-row"><span>⚠️ Due Amount</span><span id="svmDue" style="color:var(--accent);font-weight:800;"></span></div>
         <div class="class-stat-row" id="svmExtraRow" style="display:none;"><span>🎁 Extra Pay</span><span id="svmExtra" style="color:#3b82f6;font-weight:800;"></span></div>
-        <div class="grid-2" style="margin-top:25px;background:rgba(15, 23, 42, 0.3);padding:15px;border-radius:16px;border:1px solid var(--glass-border);">
+        <div class="grid-2" style="margin-top:25px;background:rgba(var(--bg-1-rgb), 0.3);padding:15px;border-radius:16px;border:1px solid var(--glass-border);">
             <div style="text-align:center;">
                 <label style="font-size:12px;font-weight:700;color:var(--dark);">Student Sign</label>
                 <img id="svmStudentSign" class="sign-preview" style="display:block;margin:10px auto 0 auto;max-height:80px;object-fit:contain;">
@@ -1706,6 +1836,7 @@
     </div>
 </div>
 <div id="mgmtScreen" class="screen">
+    <div class="year-toolbar box"><label>Academic year / শিক্ষাবর্ষ <select class="academic-year-select" aria-label="Academic year" onchange="selectAcademicYear(this.value)"></select></label><span class="year-student-count"></span></div>
     <div class="home-wrapper" style="min-height:60vh;">
         <div class="grid-2">
             <div class="square-tab" onclick="nav('addStudentScreen','Add Student')"><i class="fas fa-id-card" style="color:var(--success);"></i><h4>Add Student</h4></div>
@@ -1715,6 +1846,7 @@
 </div>
 
 <div id="addStudentScreen" class="screen">
+    <div class="year-toolbar box"><label>Academic year / শিক্ষাবর্ষ <select class="academic-year-select" aria-label="Academic year" onchange="selectAcademicYear(this.value)"></select></label><span class="year-student-count"></span></div>
     <div class="box">
         <p style="font-size:13px;color:var(--gray);margin-top:0;text-align:center;">Add student manually. Their login account will be created automatically.</p>
         <div class="role-tabs" style="margin-bottom: 15px;">
@@ -1749,6 +1881,7 @@
 </div>
 
 <div id="pendingScreen" class="screen">
+    <div class="year-toolbar box"><label>Approve into year / শিক্ষাবর্ষ <select class="academic-year-select" aria-label="Approval academic year" onchange="selectAcademicYear(this.value)"></select></label><span class="year-student-count"></span></div>
     <div id="pendingList"></div>
     <div id="noPendingMsg" style="text-align:center;padding:50px 20px;display:none;">
         <i class="fas fa-check-circle" style="font-size:60px;color:var(--success);margin-bottom:15px;display:block;"></i>
@@ -1757,6 +1890,7 @@
 </div>
 
 <div id="classScreen" class="screen">
+    <div class="year-toolbar box"><label>Academic year / শিক্ষাবর্ষ <select class="academic-year-select" aria-label="Academic year" onchange="selectAcademicYear(this.value)"></select></label><span class="year-student-count"></span></div>
     <div class="grid-2" id="classGrid"></div>
     <div id="noClassMsg" style="text-align:center;margin-top:50px;display:none;">
         <i class="fas fa-folder-open" style="font-size:60px;color:#cbd5e1;margin-bottom:15px;display:block;"></i>
@@ -1783,30 +1917,28 @@
         <p style="margin:5px 0 5px 0;font-size:13px;color:var(--gray);">ID: <b id="profId" style="color:var(--primary);"></b> &nbsp;|&nbsp; Class: <b id="profClass"></b></p>
         <p style="margin:0 0 5px 0;font-size:13px;color:var(--gray);"><i class="fas fa-envelope"></i> <span id="profEmail"></span></p>
         <p style="margin:0 0 15px 0;font-size:13px;color:var(--gray);"><i class="fas fa-phone"></i> <span id="profPhone"></span></p>
-        
+
         <div class="fee-badge">
             <span>Monthly Fee: ₹<b id="profFee" style="font-size:16px;"></b></span>
             <button class="btn btn-primary btn-small" id="btnEditFee" onclick="openEditProfileModal()">Edit</button>
         </div>
-        
+
         <div style="display:flex; justify-content:center; gap:10px; margin-bottom: 10px; flex-wrap:wrap;">
             <button class="btn btn-outline btn-small" onclick="openAttendance('teacher')"><i class="fas fa-calendar-check" style="color:var(--primary);"></i> Attendance</button>
             <button class="btn btn-outline btn-small" onclick="openRoutineModal()"><i class="fas fa-clock" style="color:#8b5cf6;"></i> Routine</button>
-            <button class="btn btn-outline btn-small" onclick="openPdfUploadModal()"><i class="fas fa-file-pdf" style="color:var(--accent);"></i> Send PDF</button>
         </div>
         <div style="display:flex; justify-content:center; gap:10px; margin-bottom: 20px;">
-            <button class="btn btn-outline btn-small" onclick="viewStudentOwnFiles()" style="color:#3b82f6;border-color:var(--glass-border);"><i class="fas fa-folder-open"></i> Student Files</button>
             <button class="btn btn-outline btn-small" onclick="triggerPasswordReset()"><i class="fas fa-key" style="color:#059669;"></i> Reset Pass</button>
             <button class="btn btn-outline btn-small" onclick="deleteCurrentStudent()" style="color:var(--accent);border-color:var(--glass-border);"><i class="fas fa-trash"></i> Delete</button>
         </div>
     </div>
-    <div style="background:rgba(15, 23, 42, 0.4);padding:15px;border-radius:16px;margin-bottom:20px;border:1px solid var(--glass-border);text-align:center;">
+    <div style="background:rgba(var(--bg-1-rgb), 0.4);padding:15px;border-radius:16px;margin-bottom:20px;border:1px solid var(--glass-border);text-align:center;">
         <h4 style="margin:0 0 10px 0;font-size:14px;color:var(--dark);">Master Teacher Signature</h4>
         <img id="masterTeacherSignImg" class="sign-preview" style="display:none;margin:0 auto 10px auto;">
         <p id="noMasterTeacherSign" style="color:var(--gray);font-size:12px;margin:0 0 10px 0;">No signature saved.</p>
         <button class="btn btn-outline btn-small" onclick="openSign('masterTeacher')" style="margin:0 auto;"><i class="fas fa-pen-nib"></i> Add/Update Signature</button>
     </div>
-    <h4 style="color:var(--dark);margin-bottom:15px;font-size:14px;font-weight:700;text-align:center;">Academic Year (12 Months)</h4>
+    <h4 style="color:var(--dark);margin-bottom:15px;font-size:14px;font-weight:700;text-align:center;"><span id="profileAcademicYear"></span> · 12 Months</h4>
     <div class="grid-2" id="monthGrid"></div>
 </div>
 
@@ -1822,7 +1954,7 @@
         <div class="form-group"><label>📅 Paid Date</label><input type="date" id="mDate"></div>
         <div class="form-group"><label>⚠️ Due Amount (₹)</label><input type="number" id="mDue" placeholder="Enter remaining due"></div>
         <div class="form-group"><label>🎁 Extra Pay / Advance (₹)</label><input type="number" id="mExtra" placeholder="Enter extra pay if any"></div>
-        <div class="grid-2" style="margin-bottom:25px;background:rgba(15, 23, 42, 0.3);padding:15px;border-radius:16px;border:1px solid var(--glass-border);">
+        <div class="grid-2" style="margin-bottom:25px;background:rgba(var(--bg-1-rgb), 0.3);padding:15px;border-radius:16px;border:1px solid var(--glass-border);">
             <div style="text-align:center;"><label style="font-size:12px;font-weight:700;color:var(--dark);">Student Sign</label><img id="previewStudentSign" class="sign-preview"><button class="btn btn-outline btn-small" id="btnStudentSign" style="margin-top:10px;" onclick="openSign('student')"><i class="fas fa-pen-nib"></i> Sign Here</button></div>
             <div style="text-align:center;"><label style="font-size:12px;font-weight:700;color:var(--dark);">Teacher Sign</label><img id="previewTeacherSign" class="sign-preview"><button class="btn btn-outline btn-small" id="btnTeacherSign" style="margin-top:10px;" onclick="openSign('teacher')"><i class="fas fa-pen-nib"></i> Sign Here</button><div class="toggle-switch-container" id="useMasterSignToggleContainer" style="display:none; justify-content:center; align-items:center; gap:8px; margin-top:8px;"><span style="font-size:11px;font-weight:700;color:var(--gray);">Auto Sign</span><label class="switch"><input type="checkbox" id="masterSignToggle" onchange="handleMasterSignToggle(this.checked)"><span class="slider round"></span></label></div></div>
         </div>
@@ -1834,7 +1966,7 @@
     <div class="box">
         <h3 style="text-align:center;color:var(--primary);margin-top:0;font-size:22px;font-weight:800;" id="attTitle">Attendance</h3>
         <p style="text-align:center;font-size:13px;color:var(--gray);margin:-5px 0 20px 0;" id="attStudentName"></p>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;background:rgba(15, 23, 42, 0.6);padding:8px;border-radius:14px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;background:rgba(var(--bg-1-rgb), 0.6);padding:8px;border-radius:14px;">
             <button class="btn btn-outline btn-small" onclick="prevAttMonth()"><i class="fas fa-chevron-left"></i></button>
             <h4 id="attMonthDisplay" style="margin:0;font-size:16px;font-weight:800;"></h4>
             <button class="btn btn-outline btn-small" onclick="nextAttMonth()"><i class="fas fa-chevron-right"></i></button>
@@ -1844,7 +1976,7 @@
             <div class="att-day-header">Wed</div><div class="att-day-header">Thu</div><div class="att-day-header">Fri</div><div class="att-day-header">Sat</div>
         </div>
         <div class="att-grid" id="attCalendarGrid"></div>
-        <div style="margin-top:25px;display:flex;justify-content:center;gap:20px;font-size:13px;font-weight:700;color:var(--dark);background:rgba(15, 23, 42, 0.4);padding:15px;border-radius:16px;">
+        <div style="margin-top:25px;display:flex;justify-content:center;gap:20px;font-size:13px;font-weight:700;color:var(--dark);background:rgba(var(--bg-1-rgb), 0.4);padding:15px;border-radius:16px;">
             <span style="display:flex;align-items:center;"><span style="display:inline-block;width:14px;height:14px;background:var(--success);border-radius:4px;margin-right:8px;box-shadow:0 2px 5px rgba(16,185,129,0.3);"></span>Present</span>
             <span style="display:flex;align-items:center;"><span style="display:inline-block;width:14px;height:14px;background:var(--accent);border-radius:4px;margin-right:8px;box-shadow:0 2px 5px rgba(244,63,94,0.3);"></span>Absent</span>
         </div>
@@ -1852,6 +1984,7 @@
 </div>
 
 <div id="financeScreen" class="screen">
+    <div class="year-toolbar box"><label>Academic year / শিক্ষাবর্ষ <select class="academic-year-select" aria-label="Academic year" onchange="selectAcademicYear(this.value)"></select></label><span class="year-student-count"></span></div>
     <div class="finance-tabs">
         <div class="fin-tab active" id="tabMonthly" onclick="switchFinanceTab('monthly')">Monthly Report</div>
         <div class="fin-tab" id="tabYearly" onclick="switchFinanceTab('yearly')">Yearly (2026)</div>
@@ -1872,8 +2005,8 @@
         </div>
     </div>
     <div id="finYearlyContent" style="display:none;">
-        <div class="fin-card success"><h4>Total Collected (2026)</h4><h2>₹<span id="finYearlyCollected">0</span></h2></div>
-        <div class="fin-card due"><h4>Total Due (2026)</h4><h2>₹<span id="finYearlyDue">0</span></h2></div>
+        <div class="fin-card success"><h4 id="finYearlyCollectedLabel">Total Collected</h4><h2>₹<span id="finYearlyCollected">0</span></h2></div>
+        <div class="fin-card due"><h4 id="finYearlyDueLabel">Total Due</h4><h2>₹<span id="finYearlyDue">0</span></h2></div>
     </div>
 </div>
 </div>
@@ -1911,7 +2044,6 @@
                 <input type="hidden" id="langSelect" value="en" onchange="changeLanguage()">
             </div>
         </div>
-        <div class="form-group"><label>🎨 Theme Color</label><input type="color" id="themeColorPicker" onchange="changeThemeColor(this.value)"></div>
         <button class="btn btn-primary" style="margin-top:15px;" onclick="closeModal('settingsModal')">Done</button>
     </div>
 </div>
@@ -1933,42 +2065,24 @@
         <div class="bottom-sheet-handle"></div>
         <h3 style="margin-top:0;color:var(--dark);text-align:center;"><i class="fas fa-clock"></i> Set Weekly Routine</h3>
         <div style="overflow-y:auto; padding-right:5px; flex-grow:1; margin-bottom:15px;">
-            <div style="margin-bottom:12px;background:rgba(241,245,249,0.8);padding:12px;border-radius:12px;border-left:4px solid var(--primary);"><label style="font-weight:700;color:var(--dark);display:block;margin-bottom:8px;font-size:13px;">Monday</label><div style="display:flex;gap:8px;"><input type="text" id="rtMonSubj" placeholder="Subject" style="flex:2;padding:12px;"><input type="text" id="rtMonTime" placeholder="Time" style="flex:1;padding:12px;"></div></div>
-            <div style="margin-bottom:12px;background:rgba(241,245,249,0.8);padding:12px;border-radius:12px;border-left:4px solid var(--primary);"><label style="font-weight:700;color:var(--dark);display:block;margin-bottom:8px;font-size:13px;">Tuesday</label><div style="display:flex;gap:8px;"><input type="text" id="rtTueSubj" placeholder="Subject" style="flex:2;padding:12px;"><input type="text" id="rtTueTime" placeholder="Time" style="flex:1;padding:12px;"></div></div>
-            <div style="margin-bottom:12px;background:rgba(241,245,249,0.8);padding:12px;border-radius:12px;border-left:4px solid var(--primary);"><label style="font-weight:700;color:var(--dark);display:block;margin-bottom:8px;font-size:13px;">Wednesday</label><div style="display:flex;gap:8px;"><input type="text" id="rtWedSubj" placeholder="Subject" style="flex:2;padding:12px;"><input type="text" id="rtWedTime" placeholder="Time" style="flex:1;padding:12px;"></div></div>
-            <div style="margin-bottom:12px;background:rgba(241,245,249,0.8);padding:12px;border-radius:12px;border-left:4px solid var(--primary);"><label style="font-weight:700;color:var(--dark);display:block;margin-bottom:8px;font-size:13px;">Thursday</label><div style="display:flex;gap:8px;"><input type="text" id="rtThuSubj" placeholder="Subject" style="flex:2;padding:12px;"><input type="text" id="rtThuTime" placeholder="Time" style="flex:1;padding:12px;"></div></div>
-            <div style="margin-bottom:12px;background:rgba(241,245,249,0.8);padding:12px;border-radius:12px;border-left:4px solid var(--primary);"><label style="font-weight:700;color:var(--dark);display:block;margin-bottom:8px;font-size:13px;">Friday</label><div style="display:flex;gap:8px;"><input type="text" id="rtFriSubj" placeholder="Subject" style="flex:2;padding:12px;"><input type="text" id="rtFriTime" placeholder="Time" style="flex:1;padding:12px;"></div></div>
-            <div style="margin-bottom:12px;background:rgba(241,245,249,0.8);padding:12px;border-radius:12px;border-left:4px solid var(--primary);"><label style="font-weight:700;color:var(--dark);display:block;margin-bottom:8px;font-size:13px;">Saturday</label><div style="display:flex;gap:8px;"><input type="text" id="rtSatSubj" placeholder="Subject" style="flex:2;padding:12px;"><input type="text" id="rtSatTime" placeholder="Time" style="flex:1;padding:12px;"></div></div>
-            <div style="margin-bottom:12px;background:rgba(241,245,249,0.8);padding:12px;border-radius:12px;border-left:4px solid var(--primary);"><label style="font-weight:700;color:var(--dark);display:block;margin-bottom:8px;font-size:13px;">Sunday</label><div style="display:flex;gap:8px;"><input type="text" id="rtSunSubj" placeholder="Subject" style="flex:2;padding:12px;"><input type="text" id="rtSunTime" placeholder="Time" style="flex:1;padding:12px;"></div></div>
+            <div style="margin-bottom:12px;background:var(--surface);padding:12px;border-radius:12px;border-left:4px solid var(--primary);"><label style="font-weight:700;color:var(--dark);display:block;margin-bottom:8px;font-size:13px;">Monday</label><div style="display:flex;gap:8px;"><input type="text" id="rtMonSubj" placeholder="Subject" style="flex:2;padding:12px;"><input type="text" id="rtMonTime" placeholder="Time" style="flex:1;padding:12px;"></div></div>
+            <div style="margin-bottom:12px;background:var(--surface);padding:12px;border-radius:12px;border-left:4px solid var(--primary);"><label style="font-weight:700;color:var(--dark);display:block;margin-bottom:8px;font-size:13px;">Tuesday</label><div style="display:flex;gap:8px;"><input type="text" id="rtTueSubj" placeholder="Subject" style="flex:2;padding:12px;"><input type="text" id="rtTueTime" placeholder="Time" style="flex:1;padding:12px;"></div></div>
+            <div style="margin-bottom:12px;background:var(--surface);padding:12px;border-radius:12px;border-left:4px solid var(--primary);"><label style="font-weight:700;color:var(--dark);display:block;margin-bottom:8px;font-size:13px;">Wednesday</label><div style="display:flex;gap:8px;"><input type="text" id="rtWedSubj" placeholder="Subject" style="flex:2;padding:12px;"><input type="text" id="rtWedTime" placeholder="Time" style="flex:1;padding:12px;"></div></div>
+            <div style="margin-bottom:12px;background:var(--surface);padding:12px;border-radius:12px;border-left:4px solid var(--primary);"><label style="font-weight:700;color:var(--dark);display:block;margin-bottom:8px;font-size:13px;">Thursday</label><div style="display:flex;gap:8px;"><input type="text" id="rtThuSubj" placeholder="Subject" style="flex:2;padding:12px;"><input type="text" id="rtThuTime" placeholder="Time" style="flex:1;padding:12px;"></div></div>
+            <div style="margin-bottom:12px;background:var(--surface);padding:12px;border-radius:12px;border-left:4px solid var(--primary);"><label style="font-weight:700;color:var(--dark);display:block;margin-bottom:8px;font-size:13px;">Friday</label><div style="display:flex;gap:8px;"><input type="text" id="rtFriSubj" placeholder="Subject" style="flex:2;padding:12px;"><input type="text" id="rtFriTime" placeholder="Time" style="flex:1;padding:12px;"></div></div>
+            <div style="margin-bottom:12px;background:var(--surface);padding:12px;border-radius:12px;border-left:4px solid var(--primary);"><label style="font-weight:700;color:var(--dark);display:block;margin-bottom:8px;font-size:13px;">Saturday</label><div style="display:flex;gap:8px;"><input type="text" id="rtSatSubj" placeholder="Subject" style="flex:2;padding:12px;"><input type="text" id="rtSatTime" placeholder="Time" style="flex:1;padding:12px;"></div></div>
+            <div style="margin-bottom:12px;background:var(--surface);padding:12px;border-radius:12px;border-left:4px solid var(--primary);"><label style="font-weight:700;color:var(--dark);display:block;margin-bottom:8px;font-size:13px;">Sunday</label><div style="display:flex;gap:8px;"><input type="text" id="rtSunSubj" placeholder="Subject" style="flex:2;padding:12px;"><input type="text" id="rtSunTime" placeholder="Time" style="flex:1;padding:12px;"></div></div>
         </div>
         <div style="display:flex;gap:10px;"><button class="btn btn-outline" onclick="closeModal('routineModal')">Cancel</button><button class="btn btn-primary" onclick="saveRoutine()"><i class="fas fa-save"></i> Save</button></div>
     </div>
 </div>
 
-<div class="modal" id="pdfUploadModal">
-    <div class="modal-content">
-        <div class="bottom-sheet-handle"></div>
-        <h3 style="margin-top:0;color:var(--dark);"><i class="fas fa-file-pdf"></i> Share PDF Note</h3>
-        <div class="form-group" style="text-align:left;"><label>Title (Optional)</label><input type="text" id="pdfTitle"></div>
-        <div class="form-group"><input type="file" id="pdfFileInput" accept="application/pdf"></div>
-        <div style="display:flex;gap:10px;margin-top:15px;"><button class="btn btn-outline" onclick="closeModal('pdfUploadModal')">Cancel</button><button class="btn btn-primary" onclick="uploadPdfToStudent()"><i class="fas fa-upload"></i> Upload</button></div>
-    </div>
-</div>
-
-<div class="modal" id="teacherViewStudentFilesModal">
-    <div class="modal-content">
-        <div class="bottom-sheet-handle"></div>
-        <h3 style="margin-top:0;color:var(--dark);"><i class="fas fa-folder-open"></i> Student's Files</h3>
-        <div id="teacherViewOwnFilesList" style="text-align:left; margin-top:15px;"></div>
-        <button class="btn btn-outline" style="margin-top:15px;" onclick="closeModal('teacherViewStudentFilesModal')">Close</button>
-    </div>
-</div>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script type="module">
+import { studentYear, studentsForYear, availableYears, financeTotals } from "./year-utils.mjs";
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import{getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,signOut,onAuthStateChanged,sendPasswordResetEmail}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import{getFirestore,doc,setDoc,getDoc,collection,getDocs,updateDoc,deleteDoc,query,where,limit}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import{getStorage,ref,uploadBytes,getDownloadURL,deleteObject}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
 const firebaseConfig={apiKey:"AIzaSyACNTVkt6dIX6tx9Ub3l1AL0nlnXNMrZj8",authDomain:"student-fees-8f7b7.firebaseapp.com",projectId:"student-fees-8f7b7",storageBucket:"student-fees-8f7b7.firebasestorage.app",messagingSenderId:"715775119348",appId:"1:715775119348:web:638e2a2b9f3e4bcad1b3a1"};
 const TEACHER_EMAIL="prosan721@gmail.com";
@@ -1976,7 +2090,7 @@ const TEACHER_EMAIL="prosan721@gmail.com";
 const fireApp=initializeApp(firebaseConfig);
 const auth=getAuth(fireApp);
 const db=getFirestore(fireApp);
-const storage=getStorage(fireApp);
+const accountCreationAuth=getAuth(initializeApp(firebaseConfig, "studentAccountCreation"));
 
 const translations = {
     en: { appTitle: "Tuition Manager", studentMgmt: "Student Management", financeSummary: "Financial Summary", newRequests: "New Requests", monthlyFees: "Monthly Fees", files: "Files" },
@@ -1988,61 +2102,6 @@ const translations = {
 
 window.changeLanguage = function() { let lang = document.getElementById('langSelect').value; if(!lang) return; localStorage.setItem('appLang', lang); applyLanguage(lang); const langNames = { en: 'English', bn: 'Bengali', hi: 'Hindi', as: 'Assamese', ko: 'Korean' }; showToast('🌐 Language: ' + (langNames[lang] || lang)); }
 function applyLanguage(lang) { if(!translations[lang]) return; document.querySelectorAll('[data-i18n]').forEach(el => { let key = el.getAttribute('data-i18n'); if(translations[lang][key]) el.innerText = translations[lang][key]; }); }
-window.changeThemeColor = function(color) { 
-    document.documentElement.style.setProperty('--primary', color); 
-    localStorage.setItem('appColor', color); 
-    if (color && color.startsWith('#')) {
-        let r = parseInt(color.slice(1, 3), 16);
-        let g = parseInt(color.slice(3, 5), 16);
-        let b = parseInt(color.slice(5, 7), 16);
-        if (!isNaN(r) && !isNaN(g) && !isNaN(b)) {
-            document.documentElement.style.setProperty('--primary-rgb', `${r}, ${g}, ${b}`);
-            
-            // Calculate primary dark shade (darken by 35% to replace #8f2828)
-            let darkR = Math.max(0, Math.floor(r * 0.65));
-            let darkG = Math.max(0, Math.floor(g * 0.65));
-            let darkB = Math.max(0, Math.floor(b * 0.65));
-            document.documentElement.style.setProperty('--primary-dark', `#${darkR.toString(16).padStart(2,'0')}${darkG.toString(16).padStart(2,'0')}${darkB.toString(16).padStart(2,'0')}`);
-            
-            // Calculate secondary complementary shade (rotate/lighten by 25%)
-            let secR = Math.min(255, Math.floor(r + (255 - r) * 0.3));
-            let secG = Math.min(255, Math.floor(g + (255 - g) * 0.3));
-            let secB = Math.min(255, Math.floor(b + (255 - b) * 0.3));
-            document.documentElement.style.setProperty('--secondary', `#${secR.toString(16).padStart(2,'0')}${secG.toString(16).padStart(2,'0')}${secB.toString(16).padStart(2,'0')}`);
-            document.documentElement.style.setProperty('--secondary-rgb', `${secR}, ${secG}, ${secB}`);
-            
-            // Calculate background light/dark RGB overlays
-            const isDark = document.body.getAttribute('data-theme') === 'dark';
-            if (isDark) {
-                // dark mode tint: mix 5% primary color + 95% pitch black (9, 9, 11)
-                let dbg1R = Math.floor(r * 0.05 + 9 * 0.95);
-                let dbg1G = Math.floor(g * 0.05 + 9 * 0.95);
-                let dbg1B = Math.floor(b * 0.05 + 11 * 0.95);
-                
-                // mix 8% primary color + 92% deep zinc (18, 18, 20)
-                let dbg2R = Math.floor(r * 0.08 + 18 * 0.92);
-                let dbg2G = Math.floor(g * 0.08 + 18 * 0.92);
-                let dbg2B = Math.floor(b * 0.08 + 20 * 0.92);
-                
-                document.documentElement.style.setProperty('--bg-1-rgb', `${dbg1R}, ${dbg1G}, ${dbg1B}`);
-                document.documentElement.style.setProperty('--bg-2-rgb', `${dbg2R}, ${dbg2G}, ${dbg2B}`);
-            } else {
-                // dim mode tint: mix 8% primary color + 92% dark slate-gray (15, 23, 42)
-                let bg1R = Math.floor(r * 0.08 + 15 * 0.92);
-                let bg1G = Math.floor(g * 0.08 + 23 * 0.92);
-                let bg1B = Math.floor(b * 0.08 + 42 * 0.92);
-                
-                // mix 12% primary color + 88% slate-gray (30, 41, 59)
-                let bg2R = Math.floor(r * 0.12 + 30 * 0.88);
-                let bg2G = Math.floor(g * 0.12 + 41 * 0.88);
-                let bg2B = Math.floor(b * 0.12 + 59 * 0.88);
-                
-                document.documentElement.style.setProperty('--bg-1-rgb', `${bg1R}, ${bg1G}, ${bg1B}`);
-                document.documentElement.style.setProperty('--bg-2-rgb', `${bg2R}, ${bg2G}, ${bg2B}`);
-            }
-        }
-    }
-}
 window.openSettingsModal = function() {
     // Sync language dropdown UI with saved value
     let savedLang = localStorage.getItem('appLang') || 'en';
@@ -2058,7 +2117,6 @@ window.toggleTheme = function() {
     const bd = document.body;
     if(bd.getAttribute('data-theme') === 'dark') { bd.removeAttribute('data-theme'); localStorage.setItem('theme', 'light'); } else { bd.setAttribute('data-theme', 'dark'); localStorage.setItem('theme', 'dark'); }
     updateThemeIcon();
-    window.changeThemeColor(localStorage.getItem('appColor') || '#b33939');
 }
 function updateThemeIcon() {
     const icon = document.querySelector('#themeToggle i'); const isDark = document.body.getAttribute('data-theme') === 'dark';
@@ -2066,19 +2124,16 @@ function updateThemeIcon() {
     document.getElementById('themeToggle').style.color = '';
 }
 window.addEventListener('DOMContentLoaded', () => {
-    let savedColor = localStorage.getItem('appColor') || '#b33939'; 
-    document.getElementById('themeColorPicker').value = savedColor; 
     if(localStorage.getItem('theme') === 'dark') { document.body.setAttribute('data-theme', 'dark'); }
-    window.changeThemeColor(savedColor);
     updateThemeIcon();
     init3DLogos();
-    
+
     // Initialize custom select values on load
     let savedLang = localStorage.getItem('appLang') || 'en';
     const langLabels = { en: 'English', bn: 'Bengali (বাংলা)', hi: 'Hindi (हिंदी)', as: 'Assamese (অসমীয়া)', ko: 'Korean (한국어)' };
     window.selectCustomOption('langSelect', savedLang, langLabels[savedLang]);
     applyLanguage(savedLang);
-    
+
     // Initialize Flatpickr instances
     window.flatpickrInstances = {
         stuDate: flatpickr('#stuDate', { dateFormat: 'Y-m-d', allowInput: true }),
@@ -2126,46 +2181,46 @@ function init3DLogos() {
     wrappers.forEach(wrapper => {
         const card = wrapper.querySelector('.logo-3d-card');
         if (!card) return;
-        
+
         wrapper.addEventListener('mousemove', (e) => {
             const rect = wrapper.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            
+
             const xc = ((rect.width / 2) - x) / (rect.width / 2);
             const yc = (((rect.height / 2) - y) / (rect.height / 2)) * -1;
-            
+
             const rotateX = yc * 24;
             const rotateY = xc * 24;
-            
+
             card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
             card.style.transition = 'none';
         });
-        
+
         wrapper.addEventListener('mouseleave', () => {
             card.style.transition = 'transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1)';
             card.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
         });
-        
+
         wrapper.addEventListener('touchmove', (e) => {
             if (e.touches.length === 0) return;
             const touch = e.touches[0];
             const rect = wrapper.getBoundingClientRect();
             const x = touch.clientX - rect.left;
             const y = touch.clientY - rect.top;
-            
+
             if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
                 const xc = ((rect.width / 2) - x) / (rect.width / 2);
                 const yc = (((rect.height / 2) - y) / (rect.height / 2)) * -1;
-                
+
                 const rotateX = yc * 16;
                 const rotateY = xc * 16;
-                
+
                 card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
                 card.style.transition = 'none';
             }
         }, { passive: true });
-        
+
         wrapper.addEventListener('touchend', () => {
             card.style.transition = 'transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1)';
             card.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
@@ -2177,6 +2232,56 @@ const monthsList=["January","February","March","April","May","June","July","Augu
 let currentStudentId=null,currentMonth=null,currentClass=null,activeSigner='';
 let tempSigns={student:null,teacher:null};
 let screenStack=[]; let allStudents={};
+// A year is a register for a separate cohort; no existing records are moved or reset.
+let selectedAcademicYear = new Date().getFullYear();
+let extraAcademicYears = [];
+try { extraAcademicYears = JSON.parse(localStorage.getItem('academicYears') || '[]'); } catch (_) {}
+if (!Array.isArray(extraAcademicYears)) extraAcademicYears = [];
+function renderYearControls() {
+    const years = availableYears(allStudents, new Date().getFullYear(), extraAcademicYears);
+    const count = Object.keys(studentsForYear(allStudents, selectedAcademicYear)).length;
+    document.querySelectorAll('.academic-year-select').forEach(select => {
+        select.replaceChildren(...years.map(year => new Option(String(year), String(year), false, year === selectedAcademicYear)));
+    });
+    document.querySelectorAll('.year-student-count').forEach(el => el.innerText = count + ' students');
+    const grid = document.getElementById('yearFolderGrid');
+    grid.replaceChildren(...years.map(year => {
+        const button = document.createElement('button');
+        button.className = 'year-folder' + (year === selectedAcademicYear ? ' selected' : '');
+        button.innerHTML = '<i class="fas fa-folder"></i><strong>' + year + '</strong><small>' + Object.keys(studentsForYear(allStudents, year)).length + ' students</small>';
+        button.setAttribute('aria-pressed', String(year === selectedAcademicYear));
+        button.onclick = () => { window.selectAcademicYear(year); setTimeout(() => window.nav('mgmtScreen', 'Students · ' + year), 400); };
+        return button;
+    }));
+    document.getElementById('tabYearly').innerText = 'Yearly (' + selectedAcademicYear + ')';
+    document.getElementById('finYearlyCollectedLabel').innerText = 'Total Collected (' + selectedAcademicYear + ')';
+    document.getElementById('finYearlyDueLabel').innerText = 'Total Due (' + selectedAcademicYear + ')';
+}
+window.selectAcademicYear = function(value) {
+    const year = Number(value);
+    if (!availableYears(allStudents, new Date().getFullYear(), extraAcademicYears).includes(year)) return;
+    selectedAcademicYear = year;
+    currentStudentId = null; currentClass = null; currentMonth = null;
+    screenStack = [];
+    ['stuName','stuEmail','stuMobile','stuPass','stuFee','stuDate'].forEach(id => { const el = document.getElementById(id); if (el) el.value = ''; });
+    if (window.flatpickrInstances?.stuDate) window.flatpickrInstances.stuDate.clear();
+    renderYearControls();
+    // Leave any old profile/form so a year switch cannot edit the wrong cohort.
+    showScreen('homeScreen', 'Dashboard · ' + year);
+};
+window.addAcademicYear = function() {
+    const years = availableYears(allStudents, new Date().getFullYear(), extraAcademicYears);
+    const value = prompt('New academic year / নতুন শিক্ষাবর্ষ (e.g. 2027)', String(Math.max(...years) + 1));
+    if (value === null) return;
+    const year = Number(value.trim());
+    if (!Number.isInteger(year) || year < 2000 || year > 2100) return showToast('Enter a year from 2000 to 2100.');
+    if (!years.includes(year)) extraAcademicYears.push(year);
+    localStorage.setItem('academicYears', JSON.stringify(extraAcademicYears));
+    window.selectAcademicYear(year);
+    showToast('Register ready: ' + year);
+};
+renderYearControls();
+
 
 let loginType = 'email', signupType = 'email', addType = 'email';
 window.switchLoginType = function(type) { loginType = type; document.getElementById('typeEmailTab').classList.toggle('active', type==='email'); document.getElementById('typeMobileTab').classList.toggle('active', type==='mobile'); document.getElementById('loginEmailGroup').style.display = type==='email' ? 'block' : 'none'; document.getElementById('loginMobileGroup').style.display = type==='mobile' ? 'block' : 'none'; }
@@ -2229,30 +2334,30 @@ window.closeModal = function(id) {
 document.addEventListener('pointerdown', function(e) {
     let target = e.target.closest('.btn, .btn-small, .square-tab, .role-tab, .fin-tab, .list-item, .att-date');
     if (!target) return;
-    
+
     // Add tactile pressed state
     target.classList.add('pressed');
-    
+
     let ripple = document.createElement('span');
     ripple.className = 'ripple-effect';
-    
+
     let rect = target.getBoundingClientRect();
     let size = Math.max(rect.width, rect.height);
     ripple.style.width = ripple.style.height = size + 'px';
-    
+
     let x = e.clientX - rect.left - size / 2;
     let y = e.clientY - rect.top - size / 2;
     ripple.style.left = x + 'px';
     ripple.style.top = y + 'px';
-    
+
     let origPos = window.getComputedStyle(target).position;
     if (origPos === 'static') {
         target.style.position = 'relative';
     }
     target.style.overflow = 'hidden';
-    
+
     target.appendChild(ripple);
-    
+
     ripple.addEventListener('animationend', () => {
         ripple.remove();
     });
@@ -2286,7 +2391,7 @@ document.addEventListener('touchstart', (e) => {
         activeSwipeScreen = document.querySelector('.screen.active');
         let prevId = screenStack[screenStack.length - 1];
         prevSwipeScreen = document.getElementById(prevId);
-        
+
         if (activeSwipeScreen && prevSwipeScreen && activeSwipeScreen.id !== 'authScreen') {
             swipeScreenWidth = window.innerWidth;
             isSwipeCandidate = true;
@@ -2301,12 +2406,12 @@ document.addEventListener('touchmove', (e) => {
     let currentY = e.touches[0].clientY;
     let deltaX = currentX - startX;
     let deltaY = currentY - startY;
-    
+
     if (!isSwiping) {
         // Only start swiping if primary movement is horizontal and exceeds threshold
         if (deltaX > 10 && deltaX > Math.abs(deltaY)) {
             isSwiping = true;
-            
+
             // Prepare screens for manual swipe
             prevSwipeScreen.style.display = 'block';
             prevSwipeScreen.style.position = 'absolute';
@@ -2316,7 +2421,7 @@ document.addEventListener('touchmove', (e) => {
             prevSwipeScreen.style.zIndex = '1';
             prevSwipeScreen.style.transform = `translate3d(-24%, 0, 0)`;
             prevSwipeScreen.style.opacity = '0.75';
-            
+
             activeSwipeScreen.style.position = 'absolute';
             activeSwipeScreen.style.top = '0';
             activeSwipeScreen.style.left = '0';
@@ -2330,13 +2435,13 @@ document.addEventListener('touchmove', (e) => {
             isSwipeCandidate = false;
         }
     }
-    
+
     if (isSwiping) {
         if (deltaX < 0) deltaX = 0;
-        
+
         // Animate active screen sliding right
         activeSwipeScreen.style.transform = `translate3d(${deltaX}px, 0, 0)`;
-        
+
         // Animate previous screen sliding in from left with parallax
         let percent = Math.min(deltaX / swipeScreenWidth, 1);
         let prevTranslate = -24 + (percent * 24);
@@ -2351,18 +2456,18 @@ document.addEventListener('touchend', (e) => {
     isSwiping = false;
     let deltaX = currentX - startX;
     let threshold = swipeScreenWidth * 0.28; // 28% width threshold
-    
+
     if (deltaX > threshold) {
         // Complete the back navigation
         isNavigating = true;
         activeSwipeScreen.style.transition = 'transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.28s ease';
         prevSwipeScreen.style.transition = 'transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.28s ease';
-        
+
         activeSwipeScreen.style.transform = `translate3d(100%, 0, 0)`;
         activeSwipeScreen.style.opacity = '0.9';
         prevSwipeScreen.style.transform = `translate3d(0, 0, 0)`;
         prevSwipeScreen.style.opacity = '1';
-        
+
         let prevId = screenStack.pop();
         let t = {
             homeScreen: 'Dashboard',
@@ -2377,10 +2482,9 @@ document.addEventListener('touchend', (e) => {
             pendingScreen: 'New Requests',
             attendanceScreen: 'Attendance Calendar',
             studentFeeScreen: 'Monthly Fees',
-            studentFilesScreen: 'Study Files'
         };
         updateAppBar(prevId, t[prevId] || 'Back');
-        
+
         setTimeout(() => {
             activeSwipeScreen.className = 'screen';
             activeSwipeScreen.style.cssText = '';
@@ -2396,11 +2500,11 @@ document.addEventListener('touchend', (e) => {
         isNavigating = true;
         activeSwipeScreen.style.transition = 'transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1)';
         prevSwipeScreen.style.transition = 'transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1)';
-        
+
         activeSwipeScreen.style.transform = `translate3d(0, 0, 0)`;
         prevSwipeScreen.style.transform = `translate3d(-24%, 0, 0)`;
         prevSwipeScreen.style.opacity = '0.75';
-        
+
         setTimeout(() => {
             activeSwipeScreen.style.cssText = '';
             prevSwipeScreen.style.cssText = '';
@@ -2445,12 +2549,12 @@ document.addEventListener('touchend', (e) => {
     if (!isDraggingModal || !activeModalContent || !activeModal) return;
     isDraggingModal = false;
     let deltaY = modalCurrentY - modalStartY;
-    
+
     if (deltaY > 80) {
         // Dismiss sheet
         activeModalContent.style.transition = 'transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1)';
         activeModalContent.style.transform = `translate3d(0, 100%, 0)`;
-        
+
         setTimeout(() => {
             closeModal(activeModal.id);
             activeModalContent.style.cssText = '';
@@ -2520,19 +2624,19 @@ window.runHeroAnimation = function(sourceImg, targetImgId, callback) {
         callback();
         return;
     }
-    
+
     const srcRect = sourceImg.getBoundingClientRect();
-    
+
     // Switch the screens
     callback();
-    
+
     // Animate after layout
     requestAnimationFrame(() => {
         const destRect = targetImg.getBoundingClientRect();
         if (destRect.width === 0 || destRect.height === 0) {
             return; // Target not rendered, skip hero
         }
-        
+
         const heroClone = sourceImg.cloneNode(true);
         heroClone.style.position = 'fixed';
         heroClone.style.top = srcRect.top + 'px';
@@ -2544,25 +2648,25 @@ window.runHeroAnimation = function(sourceImg, targetImgId, callback) {
         heroClone.style.borderRadius = window.getComputedStyle(sourceImg).borderRadius;
         heroClone.style.transition = 'all 0.38s cubic-bezier(0.2, 0.8, 0.2, 1)';
         heroClone.style.transformOrigin = 'top left';
-        
+
         targetImg.style.opacity = '0';
         sourceImg.style.opacity = '0';
-        
+
         document.body.appendChild(heroClone);
         heroClone.offsetHeight; // force paint
-        
+
         heroClone.style.top = destRect.top + 'px';
         heroClone.style.left = destRect.left + 'px';
         heroClone.style.width = destRect.width + 'px';
         heroClone.style.height = destRect.height + 'px';
         heroClone.style.borderRadius = window.getComputedStyle(targetImg).borderRadius;
-        
+
         heroClone.addEventListener('transitionend', () => {
             targetImg.style.opacity = '1';
             sourceImg.style.opacity = '1';
             heroClone.remove();
         });
-        
+
         setTimeout(() => {
             if (heroClone.parentNode) {
                 targetImg.style.opacity = '1';
@@ -2577,23 +2681,23 @@ let isNavigating = false;
 function showScreen(id, title, direction = 'forward') {
     let currentActive = document.querySelector('.screen.active');
     let targetScreen = document.getElementById(id);
-    
+
     if (!currentActive || currentActive.id === id) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         targetScreen.classList.add('active');
         updateAppBar(id, title);
         return;
     }
-    
+
     if (isNavigating) return;
     isNavigating = true;
-    
+
     let wrapper = document.getElementById('screensWrapper');
     wrapper.classList.add('transitioning');
-    
+
     currentActive.className = 'screen active transition-out';
     targetScreen.className = 'screen active transition-in';
-    
+
     if (direction === 'forward') {
         currentActive.classList.add('slide-out-left');
         targetScreen.classList.add('slide-in-right');
@@ -2601,15 +2705,15 @@ function showScreen(id, title, direction = 'forward') {
         currentActive.classList.add('slide-out-right');
         targetScreen.classList.add('slide-in-left');
     }
-    
+
     updateAppBar(id, title);
-    
+
     setTimeout(() => {
         currentActive.className = 'screen';
         targetScreen.className = 'screen active';
         wrapper.classList.remove('transitioning');
         isNavigating = false;
-        
+
         if (id === 'studentHomeScreen') {
             window.renderStudentHome();
         }
@@ -2652,7 +2756,6 @@ window.goBack = function() {
             pendingScreen: 'New Requests',
             attendanceScreen: 'Attendance Calendar',
             studentFeeScreen: 'Monthly Fees',
-            studentFilesScreen: 'Study Files'
         };
         showScreen(prev, t[prev] || 'Back', 'backward');
     }
@@ -2668,8 +2771,8 @@ onAuthStateChanged(auth,async(user)=>{
     showLoading();
     if(user){
         if(user.email===TEACHER_EMAIL){ await loadAllStudents(); hideLoading(); screenStack=[]; showScreen('homeScreen','Dashboard'); window.updatePendingBadge(); }
-        else{ 
-            await loadMyStudentData(user.uid); 
+        else{
+            await loadMyStudentData(user.uid);
             if(!currentStudentId){
                 try {
                     let docSnap = await getDoc(doc(db, 'pending', user.uid));
@@ -2687,10 +2790,10 @@ onAuthStateChanged(auth,async(user)=>{
                 await signOut(auth);
                 return;
             }
-            hideLoading(); 
-            screenStack=[]; 
-            showScreen('studentHomeScreen','My Dashboard'); 
-            window.renderStudentHome(); 
+            hideLoading();
+            screenStack=[];
+            showScreen('studentHomeScreen','My Dashboard');
+            window.renderStudentHome();
         }
     }else{hideLoading();screenStack=[];showScreen('authScreen','Tuition Manager');}
 });
@@ -2700,7 +2803,7 @@ window.doForgotPassword = async function() { let email = document.getElementById
 window.triggerPasswordReset = async function() { if(!currentStudentId) return; let s = allStudents[currentStudentId]; if(!s || !s.email) { showToast('❌ Student email not found!'); return; } if(!confirm('Send reset email to ' + s.name + '?')) return; showLoading(); try { await sendPasswordResetEmail(auth, s.email); hideLoading(); showToast('✅ Link sent!'); } catch(e) { hideLoading(); showToast('❌ Error: ' + e.message); } }
 window.doStudentSignup=async function(){ let name=document.getElementById('signupName').value.trim(); let mobile = signupType==='mobile' ? document.getElementById('signupMobile').value.trim() : ''; let email = signupType==='email' ? document.getElementById('signupEmail').value.trim() : ''; let cls=document.getElementById('signupClass').value; let pass=document.getElementById('signupPassword').value; let err=document.getElementById('signupError'); err.style.display='none'; if(!name || (!mobile && !email) || !pass){err.innerText='⚠️ Fill Name, Password, and at least Email/Mobile!';err.style.display='block';return;} if(pass.length<6){err.innerText='⚠️ Password min 6 characters!';err.style.display='block';return;} let primaryEmail = email || mobile; let loginId = window.formatLoginId(primaryEmail); if(loginId===TEACHER_EMAIL){err.innerText='❌ This email is not allowed!';err.style.display='block';return;} showLoading(); try{ let cred=await createUserWithEmailAndPassword(auth,loginId,pass); await setDoc(doc(db,'pending',cred.user.uid),{uid:cred.user.uid,name,mobile,email,cls,createdAt:Date.now()}); await signOut(auth); hideLoading(); showToast('✅ Account created! Wait for teacher approval.'); showLoginForm(); ['signupName','signupMobile','signupEmail','signupPassword'].forEach(id=>document.getElementById(id).value=''); }catch(e){ hideLoading(); err.innerText='❌ '+(e.code==='auth/email-already-in-use'?'Email already registered!':e.message); err.style.display='block'; } }
 window.doLogout=async function(){await signOut(auth);allStudents={};currentStudentId=null;}
-async function loadAllStudents(){ let snap=await getDocs(collection(db,'students')); allStudents={}; snap.forEach(d=>{allStudents[d.id]=d.data();}); }
+async function loadAllStudents(){ let snap=await getDocs(collection(db,'students')); allStudents={}; snap.forEach(d=>{allStudents[d.id]=d.data();}); renderYearControls(); }
 async function loadMyStudentData(uid){
     let q = query(collection(db, 'students'), where('uid', '==', uid), limit(1));
     let snap = await getDocs(q);
@@ -2712,41 +2815,41 @@ async function loadMyStudentData(uid){
 }
 window.updatePendingBadge=async function(){ let snap=await getDocs(collection(db,'pending')); let badge=document.getElementById('pendingCount'); if(snap.size>0){badge.style.display='inline';badge.innerText=snap.size;} else{badge.style.display='none';} }
 
-window.openPendingRequests=async function(){ 
-    showLoading(); 
+window.openPendingRequests=async function(){
+    showLoading();
     try {
-        let snap=await getDocs(collection(db,'pending')); 
-        hideLoading(); 
-        let list=document.getElementById('pendingList'); 
-        list.innerHTML=''; 
-        if(snap.empty){ 
-            document.getElementById('noPendingMsg').style.display='block'; 
-        }else{ 
-            document.getElementById('noPendingMsg').style.display='none'; 
-            snap.forEach(d=>{ 
-                let p=d.data(); 
-                list.innerHTML+=`<div class="box" style="margin-bottom:15px;"><h4 style="margin:0 0 5px 0;color:var(--dark);">${p.name} <small style="color:var(--primary);">${p.cls?'('+p.cls+')':''}</small></h4><p style="margin:0 0 3px 0;font-size:13px;color:var(--gray);">📧 ${p.email || 'None'}</p><p style="margin:0 0 15px 0;font-size:13px;color:var(--gray);">📱 ${p.mobile || 'None'}</p><div style="display:flex;gap:10px;flex-wrap:wrap;"><button class="btn btn-success btn-small" onclick="approvePending('${d.id}','${p.name}','${p.email||''}','${p.uid}','${p.mobile||''}','${p.cls||''}')" style="flex:1;"><i class="fas fa-check"></i> Approve New</button><button class="btn btn-primary btn-small" onclick="linkPending('${d.id}','${p.uid}','${p.email||p.mobile||''}')" style="flex:1;background:var(--gray);"><i class="fas fa-link"></i> Link Ext.</button><button class="btn btn-danger btn-small" onclick="rejectPending('${d.id}')"><i class="fas fa-times"></i></button></div></div>`; 
-            }); 
-        } 
-        window.nav('pendingScreen','New Requests'); 
+        let snap=await getDocs(collection(db,'pending'));
+        hideLoading();
+        let list=document.getElementById('pendingList');
+        list.innerHTML='';
+        if(snap.empty){
+            document.getElementById('noPendingMsg').style.display='block';
+        }else{
+            document.getElementById('noPendingMsg').style.display='none';
+            snap.forEach(d=>{
+                let p=d.data();
+                list.innerHTML+=`<div class="box" style="margin-bottom:15px;"><h4 style="margin:0 0 5px 0;color:var(--dark);">${p.name} <small style="color:var(--primary);">${p.cls?'('+p.cls+')':''}</small></h4><p style="margin:0 0 3px 0;font-size:13px;color:var(--gray);">📧 ${p.email || 'None'}</p><p style="margin:0 0 15px 0;font-size:13px;color:var(--gray);">📱 ${p.mobile || 'None'}</p><div style="display:flex;gap:10px;flex-wrap:wrap;"><button class="btn btn-success btn-small" onclick="approvePending('${d.id}','${p.name}','${p.email||''}','${p.uid}','${p.mobile||''}','${p.cls||''}')" style="flex:1;"><i class="fas fa-check"></i> Approve New</button><button class="btn btn-primary btn-small" onclick="linkPending('${d.id}','${p.uid}','${p.email||p.mobile||''}')" style="flex:1;background:var(--gray);"><i class="fas fa-link"></i> Link Ext.</button><button class="btn btn-danger btn-small" onclick="rejectPending('${d.id}')"><i class="fas fa-times"></i></button></div></div>`;
+            });
+        }
+        window.nav('pendingScreen','New Requests');
     } catch(e) {
         hideLoading();
         showToast("❌ Failed to load requests!");
     }
 }
 window.linkPending = async function(pendingId, newUid, newEmailOrMobile) { let stuListStr = Object.keys(allStudents).map(k => `${k}: ${allStudents[k].name} (${allStudents[k].cls})`).join('\n'); let selId = prompt("Enter Student ID to merge credentials with:\n\n" + stuListStr); if(!selId) return; selId = selId.trim().toUpperCase(); if(!allStudents[selId]) { showToast('❌ Student ID not found!'); return; } if(!confirm(`Merge new login credentials to ${allStudents[selId].name}?`)) return; showLoading(); try { await updateDoc(doc(db,'students',selId),{uid: newUid}); await deleteDoc(doc(db,'pending',pendingId)); allStudents[selId].uid = newUid; hideLoading(); showToast('✅ Account Linked Successfully!'); window.openPendingRequests(); } catch(e) { hideLoading(); showToast('❌ Error linking account.'); } }
-window.approvePending=function(pendingId,name,email,uid,mobile,s_cls){ let cls=prompt('Assign class for '+name+':\n(Class 2 / Class 6 / Class 7 / Class 9 / Class 10 / Other Batch)', s_cls||''); if(cls) cls = window.formatClass(cls); if(!cls)return; let fee=prompt('Monthly fee for '+name+' (₹):'); if(!fee||isNaN(fee))return; let date=prompt('Joining date (YYYY-MM-DD):'); if(!date)return; showLoading(); let id='STU'+Date.now().toString().slice(-5); let monthRecords={}; monthsList.forEach(m=>{monthRecords[m]={paid:"",date:"",due:"",studentSign:null,teacherSign:null,firstSaveTime:null};}); let stuData={id,name,email,mobile,cls,date,fixedFee:fee,feeEditCount:0,profilePic:null,records:monthRecords,uid,routine:{},teacherFiles:[],ownFiles:[]}; setDoc(doc(db,'students',id),stuData).then(()=>{ deleteDoc(doc(db,'pending',pendingId)).then(()=>{ allStudents[id]=stuData; hideLoading(); showToast('✅ Student approved!'); window.openPendingRequests(); window.updatePendingBadge(); }); }).catch(e=>{hideLoading();showToast('❌ Error: '+e.message);}); }
+window.approvePending=function(pendingId,name,email,uid,mobile,s_cls){ let academicYear=selectedAcademicYear; let cls=prompt('Assign class for '+name+':\n(Class 2 / Class 6 / Class 7 / Class 9 / Class 10 / Other Batch)', s_cls||''); if(cls) cls = window.formatClass(cls); if(!cls)return; let fee=prompt('Monthly fee for '+name+' (₹):'); if(!fee||isNaN(fee))return; let date=prompt('Joining date (YYYY-MM-DD):'); if(!date)return; showLoading(); let id='STU'+crypto.randomUUID().replaceAll('-', ''); let monthRecords={}; monthsList.forEach(m=>{monthRecords[m]={paid:"",date:"",due:"",studentSign:null,teacherSign:null,firstSaveTime:null};}); let stuData={id,academicYear,name,email,mobile,cls,date,fixedFee:fee,feeEditCount:0,profilePic:null,records:monthRecords,uid,routine:{},teacherFiles:[],ownFiles:[]}; setDoc(doc(db,'students',id),stuData).then(()=>{ deleteDoc(doc(db,'pending',pendingId)).then(()=>{ allStudents[id]=stuData; renderYearControls(); hideLoading(); showToast('✅ Student approved!'); window.openPendingRequests(); window.updatePendingBadge(); }); }).catch(e=>{hideLoading();showToast('❌ Error: '+e.message);}); }
 window.rejectPending=function(pendingId){ if(!confirm('Reject this request?'))return; showLoading(); deleteDoc(doc(db,'pending',pendingId)).then(()=>{hideLoading();showToast('Rejected!');window.openPendingRequests();window.updatePendingBadge();}); }
-window.addStudentByTeacher=async function(){ let name=document.getElementById('stuName').value.trim(); let email = addType==='email' ? document.getElementById('stuEmail').value.trim() : ""; let mobile = addType==='mobile' ? document.getElementById('stuMobile').value.trim() : ""; let loginStr = email || mobile; let loginId = window.formatLoginId(loginStr); let pass=document.getElementById('stuPass').value.trim(); let cls=document.getElementById('stuClass').value; let fee=document.getElementById('stuFee').value; let date=document.getElementById('stuDate').value; if(!name||!loginStr||!pass||!cls||!fee||!date){showToast('⚠️ Fill all fields!');return;} showLoading(); try{ let cred=await createUserWithEmailAndPassword(auth,loginId,pass); let id='STU'+Date.now().toString().slice(-5); let monthRecords={}; monthsList.forEach(m=>{monthRecords[m]={paid:"",date:"",due:"",studentSign:null,teacherSign:null,firstSaveTime:null};}); let stuData={id,name,email,mobile,cls,date,fixedFee:fee,feeEditCount:0,profilePic:null,records:monthRecords,uid:cred.user.uid,routine:{},teacherFiles:[],ownFiles:[]}; await setDoc(doc(db,'students',id),stuData); allStudents[id]=stuData; hideLoading(); showToast('✅ Student profile created!'); ['stuName','stuEmail','stuMobile','stuPass','stuFee','stuDate'].forEach(i=>{let el=document.getElementById(i);if(el)el.value=''; if(i==='stuDate'&&window.flatpickrInstances&&window.flatpickrInstances.stuDate){window.flatpickrInstances.stuDate.clear();}}); }catch(e){hideLoading();showToast('❌ '+(e.code==='auth/email-already-in-use'?'Email/Mobile already used!':e.message));} }
+window.addStudentByTeacher=async function(){ let academicYear=selectedAcademicYear; let name=document.getElementById('stuName').value.trim(); let email = addType==='email' ? document.getElementById('stuEmail').value.trim() : ""; let mobile = addType==='mobile' ? document.getElementById('stuMobile').value.trim() : ""; let loginStr = email || mobile; let loginId = window.formatLoginId(loginStr); let pass=document.getElementById('stuPass').value.trim(); let cls=document.getElementById('stuClass').value; let fee=document.getElementById('stuFee').value; let date=document.getElementById('stuDate').value; if(!name||!loginStr||!pass||!cls||!fee||!date){showToast('⚠️ Fill all fields!');return;} showLoading(); try{ let cred=await createUserWithEmailAndPassword(accountCreationAuth,loginId,pass); await signOut(accountCreationAuth); let id='STU'+crypto.randomUUID().replaceAll('-', ''); let monthRecords={}; monthsList.forEach(m=>{monthRecords[m]={paid:"",date:"",due:"",studentSign:null,teacherSign:null,firstSaveTime:null};}); let stuData={id,academicYear,name,email,mobile,cls,date,fixedFee:fee,feeEditCount:0,profilePic:null,records:monthRecords,uid:cred.user.uid,routine:{},teacherFiles:[],ownFiles:[]}; await setDoc(doc(db,'students',id),stuData); allStudents[id]=stuData; renderYearControls(); hideLoading(); showToast('✅ Student profile created!'); ['stuName','stuEmail','stuMobile','stuPass','stuFee','stuDate'].forEach(i=>{let el=document.getElementById(i);if(el)el.value=''; if(i==='stuDate'&&window.flatpickrInstances&&window.flatpickrInstances.stuDate){window.flatpickrInstances.stuDate.clear();}}); }catch(e){hideLoading();showToast('❌ '+(e.code==='auth/email-already-in-use'?'Email/Mobile already used!':e.message));} }
 
 window.loadClasses=async function(){
     let grid=document.getElementById('classGrid');
     document.getElementById('noClassMsg').style.display='none';
     window.nav('classScreen','Select Class');
-    
+
     const renderClasses = () => {
         let classes=new Set();
-        for(let k in allStudents)if(allStudents[k].cls){
+        for(let k in allStudents)if(studentYear(allStudents[k]) === selectedAcademicYear && allStudents[k].cls){
             allStudents[k].cls = window.formatClass(allStudents[k].cls);
             classes.add(allStudents[k].cls);
         }
@@ -2786,7 +2889,7 @@ window.openClass=function(cls){
     list.innerHTML='';
     let idx = 0;
     for(let k in allStudents){
-        if(allStudents[k].cls===cls){
+        if(studentYear(allStudents[k]) === selectedAcademicYear && allStudents[k].cls===cls){
             let s=allStudents[k];
             let avatarSrc = s.profilePic || getSmallAvatarSvg(s.name);
             list.innerHTML+=`<div class="list-item staggered-entry" style="--delay:${idx * 35}ms;" onclick="openProfile('${k}', this.querySelector('img'))"><div style="display:flex;align-items:center;gap:15px;"><img src="${avatarSrc}" style="width:50px;height:50px;border-radius:50%;object-fit:cover;border:2px solid var(--secondary);"><div><h4 style="margin:0;font-size:15px;font-weight:600;">${s.name}</h4><small style="color:var(--gray);">ID: ${k}</small></div></div><i class="fas fa-chevron-right" style="color:var(--primary);font-size:16px;"></i></div>`;
@@ -2801,6 +2904,7 @@ window.openProfile=function(id, sourceImgEl){
     currentStudentId=id;
     let s=allStudents[id];
     if (!s) { showToast('❌ Student data not found!'); return; }
+    document.getElementById('profileAcademicYear').innerText = 'Academic Year ' + studentYear(s);
     document.getElementById('profImg').src=s.profilePic||getAvatarSvg(s.name);
     document.getElementById('profName').innerText=s.name;
     document.getElementById('profId').innerText=s.id;
@@ -2808,7 +2912,7 @@ window.openProfile=function(id, sourceImgEl){
     document.getElementById('profFee').innerText=s.fixedFee;
     document.getElementById('profEmail').innerText=s.email || "No Email";
     document.getElementById('profPhone').innerText=s.mobile || "No Phone";
-    
+
     let msImg = document.getElementById('masterTeacherSignImg');
     let msNo = document.getElementById('noMasterTeacherSign');
     if (s.masterTeacherSign) {
@@ -2854,35 +2958,35 @@ window.openProfile=function(id, sourceImgEl){
         window.nav('profileScreen','Profile');
     }
 }
-window.openEditProfileModal = function() { 
-    let s = allStudents[currentStudentId]; 
-    document.getElementById('epName').value = s.name || ''; 
-    document.getElementById('epClass').value = s.cls || ''; 
-    document.getElementById('epDate').value = s.date || ''; 
+window.openEditProfileModal = function() {
+    let s = allStudents[currentStudentId];
+    document.getElementById('epName').value = s.name || '';
+    document.getElementById('epClass').value = s.cls || '';
+    document.getElementById('epDate').value = s.date || '';
     if(window.flatpickrInstances && window.flatpickrInstances.epDate){
         window.flatpickrInstances.epDate.setDate(s.date || '');
     }
-    document.getElementById('epFee').value = s.fixedFee || ''; 
-    openModal('editProfileModal'); 
+    document.getElementById('epFee').value = s.fixedFee || '';
+    openModal('editProfileModal');
 }
 window.saveEditedProfile = async function() { let s = allStudents[currentStudentId]; s.name = document.getElementById('epName').value.trim(); s.cls = window.formatClass(document.getElementById('epClass').value); s.date = document.getElementById('epDate').value; s.fixedFee = document.getElementById('epFee').value.trim(); try { await updateDoc(doc(db, 'students', currentStudentId), { name: s.name, cls: s.cls, date: s.date, fixedFee: s.fixedFee }); closeModal('editProfileModal'); window.openProfile(currentStudentId, null); showToast("✅ Profile Updated!"); } catch(e) { showToast("❌ Update failed!"); } }
 
 // ===============================================
 // 🔥 PROPER 6-HOUR & 2-HOUR DUE LOCK LOGIC INCORPORATED 🔥
 // ===============================================
-window.openMonth=function(month){ 
-    currentMonth=month; 
-    let s=allStudents[currentStudentId]; 
-    let rec=(s.records&&s.records[month])?s.records[month]:{}; 
-    
-    document.getElementById('detailMonthName').innerText=month; 
-    document.getElementById('targetFeeAmount').innerText=s.fixedFee; 
-    document.getElementById('mPaid').value=rec.paid||''; 
-    document.getElementById('mDate').value=rec.date||''; 
+window.openMonth=function(month){
+    currentMonth=month;
+    let s=allStudents[currentStudentId];
+    let rec=(s.records&&s.records[month])?s.records[month]:{};
+
+    document.getElementById('detailMonthName').innerText=month;
+    document.getElementById('targetFeeAmount').innerText=s.fixedFee;
+    document.getElementById('mPaid').value=rec.paid||'';
+    document.getElementById('mDate').value=rec.date||'';
     if(window.flatpickrInstances && window.flatpickrInstances.mDate){
         window.flatpickrInstances.mDate.setDate(rec.date || '');
     }
-    
+
     let toggleContainer = document.getElementById('useMasterSignToggleContainer');
     let toggleInput = document.getElementById('masterSignToggle');
     if (toggleContainer && toggleInput) {
@@ -2894,22 +2998,22 @@ window.openMonth=function(month){
             toggleInput.checked = false;
         }
     }
-    document.getElementById('mDue').value=rec.due||''; 
-    document.getElementById('mExtra').value=rec.extraPay||''; 
-    tempSigns.student=rec.studentSign||null;tempSigns.teacher=rec.teacherSign||null; 
-    updateSignUI('student',rec.studentSign);updateSignUI('teacher',rec.teacherSign); 
-    
-    let isLocked = window.isMonthLocked(rec); 
-    let bannerMsg = ""; 
-    if (isLocked) { 
-        if (rec.dueClearTime) { 
-            bannerMsg = "Edit locked (2 hours after due cleared)"; 
-        } else { 
-            bannerMsg = "Edit locked (6 hours expired)"; 
-        } 
-    } 
-    
-    const inp=['mPaid','mDate','mDue','mExtra','btnStudentSign','btnTeacherSign','btnSaveMonth']; 
+    document.getElementById('mDue').value=rec.due||'';
+    document.getElementById('mExtra').value=rec.extraPay||'';
+    tempSigns.student=rec.studentSign||null;tempSigns.teacher=rec.teacherSign||null;
+    updateSignUI('student',rec.studentSign);updateSignUI('teacher',rec.teacherSign);
+
+    let isLocked = window.isMonthLocked(rec);
+    let bannerMsg = "";
+    if (isLocked) {
+        if (rec.dueClearTime) {
+            bannerMsg = "Edit locked (2 hours after due cleared)";
+        } else {
+            bannerMsg = "Edit locked (6 hours expired)";
+        }
+    }
+
+    const inp=['mPaid','mDate','mDue','mExtra','btnStudentSign','btnTeacherSign','btnSaveMonth'];
     if(isLocked){
         document.getElementById('lockBanner').style.display='block';
         document.getElementById('lockBanner').innerHTML='<i class="fas fa-lock"></i> ' + bannerMsg;
@@ -2921,16 +3025,16 @@ window.openMonth=function(month){
         inp.forEach(id=>{let el=document.getElementById(id); if(el)el.disabled=false;});
         let btn=document.getElementById('btnSaveMonth');
         if(btn){btn.style.background='';btn.innerHTML='<i class="fas fa-save"></i> Save Monthly Data';}
-    } 
-    window.nav('monthDetailScreen',month+' Entry'); 
+    }
+    window.nav('monthDetailScreen',month+' Entry');
 }
 
-window.saveMonthData=async function(){ 
-    let s=allStudents[currentStudentId]; 
-    if(!s.records)s.records={}; 
-    if(!s.records[currentMonth])s.records[currentMonth]={}; 
-    let rec=s.records[currentMonth]; 
-    
+window.saveMonthData=async function(){
+    let s=allStudents[currentStudentId];
+    if(!s.records)s.records={};
+    if(!s.records[currentMonth])s.records[currentMonth]={};
+    let rec=s.records[currentMonth];
+
     let mDueEl = document.getElementById('mDue');
     let mPaidEl = document.getElementById('mPaid');
     let mDateEl = document.getElementById('mDate');
@@ -2938,18 +3042,18 @@ window.saveMonthData=async function(){
 
     let oldDue = (rec.due !== undefined && rec.due !== "") ? parseInt(rec.due) : parseInt(s.fixedFee);
     let newDue = mDueEl ? (parseInt(mDueEl.value) || 0) : 0;
-    
-    rec.paid = mPaidEl ? mPaidEl.value || '' : ''; 
-    rec.date = mDateEl ? mDateEl.value || '' : ''; 
-    rec.due = mDueEl ? mDueEl.value || '' : ''; 
-    rec.extraPay = mExtraEl ? mExtraEl.value || '' : ''; 
+
+    rec.paid = mPaidEl ? mPaidEl.value || '' : '';
+    rec.date = mDateEl ? mDateEl.value || '' : '';
+    rec.due = mDueEl ? mDueEl.value || '' : '';
+    rec.extraPay = mExtraEl ? mExtraEl.value || '' : '';
     rec.studentSign = tempSigns.student || null;
-    rec.teacherSign = tempSigns.teacher || null; 
-    
+    rec.teacherSign = tempSigns.teacher || null;
+
     let hasData = rec.paid || rec.due || rec.extraPay || rec.date || rec.studentSign || rec.teacherSign;
     if (hasData) {
-        if(!rec.firstSaveTime){ 
-            rec.firstSaveTime=Date.now(); 
+        if(!rec.firstSaveTime){
+            rec.firstSaveTime=Date.now();
         } else {
             if (oldDue > 0 && newDue === 0 && !rec.dueClearTime) {
                 rec.dueClearTime = Date.now();
@@ -2961,18 +3065,18 @@ window.saveMonthData=async function(){
         rec.firstSaveTime = null;
         rec.dueClearTime = null;
     }
-    
-    showLoading(); 
-    try{ 
-        await updateDoc(doc(db,'students',currentStudentId),{[`records.${currentMonth}`]: rec}); 
-        hideLoading(); 
+
+    showLoading();
+    try{
+        await updateDoc(doc(db,'students',currentStudentId),{[`records.${currentMonth}`]: rec});
+        hideLoading();
         document.getElementById('btnSaveMonth').innerHTML='<i class="fas fa-check"></i> Saved!';
-        setTimeout(()=>{window.goBack();window.openProfile(currentStudentId);},800); 
+        setTimeout(()=>{window.goBack();window.openProfile(currentStudentId);},800);
     }catch(e){
         hideLoading();
         console.error(e);
         showToast('❌ Save failed!');
-    } 
+    }
 }
 // ===============================================
 
@@ -2983,12 +3087,12 @@ window.saveRoutine = async function() { let s = allStudents[currentStudentId]; s
 // Generate SVG avatar fallback
 function getAvatarSvg(name) {
     let initial = (name || '?').charAt(0).toUpperCase();
-    let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="110" height="110" viewBox="0 0 110 110"><circle cx="55" cy="55" r="55" fill="#b33939"/><text x="55" y="72" text-anchor="middle" font-size="52" font-family="sans-serif" fill="white">${initial}</text></svg>`;
+    let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="110" height="110" viewBox="0 0 110 110"><circle cx="55" cy="55" r="55" fill="#124734"/><text x="55" y="72" text-anchor="middle" font-size="52" font-family="sans-serif" fill="white">${initial}</text></svg>`;
     return 'data:image/svg+xml;base64,' + btoa(svg);
 }
 function getSmallAvatarSvg(name) {
     let initial = (name || '?').charAt(0).toUpperCase();
-    let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="65" height="65" viewBox="0 0 65 65"><circle cx="32" cy="32" r="32" fill="#b33939"/><text x="32" y="46" text-anchor="middle" font-size="30" font-family="sans-serif" fill="white">${initial}</text></svg>`;
+    let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="65" height="65" viewBox="0 0 65 65"><circle cx="32" cy="32" r="32" fill="#124734"/><text x="32" y="46" text-anchor="middle" font-size="30" font-family="sans-serif" fill="white">${initial}</text></svg>`;
     return 'data:image/svg+xml;base64,' + btoa(svg);
 }
 
@@ -2997,10 +3101,11 @@ window.renderStudentHome = function() {
     if(!currentStudentId||!allStudents[currentStudentId]){
         document.getElementById('stuCardName').innerText='Profile not found';
         document.getElementById('stuCardClass').innerText='Contact your teacher';
-        document.getElementById('studentMonthList').innerHTML='<div style="text-align:center;padding:30px;color:var(--gray);"><i class="fas fa-user-clock" style="font-size:50px;margin-bottom:10px;display:block;"></i><p>Your profile has not been set up yet.<br>Contact your teacher.</p></div>';
+        document.getElementById('studentFeeMonthList').innerHTML='<div style="text-align:center;padding:30px;color:var(--gray);"><i class="fas fa-user-clock" style="font-size:50px;margin-bottom:10px;display:block;"></i><p>Your profile has not been set up yet.<br>Contact your teacher.</p></div>';
         return;
     }
     let s=allStudents[currentStudentId];
+    document.getElementById('studentAcademicYearLabel').innerText = 'Academic Year ' + studentYear(s);
     document.getElementById('stuCardName').innerText=s.name;
     document.getElementById('stuCardClass').innerText='Class: '+s.cls;
     document.getElementById('stuCardId').innerText='ID: '+currentStudentId;
@@ -3019,9 +3124,6 @@ window.renderStudentHome = function() {
     }
     document.getElementById('studentRoutineDisplay').innerHTML = routineHtml || '<p style="color: var(--gray);">Routine not set by teacher yet.</p>';
 
-    // Populate home screen month list
-    let list=document.getElementById('studentMonthList');
-    if(list) renderMonthListInto(list, s);
     // Also populate fee screen if it exists
     let feeList=document.getElementById('studentFeeMonthList');
     if(feeList) renderMonthListInto(feeList, s);
@@ -3033,25 +3135,15 @@ function renderMonthListInto(list, s) {
     monthsList.forEach(m=>{
         let rec=s.records?s.records[m]:null; let paid=rec&&rec.paid?parseInt(rec.paid):0; let due=rec&&rec.due?parseInt(rec.due):0; let ext=(rec&&rec.extraPay)?parseInt(rec.extraPay):0; let hasData=rec&&rec.firstSaveTime; let cardClass='month-card',pillClass='pill-pending',status='Not Updated Yet';
         if(hasData){ if(ext>0){cardClass+=' extra-paid';pillClass='pill-extra';status='Extra: ₹'+ext;} else if(due>0){cardClass+=' due-red';pillClass='pill-due';status='Due: ₹'+due;} else{cardClass+=' paid';pillClass='pill-paid';status='Paid ✓';} }
-        if(hasData){ list.innerHTML+=`<div class="${cardClass} staggered-entry" style="--delay:${idx * 30}ms; cursor:pointer;" onclick="openStudentMonthView('${m}')"><div style="display:flex;justify-content:space-between;align-items:center;"><div><h4 style="margin:0;font-size:15px;font-weight:700;">${m}</h4><small style="color:var(--gray);">Paid: ₹${paid}${rec.date?' • '+rec.date:''}</small></div><span class="status-pill ${pillClass}">${status}</span></div></div>`; } 
+        if(hasData){ list.innerHTML+=`<div class="${cardClass} staggered-entry" style="--delay:${idx * 30}ms; cursor:pointer;" onclick="openStudentMonthView('${m}')"><div style="display:flex;justify-content:space-between;align-items:center;"><div><h4 style="margin:0;font-size:15px;font-weight:700;">${m}</h4><small style="color:var(--gray);">Paid: ₹${paid}${rec.date?' • '+rec.date:''}</small></div><span class="status-pill ${pillClass}">${status}</span></div></div>`; }
         else { list.innerHTML+=`<div class="${cardClass} staggered-entry" style="--delay:${idx * 30}ms;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><h4 style="margin:0;font-size:15px;font-weight:700;">${m}</h4><small style="color:var(--gray);">Waiting for update</small></div><span class="status-pill ${pillClass}">${status}</span></div></div>`; }
         idx++;
     });
 }
 window.openStudentMonthView = function(month) { let s = allStudents[currentStudentId]; if(!s) return; currentMonth = month; let rec = s.records && s.records[month] ? s.records[month] : null; document.getElementById('svmMonthName').innerText = month; document.getElementById('svmTargetFee').innerText = s.fixedFee || '0'; if(rec && rec.firstSaveTime) { document.getElementById('svmPaid').innerText = '₹' + (rec.paid || '0'); document.getElementById('svmDate').innerText = rec.date || '-'; document.getElementById('svmDue').innerText = '₹' + (rec.due || '0'); let ext = parseInt(rec.extraPay) || 0; if (ext > 0) { document.getElementById('svmExtraRow').style.display = 'flex'; document.getElementById('svmExtra').innerText = '₹' + ext; } else { document.getElementById('svmExtraRow').style.display = 'none'; } let ss = document.getElementById('svmStudentSign'); let ns = document.getElementById('svmNoStudentSign'); let btnSign = document.getElementById('svmBtnStudentSign'); let isLocked = window.isMonthLocked(rec); if(rec.studentSign) { ss.src = rec.studentSign; ss.style.display = 'block'; ns.style.display = 'none'; btnSign.style.display = 'none'; } else { ss.style.display = 'none'; if (!isLocked) { ns.style.display = 'none'; btnSign.style.display = 'block'; } else { ns.style.display = 'block'; btnSign.style.display = 'none'; } } let ts = document.getElementById('svmTeacherSign'); let nts = document.getElementById('svmNoTeacherSign'); if(rec.teacherSign) { ts.src = rec.teacherSign; ts.style.display = 'block'; nts.style.display = 'none'; } else { ts.style.display = 'none'; nts.style.display = 'block'; } } else { document.getElementById('svmPaid').innerText = '-'; document.getElementById('svmDate').innerText = '-'; document.getElementById('svmDue').innerText = '-'; document.getElementById('svmExtraRow').style.display = 'none'; document.getElementById('svmStudentSign').style.display = 'none'; document.getElementById('svmNoStudentSign').style.display = 'block'; document.getElementById('svmBtnStudentSign').style.display = 'none'; document.getElementById('svmTeacherSign').style.display = 'none'; document.getElementById('svmNoTeacherSign').style.display = 'block'; } window.nav('studentMonthViewScreen', month + ' Details'); }
 
-// PDF and Files Logic
-window.openStudentFilesScreen = function() { window.renderStudentFiles(); window.nav('studentFilesScreen', 'Study Files'); }
-window.switchFileTab = function(type) { document.getElementById('tabTeacherFiles').classList.toggle('active', type === 'teacher'); document.getElementById('tabOwnFiles').classList.toggle('active', type === 'own'); document.getElementById('teacherFilesView').style.display = type === 'teacher' ? 'block' : 'none'; document.getElementById('ownFilesView').style.display = type === 'own' ? 'block' : 'none'; }
-window.renderStudentFiles = function() { let s = allStudents[currentStudentId]; if(!s) return; let tList = document.getElementById('teacherPdfList'); let oList = document.getElementById('ownFilesList'); tList.innerHTML = ''; oList.innerHTML = ''; if(s.teacherFiles && s.teacherFiles.length > 0) { s.teacherFiles.forEach(f => { tList.innerHTML += `<div class="file-item"><a href="${f.url}" target="_blank"><i class="fas fa-file-pdf" style="color:var(--accent); margin-right:8px;"></i> ${f.title}</a></div>`; }); } else { tList.innerHTML = `<p style="text-align:center; color:var(--gray);">No teacher files yet.</p>`; } if(s.ownFiles && s.ownFiles.length > 0) { s.ownFiles.forEach((f, idx) => { oList.innerHTML += `<div class="file-item"><a href="${f.url}" target="_blank"><i class="fas fa-file" style="color:#3b82f6; margin-right:8px;"></i> ${f.title}</a><button onclick="deleteOwnFile(${idx}, '${f.fileName}')"><i class="fas fa-trash"></i></button></div>`; }); } else { oList.innerHTML = `<p style="text-align:center; color:var(--gray);">No files uploaded.</p>`; } }
-window.uploadOwnFile = async function(event) { let file = event.target.files[0]; if(!file) return; showLoading(); let fileName = Date.now() + "_" + file.name; const fileRef = ref(storage, `student_own_files/${currentStudentId}/${fileName}`); try { await uploadBytes(fileRef, file); const url = await getDownloadURL(fileRef); let s = allStudents[currentStudentId]; if(!s.ownFiles) s.ownFiles = []; s.ownFiles.push({ title: file.name, url: url, fileName: fileName, uploadedAt: Date.now() }); await updateDoc(doc(db, 'students', currentStudentId), { ownFiles: s.ownFiles }); hideLoading(); showToast("✅ File Uploaded!"); window.renderStudentFiles(); } catch(e) { hideLoading(); showToast("❌ Error uploading file!"); } }
-window.deleteOwnFile = async function(index, fileName) { if(!confirm("Delete this file?")) return; showLoading(); try { let s = allStudents[currentStudentId]; const fileRef = ref(storage, `student_own_files/${currentStudentId}/${fileName}`); await deleteObject(fileRef); s.ownFiles.splice(index, 1); await updateDoc(doc(db, 'students', currentStudentId), { ownFiles: s.ownFiles }); hideLoading(); showToast("✅ File Deleted!"); window.renderStudentFiles(); } catch(e) { hideLoading(); showToast("❌ Error deleting file!"); } }
-window.openPdfUploadModal = function() { if(!currentStudentId) return; document.getElementById('pdfTitle').value = ''; document.getElementById('pdfFileInput').value = ''; openModal('pdfUploadModal'); }
-window.uploadPdfToStudent = async function() { let fileInput = document.getElementById('pdfFileInput'); if(fileInput.files.length === 0) return showToast("⚠️ File required!"); let file = fileInput.files[0]; let titleInput = document.getElementById('pdfTitle').value.trim(); let finalTitle = titleInput || file.name; showLoading(); const fileRef = ref(storage, `teacher_notes/${currentStudentId}/${Date.now()}_${file.name}`); try { await uploadBytes(fileRef, file); const url = await getDownloadURL(fileRef); let s = allStudents[currentStudentId]; if(!s.teacherFiles) s.teacherFiles = []; s.teacherFiles.push({ title: finalTitle, url: url, fileName: file.name, uploadedAt: Date.now() }); await updateDoc(doc(db, 'students', currentStudentId), { teacherFiles: s.teacherFiles }); hideLoading(); showToast("✅ Shared!"); closeModal('pdfUploadModal'); } catch(e) { hideLoading(); showToast("❌ Error uploading!"); } }
-window.viewStudentOwnFiles = function() { let s = allStudents[currentStudentId]; let listDiv = document.getElementById('teacherViewOwnFilesList'); listDiv.innerHTML = ''; if(s.ownFiles && s.ownFiles.length > 0) { s.ownFiles.forEach((f, idx) => { listDiv.innerHTML += `<div class="file-item"><a href="${f.url}" target="_blank"><i class="fas fa-file"></i> ${f.title}</a><button onclick="teacherDeleteStudentFile(${idx}, '${f.fileName}')"><i class="fas fa-trash"></i></button></div>`; }); } else { listDiv.innerHTML = `<p style="text-align:center; color:var(--gray);">No student files.</p>`; } openModal('teacherViewStudentFilesModal'); }
-window.teacherDeleteStudentFile = async function(index, fileName) { if(!confirm("Delete from server?")) return; try { let s = allStudents[currentStudentId]; const fileRef = ref(storage, `student_own_files/${currentStudentId}/${fileName}`); await deleteObject(fileRef); s.ownFiles.splice(index, 1); await updateDoc(doc(db, 'students', currentStudentId), { ownFiles: s.ownFiles }); alert("✅ Deleted!"); window.viewStudentOwnFiles(); } catch(e) { alert("❌ Error!"); } }
-
-window.deleteCurrentStudent = async function() { if(!confirm("Are you sure you want to delete this student's data permanently?")) return; showLoading(); try { await deleteDoc(doc(db, 'students', currentStudentId)); delete allStudents[currentStudentId]; hideLoading(); showToast('✅ Student deleted successfully!'); window.goBack(); let list=document.getElementById('studentList'); if(list && currentClass) { list.innerHTML=''; let idx = 0; for(let k in allStudents){ if(allStudents[k].cls===currentClass){ let s=allStudents[k]; let avatarSrc = s.profilePic || getSmallAvatarSvg(s.name); list.innerHTML+=`<div class="list-item staggered-entry" style="--delay:${idx * 35}ms;" onclick="openProfile('${k}', this.querySelector('img'))"><div style="display:flex;align-items:center;gap:15px;"><img src="${avatarSrc}" style="width:50px;height:50px;border-radius:50%;object-fit:cover;border:2px solid var(--secondary);"><div><h4 style="margin:0;font-size:15px;font-weight:600;">${s.name}</h4><small style="color:var(--gray);">ID: ${k}</small></div></div><i class="fas fa-chevron-right" style="color:var(--primary);font-size:16px;"></i></div>`; idx++; } } } } catch(e) { hideLoading(); showToast('❌ Error deleting student!'); } }
+// Previous file metadata remains stored; file sharing is retired.
+window.deleteCurrentStudent = async function() { if(!confirm("Are you sure you want to delete this student's data permanently?")) return; showLoading(); try { await deleteDoc(doc(db, 'students', currentStudentId)); delete allStudents[currentStudentId]; hideLoading(); showToast('✅ Student deleted successfully!'); window.goBack(); let list=document.getElementById('studentList'); if(list && currentClass) { list.innerHTML=''; let idx = 0; for(let k in allStudents){ if(studentYear(allStudents[k]) === selectedAcademicYear && allStudents[k].cls===currentClass){ let s=allStudents[k]; let avatarSrc = s.profilePic || getSmallAvatarSvg(s.name); list.innerHTML+=`<div class="list-item staggered-entry" style="--delay:${idx * 35}ms;" onclick="openProfile('${k}', this.querySelector('img'))"><div style="display:flex;align-items:center;gap:15px;"><img src="${avatarSrc}" style="width:50px;height:50px;border-radius:50%;object-fit:cover;border:2px solid var(--secondary);"><div><h4 style="margin:0;font-size:15px;font-weight:600;">${s.name}</h4><small style="color:var(--gray);">ID: ${k}</small></div></div><i class="fas fa-chevron-right" style="color:var(--primary);font-size:16px;"></i></div>`; idx++; } } } } catch(e) { hideLoading(); showToast('❌ Error deleting student!'); } }
 let attDate = new Date(); let attMode = 'teacher';
 window.openAttendance = function(mode) { let studentId = currentStudentId; if(!studentId) return; attMode = mode; attDate = new Date(); document.getElementById('attStudentName').innerText = mode==='teacher' ? 'Student: ' + allStudents[studentId].name : 'Your Attendance'; if(mode === 'student') { document.getElementById('attTitle').innerText = 'My Attendance'; } else { document.getElementById('attTitle').innerText = 'Attendance'; } renderCalendar(); window.nav('attendanceScreen', 'Attendance Calendar'); }
 window.prevAttMonth = function() { attDate.setMonth(attDate.getMonth() - 1); renderCalendar(); }
@@ -3065,7 +3157,7 @@ window.openFinance=async function(){
     let grid=document.getElementById('finMonthGrid');
     window.nav('financeScreen','Financial Summary');
     switchFinanceTab('monthly');
-    
+
     if(Object.keys(allStudents).length > 0) {
         renderFinMonthlyGrid();
     } else {
@@ -3099,9 +3191,13 @@ function renderFinMonthlyGrid(){
         idx++;
     });
 }
-window.openFinMonth=function(month){ document.getElementById('finMonthGrid').style.display='none'; document.getElementById('finMonthDetail').style.display='block'; document.getElementById('finSelectedMonthName').innerText=month+' Report'; let tp=0,td=0,cs={}; for(let id in allStudents){let s=allStudents[id];let c=s.cls ? window.formatClass(s.cls) : "Unassigned";let rec=s.records?s.records[month]:null;let p=rec?(parseInt(rec.paid)||0):0;let d=rec?(parseInt(rec.due)||0):0;tp+=p;td+=d;if(!cs[c])cs[c]={paid:0,due:0};cs[c].paid+=p;cs[c].due+=d;} document.getElementById('finMonthTotalPaid').innerText=tp; document.getElementById('finMonthTotalDue').innerText=td; let list=document.getElementById('finClassList');list.innerHTML=''; let found=false; for(let c in cs){found=true;list.innerHTML+=`<div class="class-stat-row"><span>${c}</span><span>₹${cs[c].paid}</span><span>₹${cs[c].due}</span></div>`;} if(!found)list.innerHTML=`<div style="padding:20px;text-align:center;color:var(--gray);font-size:13px;">No data for this month.</div>`; }
+window.openFinMonth=function(month){ document.getElementById('finMonthGrid').style.display='none'; document.getElementById('finMonthDetail').style.display='block'; document.getElementById('finSelectedMonthName').innerText=month+' '+selectedAcademicYear+' Report'; let tp=0,td=0,cs={}; for(let id in studentsForYear(allStudents, selectedAcademicYear)){let s=allStudents[id];let c=s.cls ? window.formatClass(s.cls) : "Unassigned";let rec=s.records?s.records[month]:null;let p=rec?(parseInt(rec.paid)||0):0;let d=rec?(parseInt(rec.due)||0):0;tp+=p;td+=d;if(!cs[c])cs[c]={paid:0,due:0};cs[c].paid+=p;cs[c].due+=d;} document.getElementById('finMonthTotalPaid').innerText=tp; document.getElementById('finMonthTotalDue').innerText=td; let list=document.getElementById('finClassList');list.innerHTML=''; let found=false; for(let c in cs){found=true;list.innerHTML+=`<div class="class-stat-row"><span>${c}</span><span>₹${cs[c].paid}</span><span>₹${cs[c].due}</span></div>`;} if(!found)list.innerHTML=`<div style="padding:20px;text-align:center;color:var(--gray);font-size:13px;">No data for this month.</div>`; }
 window.backToFinMonthGrid=function(){document.getElementById('finMonthGrid').style.display='grid';document.getElementById('finMonthDetail').style.display='none';}
-function renderFinYearly(){ let tp=0,td=0; for(let id in allStudents){let s=allStudents[id];monthsList.forEach(m=>{let rec=s.records?s.records[m]:null;tp+=rec?(parseInt(rec.paid)||0):0;td+=rec?(parseInt(rec.due)||0):0;});} document.getElementById('finYearlyCollected').innerText=tp; document.getElementById('finYearlyDue').innerText=td; }
+function renderFinYearly(){
+    const total = financeTotals(allStudents, selectedAcademicYear, monthsList);
+    document.getElementById('finYearlyCollected').innerText = total.paid;
+    document.getElementById('finYearlyDue').innerText = total.due;
+}
 const canvas=document.getElementById('sigCanvas'); const ctx=canvas.getContext('2d'); let isDrawing=false;
 let _canvasDPR = 1;
 window.openSign=function(type){
@@ -3302,7 +3398,7 @@ window.fixDatabaseSizes = async function() {
         for (let studentId in allStudents) {
             let s = allStudents[studentId];
             let needsUpdate = false;
-            
+
             if(s.profilePic && s.profilePic.length > 50000) {
                 s.profilePic = await compressDataUrl(s.profilePic);
                 needsUpdate = true;
@@ -3318,11 +3414,11 @@ window.fixDatabaseSizes = async function() {
                     if(r.teacherSign && r.teacherSign.length > 50000) { r.teacherSign = await compressDataUrl(r.teacherSign); needsUpdate = true; }
                 }
             }
-            
+
             if (needsUpdate) {
                 console.log("Optimizing student: " + studentId);
-                await updateDoc(doc(db, 'students', studentId), { 
-                    records: s.records, 
+                await updateDoc(doc(db, 'students', studentId), {
+                    records: s.records,
                     masterTeacherSign: s.masterTeacherSign || null,
                     profilePic: s.profilePic || null
                 });
